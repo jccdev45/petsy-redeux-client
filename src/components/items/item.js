@@ -45,37 +45,6 @@ export default function Item({ item, user, deletion }) {
             Delete
           </button>
           {isOpen ? renderModal() : null}
-          {/* {isOpen ? (
-            <>
-              <button
-                className="px-4 py-1 bg-red-300 rounded"
-                onClick={openModal}
-              >
-                Cancel
-              </button>
-              <button
-                className="px-3 py-1 bg-red-300 rounded"
-                onClick={() => deletion(item.id)}
-              >
-                Delete
-              </button>
-            </>
-          ) : (
-            <>
-              <Link
-                className="px-4 py-1 bg-red-300 rounded"
-                to={`/items/${item.id}/edit`}
-              >
-                Edit
-              </Link>
-              <button
-                className="px-3 py-1 bg-red-300 rounded"
-                onClick={openModal}
-              >
-                Delete
-              </button>
-            </>
-          )} */}
         </div>
       ) : null}
     </div>
