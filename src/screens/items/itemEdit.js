@@ -44,6 +44,7 @@ export default function ItemEdit({ items, update }) {
 
   return (
     <ItemForm
+      formType="edit"
       formData={formData}
       handleChange={handleChange}
       handleSubmit={handleSubmit}

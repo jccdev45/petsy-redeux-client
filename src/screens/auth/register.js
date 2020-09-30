@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Form from "../../components/form/form";
+import SignInUpForm from "../../components/form/signInUpForm";
 
 export default function Register({ register }) {
   const [formData, setFormData] = useState({
@@ -24,7 +24,7 @@ export default function Register({ register }) {
   };
 
   return (
-    <Form
+    <SignInUpForm
       type="Register"
       username={username}
       email={email}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Form from "../../components/form/form";
+import SignInUpForm from "../../components/form/signInUpForm";
 
 export default function Login({ login }) {
   const [formData, setformData] = useState({
@@ -22,7 +22,7 @@ export default function Login({ login }) {
   };
 
   return (
-    <Form
+    <SignInUpForm
       type="Login"
       username={username}
       password={password}

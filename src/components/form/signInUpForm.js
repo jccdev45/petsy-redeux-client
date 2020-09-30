@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FcSignature, FcImport, FcAddressBook, FcKey } from "react-icons/fc";
+import { FcSignature, FcAddressBook, FcKey } from "react-icons/fc";
 
-export default function Form(props) {
+export default function SignInUpForm(props) {
   const LABEL_CLASSLIST =
     "w-full md:w-1/4 px-4 py-2 mx-auto border rounded my-3 flex items-center";
   const INPUT_CLASSLIST = "focus:outline-none w-full";

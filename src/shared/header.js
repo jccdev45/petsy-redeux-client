@@ -12,7 +12,7 @@ const LINK_CLASSLIST = "mx-3 border-b border-red-400 flex items-center text-lg";
 
 export default function Header({ user, isOpen, closeModal, handleLogout }) {
   return (
-    <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-white">
+    <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-red-200">
       <Link to="/" className="text-2xl border-b border-red-300">
         <span className="font-bold text-red-300">P</span>etsy
       </Link>

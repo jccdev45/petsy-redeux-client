@@ -1,9 +1,15 @@
 import React from "react";
 
-const LABEL_CLASSLIST = "flex flex-col md:flex-row w-1/2 items-center justify-between my-2";
+const LABEL_CLASSLIST =
+  "flex flex-col md:flex-row w-1/2 items-center justify-between my-2 border-b border-red-200 py-2";
 const INPUT_CLASSLIST = "rounded p-2 shadow-inner w-3/4";
 
-export default function ItemForm({ formData, handleChange, handleSubmit }) {
+export default function ItemForm({
+  formData,
+  handleChange,
+  handleSubmit,
+  formType,
+}) {
   return (
     <form
       onSubmit={handleSubmit}
@@ -45,12 +51,24 @@ export default function ItemForm({ formData, handleChange, handleSubmit }) {
           className={INPUT_CLASSLIST}
           type="number"
           name="price"
+          min={0}
           onChange={handleChange}
           value={formData.price}
         />
       </label>
+      {formType === "edit" ? (
+        <label htmlFor="item-image" className={LABEL_CLASSLIST}>
+          Current Image
+          <img
+            name="item-image"
+            src={formData.images}
+            alt={formData.name}
+            className="w-64 h-auto"
+          />
+        </label>
+      ) : null}
       <label htmlFor="images" className={LABEL_CLASSLIST}>
-        Images
+        New Image
         <input
           className={INPUT_CLASSLIST}
           type="text"

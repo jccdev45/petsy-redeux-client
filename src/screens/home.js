@@ -33,23 +33,6 @@ export default function Home({ user }) {
     };
   }, []);
 
-  // const [selected, setSelected] = useState("Kids");
-  // const [expanded, setExpanded] = useState(false);
-
-  // const cats = items
-  //   .map((item) => item.category)
-  //   .filter((value, index, self) => {
-  //     return self.indexOf(value) === index;
-  //   });
-
-  // const selectCat = (e) => {
-  //   setSelected(e);
-  // };
-
-  // const toggleExpanded = () => {
-  //   setExpanded(!expanded);
-  // };
-
   const updateItem = async (id, data) => {
     const updated = await editItem(id, data);
     setItems((items) =>
@@ -72,13 +55,6 @@ export default function Home({ user }) {
 
   return (
     <section className="flex">
-      {/* <Sidebar
-        cats={cats}
-        selectCat={selectCat}
-        selected={selected}
-        expanded={expanded}
-        toggleExpanded={toggleExpanded}
-      /> */}
       <SecondaryRoutes
         user={user}
         items={items}

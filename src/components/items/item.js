@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Img } from "react-image";
 // import Loader from "../loader/loader";
 import { Link } from "react-router-dom";
-import Modal from "../modal/modal";
+import ConfirmDeleteModal from "../modal/confirmDeleteModal";
 
 export default function Item({ item, user, deletion }) {
   const [isOpen, toggleIsOpen] = useState(false);
@@ -13,7 +13,13 @@ export default function Item({ item, user, deletion }) {
 
   const renderModal = () => {
     if (isOpen) {
-      return <Modal item={item} openModal={openModal} deletion={deletion} />;
+      return (
+        <ConfirmDeleteModal
+          item={item}
+          openModal={openModal}
+          deletion={deletion}
+        />
+      );
     }
   };
 

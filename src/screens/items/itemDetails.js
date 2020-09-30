@@ -3,9 +3,8 @@ import { useParams } from "react-router";
 import axios from "axios";
 import { getItemById } from "../../util/items/itemMethods";
 import Loader from "../../components/loader/loader";
-import { Link } from "react-router-dom";
 
-export default function ItemDetails({ user, deletion, isOpen, toggleModal }) {
+export default function ItemDetails() {
   const [item, setItem] = useState();
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
