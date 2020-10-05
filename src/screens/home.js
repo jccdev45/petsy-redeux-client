@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import axios from "axios";
-import SecondaryRoutes from "../routes/secondaryRoutes";
 
+import SecondaryRoutes from "../routes/secondaryRoutes";
 import {
   addItem,
   deleteItem,
