@@ -10,7 +10,9 @@ export default function ItemCreate({ addNew }) {
     category: "",
     description: "",
     price: 0,
-    images: "",
+    image1: "",
+    image2: "",
+    image3: "",
   });
   const [isProfane, setIsProfane] = useState(false);
 
