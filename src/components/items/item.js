@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Img } from "react-image";
 // import Loader from "../loader/loader";
 import { Link } from "react-router-dom";
-import Modal from "../modal/modal";
+import ConfirmDeleteModal from "../modal/confirmDeleteModal";
 
 export default function Item({ item, user, deletion }) {
   const [isOpen, toggleIsOpen] = useState(false);
@@ -13,7 +13,13 @@ export default function Item({ item, user, deletion }) {
 
   const renderModal = () => {
     if (isOpen) {
-      return <Modal item={item} openModal={openModal} deletion={deletion} />;
+      return (
+        <ConfirmDeleteModal
+          item={item}
+          openModal={openModal}
+          deletion={deletion}
+        />
+      );
     }
   };
 
@@ -45,37 +51,6 @@ export default function Item({ item, user, deletion }) {
             Delete
           </button>
           {isOpen ? renderModal() : null}
-          {/* {isOpen ? (
-            <>
-              <button
-                className="px-4 py-1 bg-red-300 rounded"
-                onClick={openModal}
-              >
-                Cancel
-              </button>
-              <button
-                className="px-3 py-1 bg-red-300 rounded"
-                onClick={() => deletion(item.id)}
-              >
-                Delete
-              </button>
-            </>
-          ) : (
-            <>
-              <Link
-                className="px-4 py-1 bg-red-300 rounded"
-                to={`/items/${item.id}/edit`}
-              >
-                Edit
-              </Link>
-              <button
-                className="px-3 py-1 bg-red-300 rounded"
-                onClick={openModal}
-              >
-                Delete
-              </button>
-            </>
-          )} */}
         </div>
       ) : null}
     </div>

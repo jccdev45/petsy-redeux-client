@@ -1,14 +1,26 @@
 import React from "react";
 
-const LABEL_CLASSLIST = "flex flex-col md:flex-row w-1/2 items-center justify-between my-2";
+const LABEL_CLASSLIST =
+  "flex flex-col md:flex-row w-1/2 items-center justify-between my-2 border-b border-red-200 py-2 relative";
 const INPUT_CLASSLIST = "rounded p-2 shadow-inner w-3/4";
 
-export default function ItemForm({ formData, handleChange, handleSubmit }) {
+export default function ItemForm({
+  formData,
+  handleChange,
+  handleSubmit,
+  formType,
+  isProfane,
+}) {
   return (
     <form
       onSubmit={handleSubmit}
       className="flex flex-col items-center w-3/4 p-4 mx-auto my-2 shadow-inner md:w-2/3"
     >
+      <div className="flex justify-center w-12 h-12">
+        <h1 className={`${isProfane ? `bg-red-400` : `underline text-red-500`} fixed z-50 px-16 py-2 text-xl text-white rounded uppercase`}>
+          {isProfane ? "Watch your profamity" : "Add an Item"}
+        </h1>
+      </div>
       <label htmlFor="name" className={LABEL_CLASSLIST}>
         Name
         <input
@@ -45,12 +57,24 @@ export default function ItemForm({ formData, handleChange, handleSubmit }) {
           className={INPUT_CLASSLIST}
           type="number"
           name="price"
+          min={0}
           onChange={handleChange}
           value={formData.price}
         />
       </label>
+      {formType === "edit" ? (
+        <label htmlFor="item-image" className={LABEL_CLASSLIST}>
+          Current Image
+          <img
+            name="item-image"
+            src={formData.images}
+            alt={formData.name}
+            className="w-64 h-auto"
+          />
+        </label>
+      ) : null}
       <label htmlFor="images" className={LABEL_CLASSLIST}>
-        Images
+        New Image
         <input
           className={INPUT_CLASSLIST}
           type="text"

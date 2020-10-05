@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Modal({ item, openModal, deletion }) {
+export default function ConfirmDeleteModal({ item, openModal, deletion }) {
   return (
     <div
       className="fixed top-0 left-0 w-screen h-screen"
