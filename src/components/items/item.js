@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { Img } from "react-image";
-// import Loader from "../loader/loader";
 import { Link } from "react-router-dom";
 import ConfirmDeleteModal from "../modal/confirmDeleteModal";
 
@@ -28,12 +26,11 @@ export default function Item({ item, user, deletion }) {
       className={`w-2/3 md:w-1/4 md:mx-4 flex flex-col p-4 rounded-lg shadow-lg`}
     >
       <div className="overflow-hidden">
-        <Img
-          src={[item.images, "https://via.placeholder.com/150"]}
-          // loader={<Loader />}
-          className="item-img"
-          unloader="https://via.placeholder.com/150"
-        />
+        <div
+          className="object-cover w-full h-64 bg-gray-300 item-img"
+          style={{ backgroundImage: `url(${item.images[0]})` }}
+        >
+        </div>
       </div>
 
       <Link to={`/items/${item.id}`}>{item.name}</Link>

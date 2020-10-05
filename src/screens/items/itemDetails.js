@@ -28,9 +28,16 @@ export default function ItemDetails() {
   }, [id]);
 
   const itemDetailRender = () => (
-    <div>
-      <div className="flex">
-        {item.images ? (
+    <div className="flex">
+      <div
+        className="object-cover bg-gray-300"
+        style={{
+          width: `500px`,
+          height: `500px`,
+          backgroundImage: `url(${item.images})`,
+        }}
+      ></div>
+      {/* {item.images ? (
           <img
             src={item.images}
             alt={item.name}
@@ -40,12 +47,11 @@ export default function ItemDetails() {
           <div
             style={{ width: `500px`, height: `500px`, backgroundColor: `gray` }}
           ></div>
-        )}
-        <span>
-          <h1>{item.name}</h1>
-          <p>{item.description}</p>
-        </span>
-      </div>
+        )} */}
+      <span>
+        <h1>{item.name}</h1>
+        <p>{item.description}</p>
+      </span>
     </div>
   );
 

@@ -54,5 +54,5 @@
 
 .item-img:hover {
   transform: scale(1.01);
-  filter: saturate(150%);
+  filter: saturate(125%);
 }

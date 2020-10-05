@@ -141,15 +141,9 @@ function App() {
   return (
     <DispatchContext.Provider value={dispatch}>
       <StateContext.Provider value={state}>
-        <div className="flex flex-col w-screen min-h-screen">
-          <Layout user={state.user} logout={logout}>
-            <InitialRoutes
-              user={state.user}
-              login={login}
-              register={register}
-            />
-          </Layout>
-        </div>
+        <Layout user={state.user} logout={logout}>
+          <InitialRoutes user={state.user} login={login} register={register} />
+        </Layout>
       </StateContext.Provider>
     </DispatchContext.Provider>
   );
