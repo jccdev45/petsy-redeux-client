@@ -1,9 +1,10 @@
 import React from "react";
 import Loader from "../../components/loader/loader";
+import View from "../../components/view/view";
 
 export default function Profile({ user }) {
   return (
-    <div>
+    <View>
       {user ? (
         <>
           <h1>{user.username}'s profile</h1>
@@ -20,6 +21,6 @@ export default function Profile({ user }) {
       ) : (
         <Loader />
       )}
-    </div>
+    </View>
   );
 }

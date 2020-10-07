@@ -4,6 +4,7 @@ import axios from "axios";
 import Loader from "../../components/loader/loader";
 import Carousel from "../../components/carousel/carousel";
 import { getItemById } from "../../util/items/itemMethods";
+import View from "../../components/view/view";
 
 export default function ItemDetails() {
   const [item, setItem] = useState();
@@ -35,17 +36,20 @@ export default function ItemDetails() {
         <Carousel item={item} height="h-auto" />
       </div>
       <div className="w-5/12 px-2">
-        <h1>{item.name}</h1>
+        <h1 className="text-2xl">{item.name}</h1>
         <p>{item.description}</p>
       </div>
     </div>
   );
 
   return (
-    <div className="flex flex-col items-center justify-center w-full mx-auto md:w-5/6">
+    <View
+      class="flex flex-col items-center justify-center w-full mx-auto md:w-5/6"
+      // title={`${item && item.name}`}
+    >
       {isLoading && <Loader />}
       {item && itemDetailRender()}
       {error && <h1>refresh</h1>}
-    </div>
+    </View>
   );
 }

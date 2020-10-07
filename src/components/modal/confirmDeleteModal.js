@@ -1,10 +1,11 @@
 import React from "react";
+import View from "../view/view";
 
 export default function ConfirmDeleteModal({ item, openModal, deletion }) {
   return (
-    <div
-      className="fixed top-0 left-0 w-screen h-screen"
-      style={{
+    <View
+      class="fixed top-0 left-0 w-screen h-screen"
+      viewStyle={{
         backgroundColor: `rgba(0, 0, 0, 0.5)`,
         display: `grid`,
         placeItems: `center`,
@@ -32,6 +33,6 @@ export default function ConfirmDeleteModal({ item, openModal, deletion }) {
           </span>
         </span>
       </div>
-    </div>
+    </View>
   );
 }

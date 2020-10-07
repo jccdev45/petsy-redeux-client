@@ -1,4 +1,5 @@
 import React from "react";
+import View from "../view/view";
 
 export default function Loader({ size }) {
   const dimensionRender = () => {
@@ -10,13 +11,13 @@ export default function Loader({ size }) {
   };
 
   return (
-    <div className="grid grid-cols-1 grid-rows-1 mx-auto my-10">
+    <View class="grid grid-cols-1 grid-rows-1 mx-auto my-10">
       <div
         className={`${dimensionRender()} ease-linear border-8 border-t-8 rounded-full loader`}
       ></div>
       <div
         className={`${dimensionRender()} ease-linear border-8 border-t-8 rounded-full loader2`}
       ></div>
-    </div>
+    </View>
   );
 }

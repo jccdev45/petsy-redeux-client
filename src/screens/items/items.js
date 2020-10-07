@@ -1,6 +1,7 @@
 import React from "react";
 import Item from "../../components/items/item";
 import Loader from "../../components/loader/loader";
+import View from "../../components/view/view";
 
 export default function Items({ items, loading, error, user, deletion }) {
   // const [isOpen, toggleIsOpen] = useState(false);
@@ -22,10 +23,10 @@ export default function Items({ items, loading, error, user, deletion }) {
   };
 
   return (
-    <div className="flex flex-wrap justify-center mx-auto md:w-11/12">
+    <View class="flex flex-wrap justify-center mx-auto md:w-11/12">
       {loading && <Loader size="xl" />}
       {showData()}
       {error && <h1>refresh</h1>}
-    </div>
+    </View>
   );
 }
