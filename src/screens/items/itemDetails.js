@@ -31,12 +31,13 @@ export default function ItemDetails() {
   }, [id]);
 
   const itemDetailRender = () => (
-    <div className="flex flex-col w-full p-4 rounded-lg shadow-inner md:flex-row">
-      <div className="w-1/2">
+    <div className="flex flex-col w-full p-4 rounded-lg md:flex-row">
+      <div className="w-1/2 p-4 shadow-lg">
         <Carousel item={item} height="h-auto" />
       </div>
       <div className="w-5/12 px-2">
-        <h1 className="text-2xl">{item.name}</h1>
+        <h1 className="my-2 text-2xl">{item.name}</h1>
+        <h2 className="my-1 text-xl"><span className="text-red-400">Category: </span>{item.category}</h2>
         <p>{item.description}</p>
       </div>
     </div>
