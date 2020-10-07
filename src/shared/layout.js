@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Header from "./header";
 import Footer from "./footer";
+import View from "../components/view/view";
 
 export default function Layout({ user, logout, children }) {
   const [isOpen, toggleIsOpen] = useState(false);
@@ -15,7 +16,7 @@ export default function Layout({ user, logout, children }) {
   };
 
   return (
-    <div className="flex flex-col w-screen min-h-screen">
+    <View class="flex flex-col w-screen min-h-screen">
       <Header
         user={user}
         logout={logout}
@@ -25,6 +26,6 @@ export default function Layout({ user, logout, children }) {
       />
       <main className="flex flex-col flex-grow md:p-4">{children}</main>
       <Footer />
-    </div>
+    </View>
   );
 }

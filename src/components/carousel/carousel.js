@@ -68,21 +68,19 @@ export default function Carousel({ item, height }) {
     }
   };
 
-  const setCurrent = (index) => {
-    return dispatch({ type: CAROUSEL_ACTIONS.SET, payload: { index } });
-  };
+  // const setCurrent = (index) => {
+  //   return dispatch({ type: CAROUSEL_ACTIONS.SET, payload: { index } });
+  // };
 
   return (
     <div className={`relative w-full overflow-hidden`}>
       <button
-        className="absolute left-0 z-50 p-1 bg-gray-200 rounded opacity-50 hover:bg-white hover:opacity-75"
+        className="absolute left-0 z-50 p-1 bg-gray-200 rounded opacity-50 focus:outline-none hover:bg-white hover:opacity-75"
         style={{ top: `50%` }}
+        onClick={() => prevClick()}
+        name="prev"
       >
-        <FcPrevious
-          name="prev"
-          onClick={() => prevClick()}
-          className="text-xl"
-        />
+        <FcPrevious className="text-xl" />
       </button>
       <img
         src={state.currentImage}
@@ -94,8 +92,10 @@ export default function Carousel({ item, height }) {
           <button
             key={index}
             about={img}
-            onClick={() => setCurrent(index)}
-            className={`w-3 mx-1 h-3 bg-gray-400 rounded-full ${
+            onClick={() =>
+              dispatch({ type: CAROUSEL_ACTIONS.SET, payload: { index } })
+            }
+            className={`w-3 mx-1 h-3 bg-gray-400 rounded-full focus:outline-none ${
               index === state.currentIndex ? `bg-gray-600` : ``
             }`}
           />
@@ -105,8 +105,10 @@ export default function Carousel({ item, height }) {
       <button
         className="absolute right-0 z-50 p-1 bg-gray-200 rounded opacity-75 hover:bg-white hover:"
         style={{ top: `50%` }}
+        name="next"
+        onClick={() => nextClick()}
       >
-        <FcNext name="next" onClick={() => nextClick()} className="text-xl" />
+        <FcNext className="text-xl" />
       </button>
     </div>
   );
