@@ -1,6 +1,5 @@
 import { useReducer, useEffect } from "react";
 import axios from "axios";
-import { getItems } from "../items/itemMethods";
 
 const ACTIONS = {
   MAKE_REQUEST: "make-request",
@@ -26,7 +25,7 @@ function reducer(state, action) {
   }
 }
 
-export default function useFetchData() {
+export default function useFetchData(fetchData, id) {
   const [state, dispatch] = useReducer(reducer, {
     data: [],
     loading: true,
@@ -36,7 +35,7 @@ export default function useFetchData() {
     const cancelToken = axios.CancelToken.source();
     dispatch({ type: ACTIONS.MAKE_REQUEST });
 
-    getItems(cancelToken)
+    fetchData(id, cancelToken)
       .then((res) =>
         dispatch({ type: ACTIONS.GET_ALL_DATA, payload: { data: res } })
       )

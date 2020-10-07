@@ -5,3 +5,9 @@ export const CAROUSEL_ACTIONS = {
   RESETN: "resetn",
   RESETP: "resetp",
 };
+
+export const DATA_ACTIONS = {
+  REQUEST: "make-request",
+  GET_DATA: "get-data",
+  ERROR: "error",
+};
