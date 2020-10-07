@@ -15,7 +15,7 @@ export default function Layout({ user, logout, children }) {
   };
 
   return (
-    <>
+    <div className="flex flex-col w-screen min-h-screen">
       <Header
         user={user}
         logout={logout}
@@ -25,6 +25,6 @@ export default function Layout({ user, logout, children }) {
       />
       <main className="flex flex-col flex-grow md:p-4">{children}</main>
       <Footer />
-    </>
+    </div>
   );
 }

@@ -17,7 +17,11 @@ export default function ItemForm({
       className="flex flex-col items-center w-3/4 p-4 mx-auto my-2 shadow-inner md:w-2/3"
     >
       <div className="flex justify-center w-12 h-12">
-        <h1 className={`${isProfane ? `bg-red-400` : `underline text-red-500`} fixed z-50 px-16 py-2 text-xl text-white rounded uppercase`}>
+        <h1
+          className={`${
+            isProfane ? `bg-red-400` : `underline text-red-500`
+          } fixed z-50 px-16 py-2 text-xl text-white rounded uppercase`}
+        >
           {isProfane ? "Watch your profamity" : "Add an Item"}
         </h1>
       </div>
@@ -73,14 +77,34 @@ export default function ItemForm({
           />
         </label>
       ) : null}
-      <label htmlFor="images" className={LABEL_CLASSLIST}>
-        New Image
+      <label htmlFor="image1" className={LABEL_CLASSLIST}>
+        Image 1
         <input
           className={INPUT_CLASSLIST}
           type="text"
-          name="images"
+          name="image1"
           onChange={handleChange}
-          value={formData.images}
+          value={formData.image1}
+        />
+      </label>
+      <label htmlFor="image2" className={LABEL_CLASSLIST}>
+        Image 2
+        <input
+          className={INPUT_CLASSLIST}
+          type="text"
+          name="image2"
+          onChange={handleChange}
+          value={formData.image2}
+        />
+      </label>
+      <label htmlFor="image3" className={LABEL_CLASSLIST}>
+        Image 3
+        <input
+          className={INPUT_CLASSLIST}
+          type="text"
+          name="image3"
+          onChange={handleChange}
+          value={formData.image3}
         />
       </label>
       <button className="px-2 py-1 text-white bg-red-300 rounded hover:bg-red-400">
