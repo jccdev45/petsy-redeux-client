@@ -12,7 +12,7 @@ const LINK_CLASSLIST = "mx-3 border-b border-red-400 flex items-center text-lg";
 
 export default function Header({ user, isOpen, closeModal, handleLogout }) {
   return (
-    <header className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 bg-red-200">
+    <header className="sticky top-0 z-10 flex items-center justify-between px-6 py-4 bg-red-200">
       <Link to="/" className="text-2xl border-b border-red-300">
         <span className="font-bold text-red-300">P</span>etsy
       </Link>
@@ -36,9 +36,9 @@ export default function Header({ user, isOpen, closeModal, handleLogout }) {
                 style={{ backgroundColor: `rgba(0, 0, 0, 0.5)` }}
                 className={`${
                   isOpen ? `block` : `hidden`
-                } w-screen h-screen fixed top-0 left-0`}
+                } w-screen h-screen fixed top-0 left-0 z-20`}
               >
-                <div className="flex flex-col items-center justify-around w-3/4 h-64 mx-auto my-20 bg-white rounded md:w-1/3">
+                <div className="z-30 flex flex-col items-center justify-around w-3/4 h-64 mx-auto my-20 bg-white rounded md:w-1/3">
                   <span>Are you sure you want to logout?</span>
                   <div className="flex items-center">
                     <button onClick={closeModal}>Cancel</button>
