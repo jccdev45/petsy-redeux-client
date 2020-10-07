@@ -1,10 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FcSignature, FcAddressBook, FcKey } from "react-icons/fc";
+import {
+  FcSignature,
+  FcAddressBook,
+  FcKey,
+  FcPicture,
+  FcLock,
+} from "react-icons/fc";
 
 export default function SignInUpForm(props) {
-  const LABEL_CLASSLIST =
-    "w-full md:w-1/4 px-4 py-2 mx-auto border rounded my-3 flex items-center";
+  const LABEL_CLASSLIST = `w-full md:w-1/4 px-4 py-2 mx-auto border rounded my-3 flex items-center ${
+    props.isVerified ? "bg-red-500" : ''
+  }`;
   const INPUT_CLASSLIST = "focus:outline-none w-full";
   const EMOJI_CLASSLIST = "mr-2 -ml-2 bg-gray-200 rounded px-1 text-4xl";
 
@@ -24,19 +31,6 @@ export default function SignInUpForm(props) {
           className={INPUT_CLASSLIST}
         />
       </label>
-      {props.type === "Register" ? (
-        <label htmlFor="email" className={LABEL_CLASSLIST}>
-          <FcAddressBook className={EMOJI_CLASSLIST} />
-          <input
-            type="email"
-            name="email"
-            value={props.email}
-            placeholder="Email"
-            onChange={props.handleChange}
-            className={INPUT_CLASSLIST}
-          />
-        </label>
-      ) : null}
       <label htmlFor="password" className={LABEL_CLASSLIST}>
         <FcKey className={EMOJI_CLASSLIST} />
         <input
@@ -48,7 +42,48 @@ export default function SignInUpForm(props) {
           className={INPUT_CLASSLIST}
         />
       </label>
-      <button className="px-4 py-2 text-white transition-colors duration-200 ease-in-out bg-red-400 rounded focus:outline-none hover:bg-red-500">
+      {props.type === "Register" ? (
+        <>
+          <label htmlFor="confirmPassword" className={LABEL_CLASSLIST}>
+            <FcLock className={EMOJI_CLASSLIST} />
+            <input
+              type="password"
+              name="confirmPassword"
+              value={props.confirmPassword}
+              placeholder="Confirm Password"
+              onChange={props.handleChange}
+              className={INPUT_CLASSLIST}
+            />
+          </label>
+          <label htmlFor="email" className={LABEL_CLASSLIST}>
+            <FcAddressBook className={EMOJI_CLASSLIST} />
+            <input
+              type="email"
+              name="email"
+              value={props.email}
+              placeholder="Email"
+              onChange={props.handleChange}
+              className={INPUT_CLASSLIST}
+            />
+          </label>
+          <label htmlFor="picture" className={LABEL_CLASSLIST}>
+            <FcPicture className={EMOJI_CLASSLIST} />
+            <input
+              type="picture"
+              name="picture"
+              value={props.picture}
+              placeholder="Picture"
+              onChange={props.handleChange}
+              className={INPUT_CLASSLIST}
+            />
+          </label>
+        </>
+      ) : null}
+      <button
+        className={`px-4 py-2 text-white transition-colors duration-200 ease-in-out bg-red-400 rounded focus:outline-none hover:bg-red-500 ${
+          props.isLoading ? `cursor-not-allowed` : ``
+        }`}
+      >
         {props.type}
       </button>
       {props.type === "Register" ? (

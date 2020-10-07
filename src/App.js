@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import { useHistory } from "react-router";
 import Layout from "./shared/layout";
 import InitialRoutes from "./routes/initialRoutes";
@@ -10,8 +10,9 @@ import {
 } from "./util/auth/auth";
 
 const ACTIONS = {
-  LOGINREGISTER: "loginregisterverify",
-  VERIFY: "verify",
+  LOGIN: "login",
+  VERIFY_USER: "verify_user",
+  VERIFY_FIELD: "verify_field",
   SUCCESS: "success",
   ERROR: "error",
   LOGOUT: "logout",
@@ -26,27 +27,56 @@ function loginReducer(state, action) {
         [action.fieldName]: action.payload,
       };
     }
-    case ACTIONS.VERIFY: {
+    case ACTIONS.VERIFY_USER: {
       return {
         ...state,
         user: action.payload.data,
         isLoggedIn: true,
       };
     }
-    case ACTIONS.LOGINREGISTER: {
+    case ACTIONS.LOGIN: {
       return {
         ...state,
-        error: "",
         isLoading: true,
-        username: "",
-        email: "",
-        password: "",
       };
+    }
+    case ACTIONS.VERIFY_FIELD: {
+      if (Object.values(state).map((value) => value === "")) {
+        return {
+          ...state,
+          error: "Field(s) cannot be blank",
+          isLoading: false,
+        };
+      } else if (state.password != state.confirmPassword) {
+        return {
+          ...state,
+          error: "Passwords do not match",
+          password: "",
+          confirmPassword: "",
+          isLoading: false,
+        };
+      } else if (state.password.length < 6) {
+        return {
+          ...state,
+          error: "Password must be longer than 6 characters",
+          password: "",
+          confirmPassword: "",
+          isLoading: false,
+        };
+      } else {
+        return {
+          ...state,
+          isLoading: true,
+          isVerified: true,
+        };
+      }
     }
     case ACTIONS.SUCCESS: {
       return {
         ...state,
+        error: "",
         isLoggedIn: true,
+        isVerified: true,
         isLoading: false,
         user: action.payload.data,
       };
@@ -59,7 +89,9 @@ function loginReducer(state, action) {
         isLoading: false,
         username: "",
         email: "",
+        picture: "",
         password: "",
+        confirmPassword: "",
       };
     }
     case ACTIONS.LOGOUT: {
@@ -75,13 +107,16 @@ function loginReducer(state, action) {
 }
 
 const initialState = {
-  user: null,
   username: "",
   email: "",
   password: "",
-  isLoading: false,
+  confirmPassword: "",
+  picture: "",
   error: "",
+  isVerified: false,
+  isLoading: false,
   isLoggedIn: false,
+  user: null,
 };
 
 export const StateContext = React.createContext();
@@ -96,10 +131,12 @@ function App() {
     const doAVerify = async () => {
       try {
         const user = await verifyUser();
-        dispatch({
-          type: ACTIONS.VERIFY,
-          payload: { data: user },
-        });
+        if (user) {
+          dispatch({
+            type: ACTIONS.VERIFY_USER,
+            payload: { data: user },
+          });
+        }
       } catch (error) {
         dispatch({ type: ACTIONS.ERROR, payload: error });
       }
@@ -108,7 +145,7 @@ function App() {
   }, []);
 
   const login = async (data) => {
-    dispatch({ type: ACTIONS.LOGINREGISTER });
+    dispatch({ type: ACTIONS.LOGIN });
     try {
       const user = await loginUser(data);
       dispatch({ type: ACTIONS.SUCCESS, payload: { data: user } });
@@ -119,11 +156,15 @@ function App() {
   };
 
   const register = async (data) => {
-    dispatch({ type: ACTIONS.LOGINREGISTER });
+    dispatch({ type: ACTIONS.LOGIN });
+    dispatch({ type: ACTIONS.VERIFY_FIELD });
+
     try {
-      const user = await registerUser(data);
-      dispatch({ type: ACTIONS.SUCCESS, payload: { data: user } });
-      history.push("/");
+      if (state.isVerified) {
+        const user = await registerUser(data);
+        dispatch({ type: ACTIONS.SUCCESS, payload: { data: user } });
+        history.push("/");
+      }
     } catch (error) {
       dispatch({ type: ACTIONS.ERROR, payload: error });
     }
