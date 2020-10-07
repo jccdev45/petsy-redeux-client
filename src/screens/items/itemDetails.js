@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
-import { getItemById } from "../../util/items/itemMethods";
 import Loader from "../../components/loader/loader";
+import Carousel from "../../components/carousel/carousel";
+import { getItemById } from "../../util/items/itemMethods";
 
 export default function ItemDetails() {
   const [item, setItem] = useState();
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+
   const { id } = useParams();
 
   useEffect(() => {
@@ -28,35 +30,19 @@ export default function ItemDetails() {
   }, [id]);
 
   const itemDetailRender = () => (
-    <div className="flex">
-      <div
-        className="object-cover bg-gray-300"
-        style={{
-          width: `500px`,
-          height: `500px`,
-          backgroundImage: `url(${item.images})`,
-        }}
-      ></div>
-      {/* {item.images ? (
-          <img
-            src={item.images}
-            alt={item.name}
-            className="p-1 pb-2 border-2 border-black shadow-lg"
-          />
-        ) : (
-          <div
-            style={{ width: `500px`, height: `500px`, backgroundColor: `gray` }}
-          ></div>
-        )} */}
-      <span>
+    <div className="flex flex-col w-full p-4 rounded-lg shadow-inner md:flex-row">
+      <div className="w-1/2">
+        <Carousel item={item} height="h-auto" />
+      </div>
+      <div className="w-5/12 px-2">
         <h1>{item.name}</h1>
         <p>{item.description}</p>
-      </span>
+      </div>
     </div>
   );
 
   return (
-    <div className="flex flex-col items-center justify-center w-3/4 mx-auto md:w-2/3">
+    <div className="flex flex-col items-center justify-center w-full mx-auto md:w-5/6">
       {isLoading && <Loader />}
       {item && itemDetailRender()}
       {error && <h1>refresh</h1>}

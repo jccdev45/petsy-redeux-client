@@ -54,16 +54,14 @@ export default function Home({ user }) {
   };
 
   return (
-    <section className="flex">
-      <SecondaryRoutes
-        user={user}
-        items={items}
-        loading={isLoading}
-        error={error}
-        update={updateItem}
-        addNew={addNewItem}
-        deletion={deletion}
-      />
-    </section>
+    <SecondaryRoutes
+      user={user}
+      items={items}
+      loading={isLoading}
+      error={error}
+      update={updateItem}
+      addNew={addNewItem}
+      deletion={deletion}
+    />
   );
 }

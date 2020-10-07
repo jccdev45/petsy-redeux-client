@@ -22,7 +22,7 @@ export default function Items({ items, loading, error, user, deletion }) {
   };
 
   return (
-    <div className={`flex flex-wrap justify-center md:w-5/6 md:ml-48 h-full`}>
+    <div className="flex flex-wrap justify-center mx-auto md:w-11/12">
       {loading && <Loader size="xl" />}
       {showData()}
       {error && <h1>refresh</h1>}
