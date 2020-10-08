@@ -10,6 +10,24 @@ function reducer(state, action) {
       return { loading: true, items: [] };
     case DATA_ACTIONS.REQUEST:
       return { loading: true };
+    case DATA_ACTIONS.INPUT: {
+      return {
+        ...state,
+        [action.fieldName]: action.payload.value,
+      };
+    }
+    case DATA_ACTIONS.SET_ITEM: {
+      return {
+        ...state,
+        name: action.payload.name,
+        category: action.payload.category,
+        description: action.payload.description,
+        price: action.payload.price,
+        image1: action.payload.image1,
+        image2: action.payload.image2,
+        image3: action.payload.image3,
+      };
+    }
     case DATA_ACTIONS.GET_DATA:
       return { ...state, loading: false, items: action.payload.items };
     case DATA_ACTIONS.ADD_DATA:
@@ -17,14 +35,6 @@ function reducer(state, action) {
         ...state,
         loading: false,
         items: [...state.items, action.payload.items],
-      };
-    case DATA_ACTIONS.UPDATE_DATA:
-      return {
-        ...state,
-        loading: false,
-        items: state.items.map((item) =>
-          item.id === Number(action.payload.id) ? action.payload.items : item
-        ),
       };
     case DATA_ACTIONS.DELETE_DATA:
       return {
@@ -48,6 +58,13 @@ const initialState = {
   error: "",
   isLoading: true,
   items: [],
+  name: "",
+  category: "",
+  description: "",
+  price: 0,
+  image1: "",
+  image2: "",
+  image3: "",
 };
 
 const dataContext = createContext();
@@ -93,11 +110,11 @@ export default function useProviderData() {
     try {
       const newItem = await addItem(data);
       dispatch({ type: DATA_ACTIONS.UPDATE_DATA, payload: { items: newItem } });
-      history.push("/");
     } catch (error) {
       if (axios.isCancel(error)) return;
       dispatch({ type: DATA_ACTIONS.ERROR, payload: { error: error } });
     }
+    history.push("/");
 
     return () => {
       cancelToken.cancel();
@@ -111,14 +128,18 @@ export default function useProviderData() {
     try {
       const updated = await editItem(id, data);
       dispatch({
-        type: DATA_ACTIONS.UPDATE_DATA,
-        payload: { id: id, items: updated },
+        type: DATA_ACTIONS.GET_DATA,
+        payload: {
+          items: state.items.map((item) =>
+            item.id === Number(id) ? updated : item
+          ),
+        },
       });
-      history.push("/");
     } catch (error) {
       if (axios.isCancel(error)) return;
       dispatch({ type: DATA_ACTIONS.ERROR, payload: { error: error } });
     }
+    history.push("/");
 
     return () => {
       cancelToken.cancel();
@@ -131,10 +152,10 @@ export default function useProviderData() {
     try {
       await deleteItem(id);
       dispatch({ type: DATA_ACTIONS.DELETE_DATA, payload: { id: id } });
-      history.push("/");
     } catch (error) {
       dispatch({ type: DATA_ACTIONS.ERROR, payload: { error: error } });
     }
+    history.push("/");
   };
 
   return { state, dispatch, updateItem, addNewItem, deletion };

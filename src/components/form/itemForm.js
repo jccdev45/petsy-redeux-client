@@ -8,7 +8,6 @@ export default function ItemForm({
   formData,
   handleChange,
   handleSubmit,
-  formType,
   isProfane,
 }) {
   return (
@@ -32,7 +31,7 @@ export default function ItemForm({
           type="text"
           name="name"
           onChange={handleChange}
-          value={formData.name}
+          defaultValue={formData.name}
         />
       </label>
       <label htmlFor="description" className={LABEL_CLASSLIST}>
@@ -42,7 +41,7 @@ export default function ItemForm({
           type="text"
           name="description"
           onChange={handleChange}
-          value={formData.description}
+          defaultValue={formData.description}
         />
       </label>
       <label htmlFor="category" className={LABEL_CLASSLIST}>
@@ -52,7 +51,7 @@ export default function ItemForm({
           type="text"
           name="category"
           onChange={handleChange}
-          value={formData.category}
+          defaultValue={formData.category}
         />
       </label>
       <label htmlFor="price" className={LABEL_CLASSLIST}>
@@ -63,20 +62,9 @@ export default function ItemForm({
           name="price"
           min={0}
           onChange={handleChange}
-          value={formData.price}
+          defaultValue={formData.price}
         />
       </label>
-      {formType === "edit" ? (
-        <label htmlFor="item-image" className={LABEL_CLASSLIST}>
-          Current Image
-          <img
-            name="item-image"
-            src={formData.images}
-            alt={formData.name}
-            className="w-64 h-auto"
-          />
-        </label>
-      ) : null}
       <label htmlFor="image1" className={LABEL_CLASSLIST}>
         Image 1
         <input
@@ -84,7 +72,7 @@ export default function ItemForm({
           type="text"
           name="image1"
           onChange={handleChange}
-          value={formData.image1}
+          defaultValue={formData.image1}
         />
       </label>
       <label htmlFor="image2" className={LABEL_CLASSLIST}>
@@ -94,7 +82,7 @@ export default function ItemForm({
           type="text"
           name="image2"
           onChange={handleChange}
-          value={formData.image2}
+          defaultValue={formData.image2}
         />
       </label>
       <label htmlFor="image3" className={LABEL_CLASSLIST}>
@@ -104,7 +92,7 @@ export default function ItemForm({
           type="text"
           name="image3"
           onChange={handleChange}
-          value={formData.image3}
+          defaultValue={formData.image3}
         />
       </label>
       <button className="px-2 py-1 text-white bg-red-300 rounded hover:bg-red-400">
