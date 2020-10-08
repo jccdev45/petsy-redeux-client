@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import Header from "./header";
 import Footer from "./footer";
 import View from "../components/view/view";
+import { useAuth } from "../util/hooks/useAuth";
 
-export default function Layout({ user, logout, children }) {
+export default function Layout({ children }) {
+  const auth = useAuth()
+  const { user } = auth.state
+
   const [isOpen, toggleIsOpen] = useState(false);
 
   const closeModal = () => {
@@ -12,14 +16,14 @@ export default function Layout({ user, logout, children }) {
 
   const handleLogout = () => {
     toggleIsOpen(!isOpen);
-    logout();
+    auth.logout();
   };
 
   return (
     <View class="flex flex-col w-screen min-h-screen">
       <Header
         user={user}
-        logout={logout}
+        logout={auth.logout}
         isOpen={isOpen}
         closeModal={closeModal}
         handleLogout={handleLogout}

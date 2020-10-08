@@ -1,23 +1,21 @@
-import React, { useContext } from "react";
+import React from "react";
 import SignInUpForm from "../../components/form/signInUpForm";
 
-import { DispatchContext, StateContext } from "../../App.js";
 import Loader from "../../components/loader/loader";
+import { useAuth } from "../../util/hooks/useAuth";
 
-export default function Login({ login }) {
-  const dispatch = useContext(DispatchContext);
-  const state = useContext(StateContext);
-
-  const { username, password, error, isLoading } = state;
+export default function Login() {
+  const auth = useAuth()
+  const { username, password, error, isLoading } = auth.state;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    dispatch({ type: "input", fieldName: name, payload: value });
+    auth.dispatch({ type: "input", fieldName: name, payload: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login({ username, password });
+    auth.login({ username, password });
   };
 
   return (
