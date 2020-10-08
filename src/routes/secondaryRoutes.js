@@ -6,37 +6,23 @@ import ItemCreate from "../screens/items/itemCreate";
 import Profile from "../screens/user/profile";
 import ItemEdit from "../screens/items/itemEdit";
 
-const SecondaryRoutes = ({
-  user,
-  items,
-  error,
-  loading,
-  update,
-  addNew,
-  deletion,
-}) => {
+const SecondaryRoutes = () => {
   return (
     <Switch>
       <Route path="/items/new">
-        <ItemCreate addNew={addNew} />
+        <ItemCreate />
       </Route>
       <Route path="/items/:id/edit">
-        <ItemEdit items={items} update={update} />
+        <ItemEdit />
       </Route>
       <Route exact path="/items">
-        <Items
-          items={items}
-          user={user}
-          error={error}
-          loading={loading}
-          deletion={deletion}
-        />
+        <Items />
       </Route>
       <Route exact path="/items/:id">
-        <ItemDetails user={user} />
+        <ItemDetails />
       </Route>
       <Route path="/users/:id">
-        <Profile user={user} />
+        <Profile />
       </Route>
       <Redirect from="/" to="/items" exact />
     </Switch>
