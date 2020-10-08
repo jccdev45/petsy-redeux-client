@@ -4,6 +4,7 @@ import Loader from "../../components/loader/loader";
 import ItemPreview from "../../components/modal/itemPreview";
 import View from "../../components/view/view";
 import { DATA_ACTIONS } from "../../util/constants/constants";
+import { useAuth } from "../../util/hooks/useAuth";
 import { getUserItems } from "../../util/user/userMethods";
 
 function userReducer(state, action) {
@@ -34,15 +35,17 @@ function userReducer(state, action) {
   }
 }
 
-const user = JSON.parse(localStorage.getItem("user"));
+// const user = JSON.parse(localStorage.getItem("user"));
 
 export default function Profile() {
+  const auth = useAuth()
   const [isOpen, setisOpen] = useState(false);
   const [state, dispatch] = useReducer(userReducer, {
     isLoading: true,
     data: [],
   });
   const { data, isLoading, error } = state;
+  const user = auth.state.user
 
   useEffect(() => {
     // const cancelToken = axios.CancelToken.source();

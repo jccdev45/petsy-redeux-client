@@ -7,7 +7,18 @@ export const CAROUSEL_ACTIONS = {
 };
 
 export const DATA_ACTIONS = {
-  REQUEST: "make-request",
-  GET_DATA: "get-data",
+  REQUEST: "make_request",
+  GET_DATA: "get_data",
+  UPDATE_DATA: "update_data",
   ERROR: "error",
+};
+
+export const AUTH_ACTIONS = {
+  REQUEST: "request",
+  VERIFY_USER: "verify_user",
+  VERIFY_FIELD: "verify_field",
+  SUCCESS: "success",
+  ERROR: "error",
+  LOGOUT: "logout",
+  INPUT: "input",
 };

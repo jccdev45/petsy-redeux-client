@@ -1,12 +1,11 @@
-import React, { useContext } from "react";
-import { DispatchContext, StateContext } from "../../App.js";
+import React from "react";
 
 import SignInUpForm from "../../components/form/signInUpForm";
 import Loader from "../../components/loader/loader";
+import { useAuth } from "../../util/hooks/useAuth";
 
-export default function Register({ register }) {
-  const dispatch = useContext(DispatchContext);
-  const state = useContext(StateContext);
+export default function Register() {
+  const auth = useAuth()
 
   const {
     username,
@@ -17,17 +16,17 @@ export default function Register({ register }) {
     error,
     isLoading,
     isVerified,
-  } = state;
+  } = auth.state;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    dispatch({ type: "input", fieldName: name, payload: value });
+    auth.dispatch({ type: "input", fieldName: name, payload: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    register({ username, email, password });
+    auth.register({ username, email, password, picture });
   };
 
   return (
