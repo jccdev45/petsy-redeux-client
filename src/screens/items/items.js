@@ -2,31 +2,29 @@ import React from "react";
 import Item from "../../components/items/item";
 import Loader from "../../components/loader/loader";
 import View from "../../components/view/view";
+import { useAuth } from "../../util/hooks/useAuth";
+import { useFetchData } from "../../util/hooks/useFetchData";
 
-export default function Items({ items, loading, error, user, deletion }) {
-  // const [isOpen, toggleIsOpen] = useState(false);
+export default function Items() {
+  const data = useFetchData().state;
+  const { items } = data;
 
-  // const confirmDelete = () => {
-  //   toggleIsOpen(!isOpen);
-  // };
+  const auth = useAuth().state;
+  const { user } = auth;
 
   const showData = () => {
-    // let filtered = items.filter((item) =>
-    //   item.category === selected ? item : null
-    // );
-
     return items
       .map((item) => (
-        <Item key={item.id} user={user} item={item} deletion={deletion} />
+        <Item key={item.id} user={user} item={item} deletion={data.deletion} />
       ))
       .reverse();
   };
 
   return (
     <View class="flex flex-wrap justify-center mx-auto md:w-11/12">
-      {loading && <Loader size="xl" />}
+      {data.loading && <Loader size="xl" />}
       {showData()}
-      {error && <h1>refresh</h1>}
+      {data.error && <h1>refresh</h1>}
     </View>
   );
 }
