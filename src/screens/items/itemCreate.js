@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import ItemForm from "../../components/form/itemForm";
+import { DATA_ACTIONS } from "../../util/constants/constants";
 import { useFetchData } from "../../util/hooks/useFetchData";
 
 let Filter = require("bad-words");
@@ -36,7 +37,7 @@ export default function ItemCreate() {
     } else {
       setIsProfane(false);
       data.dispatch({
-        type: "input",
+        type: DATA_ACTIONS.INPUT,
         fieldName: name,
         payload: { value: type === "number" ? parseInt(value, 10) : value },
       });
@@ -51,7 +52,9 @@ export default function ItemCreate() {
     if (isProfane) {
       return alert("Watch your profamity!");
     } else {
-      return data.addNewItem(formData), data.dispatch({ type: "reset" });
+      return (
+        data.addNewItem(formData), data.dispatch({ type: DATA_ACTIONS.RESET })
+      );
     }
   };
 
