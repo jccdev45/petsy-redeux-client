@@ -3,6 +3,7 @@ import { useHistory } from "react-router";
 import axios from "axios";
 import { DATA_ACTIONS } from "../constants/constants";
 import { addItem, deleteItem, editItem, getItems } from "../items/itemMethods";
+import { getUserItems } from "../user/userMethods";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -33,7 +34,7 @@ function reducer(state, action) {
       return {
         ...state,
         loading: false,
-        items: action.payload.items,
+        [action.name]: action.payload,
       };
     case DATA_ACTIONS.RESET: {
       return {
@@ -64,6 +65,7 @@ const initialState = {
   error: "",
   isLoading: true,
   items: [],
+  userItems: [],
   name: "",
   category: "",
   description: "",
@@ -96,7 +98,11 @@ export default function useProviderData() {
     const fetchData = async () => {
       await getItems()
         .then((res) =>
-          dispatch({ type: DATA_ACTIONS.UPDATE_DATA, payload: { items: res } })
+          dispatch({
+            type: DATA_ACTIONS.UPDATE_DATA,
+            name: "items",
+            payload: res,
+          })
         )
         .catch((error) => {
           if (axios.isCancel(error)) return;
@@ -110,6 +116,27 @@ export default function useProviderData() {
     };
   }, []);
 
+  const fetchUserItems = async (id) => {
+    const cancelToken = axios.CancelToken.source();
+    dispatch({ type: DATA_ACTIONS.REQUEST });
+
+    try {
+      const data = await getUserItems(id);
+      dispatch({
+        type: DATA_ACTIONS.UPDATE_DATA,
+        name: "userItems",
+        payload: data,
+      });
+    } catch (error) {
+      if (axios.isCancel(error)) return;
+      dispatch({ type: DATA_ACTIONS.ERROR, payload: { error: error } });
+    }
+
+    return () => {
+      cancelToken.cancel();
+    };
+  };
+
   const addNewItem = async (data) => {
     const cancelToken = axios.CancelToken.source();
     dispatch({ type: DATA_ACTIONS.REQUEST });
@@ -118,7 +145,8 @@ export default function useProviderData() {
       const newItem = await addItem(data);
       dispatch({
         type: DATA_ACTIONS.UPDATE_DATA,
-        payload: { items: [...state.items, newItem] },
+        name: "items",
+        payload: [...state.items, newItem],
       });
     } catch (error) {
       if (axios.isCancel(error)) return;
@@ -139,11 +167,10 @@ export default function useProviderData() {
       const updated = await editItem(id, data);
       dispatch({
         type: DATA_ACTIONS.UPDATE_DATA,
-        payload: {
-          items: state.items.map((item) =>
-            item.id === Number(id) ? updated : item
-          ),
-        },
+        name: "items",
+        payload: state.items.map((item) =>
+          item.id === Number(id) ? updated : item
+        ),
       });
     } catch (error) {
       if (axios.isCancel(error)) return;
@@ -173,5 +200,5 @@ export default function useProviderData() {
     history.push("/");
   };
 
-  return { state, dispatch, updateItem, addNewItem, deletion };
+  return { state, dispatch, updateItem, addNewItem, deletion, fetchUserItems };
 }

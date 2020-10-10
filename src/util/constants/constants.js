@@ -27,3 +27,8 @@ export const AUTH_ACTIONS = {
   LOGOUT: "logout",
   INPUT: "input",
 };
+
+export const LS_STRINGS = {
+  LS_TOKEN: "petsy/authToken",
+  LS_USER: "petsy/user",
+};
