@@ -9,11 +9,13 @@ export const CAROUSEL_ACTIONS = {
 export const DATA_ACTIONS = {
   INITIAL_REQUEST: "make_initial_request",
   REQUEST: "make_request",
+  INPUT: "input",
+  SET_ITEM: "set_item",
   GET_DATA: "get_data",
   ADD_DATA: "add_data",
-  UPDATE_DATA: "update_data",
   DELETE_DATA: "delete_data",
   ERROR: "error",
+  RESET: "reset",
 };
 
 export const AUTH_ACTIONS = {

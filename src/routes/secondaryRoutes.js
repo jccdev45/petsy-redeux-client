@@ -13,9 +13,11 @@ const SecondaryRoutes = () => {
         <ItemCreate />
       </Route>
       <Route path="/items/:id/edit">
+        {/* DONE: refactored for new data hook */}
         <ItemEdit />
       </Route>
       <Route exact path="/items">
+        {/* DONE: refactored for new data hook */}
         <Items />
       </Route>
       <Route exact path="/items/:id">
