@@ -44,13 +44,12 @@ function carouselReducer(state, action) {
   }
 }
 
-export default function Carousel({ item, height }) {
+export default function Carousel({ item, size }) {
   const [state, dispatch] = useReducer(carouselReducer, {
     images: [item.image1, item.image2, item.image3],
     currentIndex: 0,
     currentImage: item.image1,
   });
-  // const { currentImage, images, currentIndex } = state;
 
   const prevClick = () => {
     if (state.currentIndex === 0) {
@@ -68,10 +67,6 @@ export default function Carousel({ item, height }) {
     }
   };
 
-  // const setCurrent = (index) => {
-  //   return dispatch({ type: CAROUSEL_ACTIONS.SET, payload: { index } });
-  // };
-
   return (
     <div className={`relative w-full overflow-hidden`}>
       <button
@@ -82,11 +77,16 @@ export default function Carousel({ item, height }) {
       >
         <FcPrevious className="text-xl" />
       </button>
-      <img
-        src={state.currentImage}
-        alt=""
-        className="object-contain w-full h-auto bg-gray-300"
-      />
+      <div
+        className="mx-auto bg-gray-500"
+        style={{ height: size, width: size }}
+      >
+        <img
+          src={state.currentImage}
+          alt=""
+          className="object-contain w-full h-auto"
+        />
+      </div>
       <div className="absolute bottom-0 flex items-center justify-center w-full mx-auto mb-1">
         {state.images.map((img, index) => (
           <button

@@ -28,7 +28,7 @@ export default function Layout({ children }) {
         closeModal={closeModal}
         handleLogout={handleLogout}
       />
-      <main className="flex flex-col flex-grow md:p-4">{children}</main>
+      <main className="flex flex-col flex-grow pt-24">{children}</main>
       <Footer />
     </View>
   );
