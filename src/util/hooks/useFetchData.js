@@ -35,12 +35,6 @@ function reducer(state, action) {
         loading: false,
         items: action.payload.items,
       };
-    case DATA_ACTIONS.DELETE_DATA:
-      return {
-        ...state,
-        loading: false,
-        items: state.items.filter((item) => item.id !== action.payload.id),
-      };
     case DATA_ACTIONS.RESET: {
       return {
         ...state,
@@ -166,8 +160,13 @@ export default function useProviderData() {
     dispatch({ type: DATA_ACTIONS.REQUEST });
 
     try {
+      dispatch({
+        type: DATA_ACTIONS.UPDATE_DATA,
+        payload: {
+          items: state.items.filter((item) => item.id !== id),
+        },
+      });
       await deleteItem(id);
-      dispatch({ type: DATA_ACTIONS.DELETE_DATA, payload: { id: id } });
     } catch (error) {
       dispatch({ type: DATA_ACTIONS.ERROR, payload: { error: error } });
     }

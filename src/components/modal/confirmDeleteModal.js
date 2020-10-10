@@ -4,14 +4,14 @@ import View from "../view/view";
 export default function ConfirmDeleteModal({ item, openModal, deletion }) {
   return (
     <View
-      class="fixed top-0 left-0 w-screen h-screen"
+      class="fixed top-0 left-0 w-screen h-screen z-40"
       viewStyle={{
         backgroundColor: `rgba(0, 0, 0, 0.5)`,
         display: `grid`,
         placeItems: `center`,
       }}
     >
-      <div className="w-1/3 p-12 bg-white rounded shadow">
+      <div className="z-50 w-1/3 p-12 bg-white rounded shadow">
         <span className="flex flex-col justify-between">
           <h1 className="font-bold text-center text-red-500">
             Are you sure you want to delete this item? This action cannot be
