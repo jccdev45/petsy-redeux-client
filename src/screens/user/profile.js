@@ -1,86 +1,33 @@
-import React, { useEffect, useReducer } from "react";
-import { useState } from "react";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import Loader from "../../components/loader/loader";
-import ItemPreview from "../../components/modal/itemPreview";
 import View from "../../components/view/view";
-import { DATA_ACTIONS } from "../../util/constants/constants";
+import { LS_STRINGS } from "../../util/constants/constants";
 import { useAuth } from "../../util/hooks/useAuth";
-import { getUserItems } from "../../util/user/userMethods";
-
-function userReducer(state, action) {
-  switch (action.type) {
-    case DATA_ACTIONS.REQUEST: {
-      return {
-        isLoading: true,
-        data: [],
-      };
-    }
-    case DATA_ACTIONS.GET_DATA: {
-      return {
-        ...state,
-        isLoading: false,
-        data: action.payload.data,
-      };
-    }
-    case DATA_ACTIONS.ERROR: {
-      return {
-        ...state,
-        isLoading: false,
-        error: action.payload.error,
-        data: [],
-      };
-    }
-    default:
-      return state;
-  }
-}
-
-// const user = JSON.parse(localStorage.getItem("user"));
+import { useFetchData } from "../../util/hooks/useFetchData";
 
 export default function Profile() {
-  const auth = useAuth()
-  const [isOpen, setisOpen] = useState(false);
-  const [state, dispatch] = useReducer(userReducer, {
-    isLoading: true,
-    data: [],
-  });
-  const { data, isLoading, error } = state;
-  const user = auth.state.user
+  const auth = useAuth();
+  const user = auth.state.user;
+  const userLS = JSON.parse(localStorage.getItem(LS_STRINGS.LS_USER));
+
+  const data = useFetchData();
+  const { userItems, isLoading, error } = data.state;
 
   useEffect(() => {
-    // const cancelToken = axios.CancelToken.source();
-    dispatch({ type: DATA_ACTIONS.REQUEST });
-
-    const fetchData = async () => {
-      const res = await getUserItems(user.id);
-      dispatch({ type: DATA_ACTIONS.GET_DATA, payload: { data: res } });
-    };
-
-    fetchData().catch((e) => {
-      dispatch({ type: DATA_ACTIONS.ERROR, payload: { error: e } });
-    });
+    data.fetchUserItems(userLS.id);
   }, []);
 
-  const toggleOpen = () => {
-    setisOpen(!isOpen);
-  };
-
   const renderData = () => {
-    if (data && data.length) {
-      return data.map((item) => (
-        <React.Fragment key={item.id}>
-          <button
-            className="px-3 py-2 mx-2 bg-red-200 rounded focus:outline-none"
-            onClick={() => toggleOpen()}
-          >
-            {item.name}
-          </button>
-          <ItemPreview
-            item={item}
-            isOpen={isOpen}
-            toggleOpen={() => toggleOpen()}
-          />
-        </React.Fragment>
+    if (userItems && userItems.length) {
+      return userItems.map((item) => (
+        <Link
+          key={item.id}
+          to={`/items/${item.id}`}
+          className="px-3 py-2 mx-2 bg-red-200 rounded focus:outline-none"
+        >
+          {item.name}
+        </Link>
       ));
     }
   };
