@@ -38,7 +38,7 @@ export default function Item({ item, user, deletion }) {
       className="flex flex-col w-2/3 p-4 rounded-lg shadow-lg md:w-1/3 lg:w-1/4 md:mx-4"
       style={{ minWidth: `350px` }}
     >
-      <Carousel item={item} height="h-64" />
+      <Carousel item={item} size="318px" />
 
       <div className="flex items-center justify-between text-lg">
         <Link

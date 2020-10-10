@@ -32,10 +32,10 @@ export default function ItemDetails() {
 
   const itemDetailRender = () => (
     <div className="flex flex-col w-full p-4 rounded-lg md:flex-row">
-      <div className="w-1/2 p-4 shadow-lg">
-        <Carousel item={item} height="h-auto" />
+      <div className="w-1/3 mr-4">
+        <Carousel item={item} size="584px" />
       </div>
-      <div className="w-5/12 px-2">
+      <div className="w-2/3 px-2 shadow-inner">
         <h1 className="my-2 text-2xl">{item.name}</h1>
         <h2 className="my-1 text-xl"><span className="text-red-400">Category: </span>{item.category}</h2>
         <p>{item.description}</p>
