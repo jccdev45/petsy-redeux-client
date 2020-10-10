@@ -75,7 +75,7 @@ export default function Carousel({ item, height }) {
   return (
     <div className={`relative w-full overflow-hidden`}>
       <button
-        className="absolute left-0 z-50 p-1 bg-gray-200 rounded opacity-50 focus:outline-none hover:bg-white hover:opacity-75"
+        className="absolute left-0 p-1 bg-gray-200 rounded opacity-50 focus:outline-none hover:bg-white hover:opacity-75"
         style={{ top: `50%` }}
         onClick={() => prevClick()}
         name="prev"
@@ -103,7 +103,7 @@ export default function Carousel({ item, height }) {
       </div>
 
       <button
-        className="absolute right-0 z-50 p-1 bg-gray-200 rounded opacity-75 hover:bg-white hover:"
+        className="absolute right-0 p-1 bg-gray-200 rounded opacity-75 hover:bg-white hover:"
         style={{ top: `50%` }}
         name="next"
         onClick={() => nextClick()}

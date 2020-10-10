@@ -6,8 +6,8 @@ import { useAuth } from "../../util/hooks/useAuth";
 import { useFetchData } from "../../util/hooks/useFetchData";
 
 export default function Items() {
-  const data = useFetchData().state;
-  const { items } = data;
+  const data = useFetchData();
+  const { items } = data.state;
 
   const auth = useAuth().state;
   const { user } = auth;
