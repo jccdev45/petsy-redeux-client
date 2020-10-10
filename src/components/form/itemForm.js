@@ -9,6 +9,7 @@ export default function ItemForm({
   handleChange,
   handleSubmit,
   isProfane,
+  type,
 }) {
   return (
     <form
@@ -21,7 +22,7 @@ export default function ItemForm({
             isProfane ? `bg-red-400` : `underline text-red-500`
           } fixed z-50 px-16 py-2 text-xl text-white rounded uppercase`}
         >
-          {isProfane ? "Watch your profamity" : "Add an Item"}
+          {isProfane ? "Watch your profamity" : type}
         </h1>
       </div>
       <label htmlFor="name" className={LABEL_CLASSLIST}>

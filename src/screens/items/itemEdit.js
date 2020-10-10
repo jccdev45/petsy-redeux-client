@@ -1,7 +1,10 @@
-import React, { useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import ItemForm from "../../components/form/itemForm";
 import { useFetchData } from "../../util/hooks/useFetchData";
+
+let Filter = require("bad-words");
+let filter = new Filter();
 
 export default function ItemEdit() {
   const data = useFetchData();
@@ -24,7 +27,7 @@ export default function ItemEdit() {
     image2,
     image3,
   };
-  const history = useHistory();
+  const [isProfane, setIsProfane] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
@@ -51,20 +54,32 @@ export default function ItemEdit() {
 
   const handleChange = (e) => {
     const { name, type, value } = e.target;
-    data.dispatch({
-      type: "input",
-      fieldName: name,
-      payload: { value: type === "number" ? parseInt(value, 10) : value },
-    });
+
+    if (filter.isProfane(value)) {
+      setIsProfane(true);
+    } else {
+      setIsProfane(false);
+      data.dispatch({
+        type: "input",
+        fieldName: name,
+        payload: { value: type === "number" ? parseInt(value, 10) : value },
+      });
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    data.updateItem(id, formData);
+    if (isProfane) {
+      return alert("Watch your profamity!");
+    } else {
+      return data.addNewItem(formData), data.dispatch({ type: "reset" });
+    }
   };
 
   return (
     <ItemForm
+      type="Edit"
+        isProfane={isProfane}
       formData={formData}
       handleChange={handleChange}
       handleSubmit={handleSubmit}

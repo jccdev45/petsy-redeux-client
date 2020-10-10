@@ -1,19 +1,31 @@
 import React, { useState } from "react";
 import ItemForm from "../../components/form/itemForm";
+import { useFetchData } from "../../util/hooks/useFetchData";
 
 let Filter = require("bad-words");
 let filter = new Filter();
 
-export default function ItemCreate({ addNew }) {
-  const [formData, setFormData] = useState({
-    name: "",
-    category: "",
-    description: "",
-    price: 0,
-    image1: "",
-    image2: "",
-    image3: "",
-  });
+export default function ItemCreate() {
+  const data = useFetchData();
+  const {
+    name,
+    category,
+    description,
+    price,
+    image1,
+    image2,
+    image3,
+  } = data.state;
+
+  const formData = {
+    name,
+    category,
+    description,
+    price,
+    image1,
+    image2,
+    image3,
+  };
   const [isProfane, setIsProfane] = useState(false);
 
   const handleChange = (e) => {
@@ -23,46 +35,30 @@ export default function ItemCreate({ addNew }) {
       setIsProfane(true);
     } else {
       setIsProfane(false);
-      setFormData((formData) => ({
-        ...formData,
-        [name]: type === "number" ? parseInt(value, 10) : value,
-      }));
+      data.dispatch({
+        type: "input",
+        fieldName: name,
+        payload: { value: type === "number" ? parseInt(value, 10) : value },
+      });
     }
-  };
-
-  const verify = () => {
-    for (const [key, value] of Object.entries(formData)) {
-      if (typeof value != "number" && value.length === 0) {
-        console.log(`${key} field cannot be blank`);
-      }
-      if (filter.isProfane(value)) {
-        setIsProfane(true);
-      }
-    }
-    // const formValues = Object.values(formData);
-    // return formValues.forEach(value => {
-    //   if (typeof(value) != 'number' && value.length === 0) {
-    //     console.log("Field cannot be blank.")
-    //   }
-    // })
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    addNew(formData);
-    setFormData({
-      name: "",
-      category: "",
-      description: "",
-      price: 0,
-      images: "",
-    });
+    // return isProfane
+    //   ? alert("Watch your profamity")
+    //   : data.addNewItem(formData)
+    if (isProfane) {
+      return alert("Watch your profamity!");
+    } else {
+      return data.addNewItem(formData), data.dispatch({ type: "reset" });
+    }
   };
 
   return (
     <>
-      {/* <button onClick={verify}>Verify</button> */}
       <ItemForm
+        type="Add"
         isProfane={isProfane}
         formData={formData}
         handleChange={handleChange}

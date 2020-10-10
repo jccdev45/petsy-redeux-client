@@ -15,6 +15,7 @@ export const DATA_ACTIONS = {
   ADD_DATA: "add_data",
   DELETE_DATA: "delete_data",
   ERROR: "error",
+  RESET: "reset",
 };
 
 export const AUTH_ACTIONS = {
