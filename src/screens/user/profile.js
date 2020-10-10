@@ -33,30 +33,35 @@ export default function Profile() {
   };
 
   return (
-    <View class="flex md:flex-col w-5/6 mx-auto shadow-inner h-full p-4 rounded">
-      {isLoading && <Loader />}
+    <View class="flex sm:flex-col w-5/6 mx-auto h-full md:p-4 rounded">
       {error && <h1>There was an error, please refresh</h1>}
       {user && (
-        <div className="flex justify-between w-full">
-          <div className="flex flex-col w-1/3">
+        <div className="flex flex-col w-full md:flex-row">
+          <div className="flex flex-row items-center w-full m-4 md:w-1/3 md:flex-col md:mr-4">
             <img
-              src={user.picture}
+              src={user.picture ? user.picture : "https://placehold.it/300"}
               alt="User"
-              className="w-64 h-64 rounded-full"
+              className="w-24 h-auto rounded-full md:w-64"
             />
-            <h1 className="text-2xl">{user.username}</h1>
-            <h2>
-              Email:{" "}
-              <a
-                href={`mailto:${user.email}`}
-                className="text-blue-400 underline"
-              >
-                {user.email}
-              </a>
-            </h2>
+            <div className="flex flex-col mx-4">
+              <h1 className="text-2xl">{user.username}</h1>
+              <h2>
+                Email:{" "}
+                <a
+                  href={`mailto:${user.email}`}
+                  className="text-blue-400 underline"
+                >
+                  {user.email}
+                </a>
+              </h2>
+            </div>
           </div>
-          <div className="relative flex flex-wrap items-center w-2/3">
-            {renderData()}
+
+          <div className="flex flex-col justify-start w-full px-3 py-2 shadow-inner">
+            <h1 className="text-2xl">Your items:</h1>
+            <div className="flex flex-wrap items-center w-2/3 py-2">
+              {isLoading ? <Loader /> : renderData()}
+            </div>
           </div>
         </div>
       )}
