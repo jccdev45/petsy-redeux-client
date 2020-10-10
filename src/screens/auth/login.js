@@ -2,15 +2,20 @@ import React from "react";
 import SignInUpForm from "../../components/form/signInUpForm";
 
 import Loader from "../../components/loader/loader";
+import { DATA_ACTIONS } from "../../util/constants/constants";
 import { useAuth } from "../../util/hooks/useAuth";
 
 export default function Login() {
-  const auth = useAuth()
+  const auth = useAuth();
   const { username, password, error, isLoading } = auth.state;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    auth.dispatch({ type: "input", fieldName: name, payload: value });
+    auth.dispatch({
+      type: DATA_ACTIONS.INPUT,
+      fieldName: name,
+      payload: value,
+    });
   };
 
   const handleSubmit = (e) => {
