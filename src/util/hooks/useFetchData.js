@@ -96,18 +96,17 @@ export default function useProviderData() {
     dispatch({ type: DATA_ACTIONS.INITIAL_REQUEST });
 
     const fetchData = async () => {
-      await getItems()
-        .then((res) =>
-          dispatch({
-            type: DATA_ACTIONS.UPDATE_DATA,
-            name: "items",
-            payload: res,
-          })
-        )
-        .catch((error) => {
-          if (axios.isCancel(error)) return;
-          dispatch({ type: DATA_ACTIONS.ERROR, payload: { error: error } });
+      try {
+        const res = await getItems();
+        dispatch({
+          type: DATA_ACTIONS.UPDATE_DATA,
+          name: "items",
+          payload: res,
         });
+      } catch (error) {
+        if (axios.isCancel(error)) return;
+        dispatch({ type: DATA_ACTIONS.ERROR, payload: { error: error } });
+      }
     };
     fetchData();
 

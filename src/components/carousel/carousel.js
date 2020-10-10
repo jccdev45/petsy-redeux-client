@@ -87,7 +87,7 @@ export default function Carousel({ item, height }) {
         alt=""
         className="object-contain w-full h-auto bg-gray-300"
       />
-      <div className="absolute bottom-0 z-10 flex items-center justify-center w-full mx-auto mb-1">
+      <div className="absolute bottom-0 flex items-center justify-center w-full mx-auto mb-1">
         {state.images.map((img, index) => (
           <button
             key={index}

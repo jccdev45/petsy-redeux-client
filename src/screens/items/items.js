@@ -21,7 +21,7 @@ export default function Items() {
   };
 
   return (
-    <View class="flex flex-wrap justify-center mx-auto md:w-11/12">
+    <View class="flex flex-wrap md:justify-center mx-auto mt-20 md:w-11/12">
       {data.loading && <Loader size="xl" />}
       {showData()}
       {data.error && <h1>refresh</h1>}
