@@ -188,9 +188,8 @@ export default function useProviderData() {
     try {
       dispatch({
         type: DATA_ACTIONS.UPDATE_DATA,
-        payload: {
-          items: state.items.filter((item) => item.id !== id),
-        },
+        name: "items",
+        payload: state.items.filter((item) => item.id !== id),
       });
       await deleteItem(id);
     } catch (error) {
