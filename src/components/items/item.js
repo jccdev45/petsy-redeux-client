@@ -40,14 +40,14 @@ export default function Item({ item, user, deletion }) {
     >
       <Carousel item={item} size="318px" />
 
-      <div className="flex items-center justify-between text-lg">
+      <div className="flex items-center justify-between text-xl">
         <Link
           to={`/items/${item.id}`}
           className="text-red-300 underline hover:text-red-400"
         >
           {item.name}
         </Link>
-        {renderStars()}
+        {item.rating ? renderStars() : <div>No Ratings Yet</div>}
       </div>
 
       <div>
