@@ -3,7 +3,7 @@ import View from "../view/view";
 
 export default function Loader({ size }) {
   const dimensionRender = () => {
-    if (size == "xl") {
+    if (size === "xl") {
       return "w-32 h-32 md:w-64 md:h-64";
     } else {
       return "w-12 h-12 md:w-24 md:h-24";

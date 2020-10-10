@@ -37,7 +37,7 @@ function loginReducer(state, action) {
           error: "Field(s) cannot be blank",
           isLoading: false,
         };
-      } else if (state.password != state.confirmPassword) {
+      } else if (state.password !== state.confirmPassword) {
         return {
           ...state,
           error: "Passwords do not match",
