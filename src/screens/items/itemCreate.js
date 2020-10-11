@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ItemForm from "../../components/form/itemForm";
 import { DATA_ACTIONS } from "../../util/constants/constants";
 import { useFetchData } from "../../util/hooks/useFetchData";
@@ -29,6 +29,16 @@ export default function ItemCreate() {
   };
   const [isProfane, setIsProfane] = useState(false);
 
+  useEffect(() => {
+    const doTheThing = () => {
+      data.dispatch({ type: DATA_ACTIONS.RESET });
+    }
+
+    return () => {
+      doTheThing()
+    }
+  }, []);
+
   const handleChange = (e) => {
     const { name, value, type } = e.target;
 
@@ -46,9 +56,7 @@ export default function ItemCreate() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // return isProfane
-    //   ? alert("Watch your profamity")
-    //   : data.addNewItem(formData)
+
     if (isProfane) {
       return alert("Watch your profamity!");
     } else {

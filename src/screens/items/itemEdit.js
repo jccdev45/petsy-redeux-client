@@ -19,6 +19,7 @@ export default function ItemEdit() {
     image2,
     image3,
   } = data.state;
+
   const formData = {
     name,
     category,
@@ -51,7 +52,7 @@ export default function ItemEdit() {
     if (items) {
       doTheThing();
     }
-  }, [id, items]);
+  }, []);
 
   const handleChange = (e) => {
     const { name, type, value } = e.target;
@@ -74,7 +75,8 @@ export default function ItemEdit() {
       return alert("Watch your profamity!");
     } else {
       return (
-        data.addNewItem(formData), data.dispatch({ type: DATA_ACTIONS.RESET })
+        data.updateItem(id, formData),
+        data.dispatch({ type: DATA_ACTIONS.RESET })
       );
     }
   };

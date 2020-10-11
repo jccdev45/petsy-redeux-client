@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, useContext, createContext } from "react";
+import React, { useReducer, useContext, createContext } from "react";
 import { useHistory } from "react-router";
 import axios from "axios";
 import { DATA_ACTIONS } from "../constants/constants";
