@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Item from "../../components/items/item";
 import Loader from "../../components/loader/loader";
 import View from "../../components/view/view";
@@ -7,10 +7,14 @@ import { useFetchData } from "../../util/hooks/useFetchData";
 
 export default function Items() {
   const data = useFetchData();
-  const { items } = data.state;
+  const { items, isLoading, error } = data.state;
 
   const auth = useAuth().state;
   const { user } = auth;
+
+  useEffect(() => {
+    data.fetchItems();
+  }, []);
 
   const showData = () => {
     return items
@@ -21,10 +25,10 @@ export default function Items() {
   };
 
   return (
-    <View class="flex flex-wrap md:justify-center mx-auto md:w-11/12">
-      {data.loading && <Loader size="xl" />}
-      {showData()}
-      {data.error && <h1>refresh</h1>}
+    <View class="flex flex-wrap justify-center mx-auto md:w-11/12">
+      {isLoading && <Loader size="xl" />}
+      {items && showData()}
+      {error && <h1>refresh</h1>}
     </View>
   );
 }

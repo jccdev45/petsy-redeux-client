@@ -91,29 +91,25 @@ export default function useProviderData() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const history = useHistory();
 
-  useEffect(() => {
+  const fetchItems = async () => {
     const cancelToken = axios.CancelToken.source();
     dispatch({ type: DATA_ACTIONS.INITIAL_REQUEST });
-
-    const fetchData = async () => {
-      try {
-        const res = await getItems();
-        dispatch({
-          type: DATA_ACTIONS.UPDATE_DATA,
-          name: "items",
-          payload: res,
-        });
-      } catch (error) {
-        if (axios.isCancel(error)) return;
-        dispatch({ type: DATA_ACTIONS.ERROR, payload: { error: error } });
-      }
-    };
-    fetchData();
+    try {
+      const res = await getItems();
+      dispatch({
+        type: DATA_ACTIONS.UPDATE_DATA,
+        name: "items",
+        payload: res,
+      });
+    } catch (error) {
+      if (axios.isCancel(error)) return;
+      dispatch({ type: DATA_ACTIONS.ERROR, payload: { error: error } });
+    }
 
     return () => {
       cancelToken.cancel();
     };
-  }, []);
+  };
 
   const fetchUserItems = async (id) => {
     const cancelToken = axios.CancelToken.source();
@@ -198,5 +194,13 @@ export default function useProviderData() {
     history.push("/");
   };
 
-  return { state, dispatch, updateItem, addNewItem, deletion, fetchUserItems };
+  return {
+    state,
+    dispatch,
+    updateItem,
+    addNewItem,
+    deletion,
+    fetchItems,
+    fetchUserItems,
+  };
 }
