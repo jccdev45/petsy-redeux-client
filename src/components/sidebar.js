@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useFetchData } from "../util/hooks/useFetchData";
 
-export default function Sidebar() {
-  const [isExpanded, setExpanded] = useState(false);
-
+export default function Sidebar({ isExpanded, toggleExpanded }) {
   const data = useFetchData();
   const { items, itemsByCat } = data.state;
   let selected = itemsByCat[0] || { category: "" };
@@ -14,10 +12,6 @@ export default function Sidebar() {
   const categories = [...cats, "All"].sort().filter((value, index, self) => {
     return self.indexOf(value) === index;
   });
-
-  const toggleExpanded = () => {
-    setExpanded(!isExpanded);
-  };
 
   const catMap = () => {
     return categories.map((cat) => (
@@ -48,7 +42,7 @@ export default function Sidebar() {
       </aside>
       <button
         className="fixed left-0 z-10 w-8 h-8 -ml-4 bg-red-300 rounded-full md:hidden focus:bg-red-300 focus:outline-none"
-        style={{ top: `40%` }}
+        style={{ top: `50%` }}
         onClick={() => toggleExpanded()}
       ></button>
     </>

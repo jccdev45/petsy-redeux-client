@@ -33,6 +33,21 @@ export default function Item({ item, user, deletion }) {
     return <div className="flex items-center">{ratings}</div>;
   };
 
+  const renderEditDelete = () => (
+    <div className="flex items-center justify-evenly">
+      <Link
+        className="px-4 py-1 bg-red-300 rounded"
+        to={`/items/${item.id}/edit`}
+      >
+        Edit
+      </Link>
+      <button className="px-3 py-1 bg-red-300 rounded" onClick={openModal}>
+        Delete
+      </button>
+      {isOpen ? renderModal() : null}
+    </div>
+  );
+
   return (
     <article
       className="flex flex-col w-2/3 p-4 rounded-lg shadow-lg md:w-1/4 md:mx-4"
@@ -55,20 +70,7 @@ export default function Item({ item, user, deletion }) {
         <span className="mx-1 bold">{item.price}.00</span>
       </div>
 
-      {user && user.id === item.user_id ? (
-        <div className="flex items-center justify-evenly">
-          <Link
-            className="px-4 py-1 bg-red-300 rounded"
-            to={`/items/${item.id}/edit`}
-          >
-            Edit
-          </Link>
-          <button className="px-3 py-1 bg-red-300 rounded" onClick={openModal}>
-            Delete
-          </button>
-          {isOpen ? renderModal() : null}
-        </div>
-      ) : null}
+      {user && user.id === item.user_id ? renderEditDelete() : null}
     </article>
   );
 }
