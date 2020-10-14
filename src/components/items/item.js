@@ -62,12 +62,15 @@ export default function Item({ item, user, deletion }) {
         >
           {item.name}
         </Link>
-        {item.rating ? renderStars() : <div>No Ratings Yet</div>}
       </div>
 
-      <div>
-        <span className="text-green-500">$</span>
-        <span className="mx-1 bold">{item.price}.00</span>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center">
+          <span className="text-green-500">$</span>
+          <span className="mx-1 bold">{item.price}.00</span>
+        </div>
+
+        {item.rating ? renderStars() : <span>No Ratings Yet</span>}
       </div>
 
       {user && user.id === item.user_id ? renderEditDelete() : null}
