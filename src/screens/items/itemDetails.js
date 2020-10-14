@@ -32,22 +32,22 @@ export default function ItemDetails() {
 
   const itemDetailRender = () => (
     <div className="flex flex-col w-full p-4 rounded-lg md:flex-row">
-      <div className="w-1/3 mr-4">
-        <Carousel item={item} size="584px" />
+      <div className="w-full mr-4">
+        <Carousel item={item} size="600px" />
       </div>
-      <div className="w-2/3 px-2 shadow-inner">
+      <div className="w-full px-2 shadow-inner md:w-2/3">
         <h1 className="my-2 text-2xl">{item.name}</h1>
-        <h2 className="my-1 text-xl"><span className="text-red-400">Category: </span>{item.category}</h2>
+        <h2 className="my-1 text-xl">
+          <span className="text-red-400">Category: </span>
+          {item.category}
+        </h2>
         <p>{item.description}</p>
       </div>
     </div>
   );
 
   return (
-    <View
-      class="flex flex-col items-center justify-center w-full mx-auto md:w-5/6"
-      // title={`${item && item.name}`}
-    >
+    <View class="flex flex-col items-center justify-center w-full mx-auto md:w-5/6">
       {isLoading && <Loader />}
       {item && itemDetailRender()}
       {error && <h1>refresh</h1>}

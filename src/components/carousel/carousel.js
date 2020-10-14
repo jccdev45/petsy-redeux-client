@@ -77,10 +77,7 @@ export default function Carousel({ item, size }) {
       >
         <FcPrevious className="text-xl" />
       </button>
-      <div
-        className="mx-auto bg-gray-500"
-        style={{ height: size, width: size }}
-      >
+      <div className="mx-auto bg-gray-500">
         <img
           src={state.currentImage}
           alt=""
