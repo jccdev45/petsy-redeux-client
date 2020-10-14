@@ -28,6 +28,7 @@ export default function Sidebar() {
         style={
           cat === selected.category ? { backgroundColor: `lightgray` } : null
         }
+        onClick={toggleExpanded}
       >
         {cat}
       </Link>
@@ -39,15 +40,15 @@ export default function Sidebar() {
       <aside
         className={`${
           isExpanded ? `block` : `hidden`
-        } fixed md:block z-20 top-0 w-1/6 mt-16 pt-2 overflow-y-auto bg-white border-r-2 border-red-200 md:h-screen`}
+        } fixed md:block z-20 top-0 w-1/3 md:w-1/6 h-full mt-16 pt-2 overflow-y-auto bg-white border-r-2 border-red-200 md:h-screen`}
       >
         <ul className="flex flex-col justify-between">
           {categories && catMap()}
         </ul>
       </aside>
       <button
-        className="fixed left-0 z-10 w-6 h-6 -ml-3 bg-red-300 border-r-2 border-red-500 rounded-full md:hidden focus:bg-red-300 focus:outline-none"
-        style={isExpanded ? { top: `33%`, marginLeft: `5rem` } : { top: `33%` }}
+        className="fixed left-0 z-10 w-8 h-8 -ml-4 bg-red-300 rounded-full md:hidden focus:bg-red-300 focus:outline-none"
+        style={{ top: `40%` }}
         onClick={() => toggleExpanded()}
       ></button>
     </>

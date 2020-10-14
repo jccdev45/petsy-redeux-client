@@ -40,7 +40,7 @@ export default function Item({ item, user, deletion }) {
     >
       <Carousel item={item} size="318px" />
 
-      <div className="flex items-center justify-between text-xl">
+      <div className="flex items-center justify-between md:text-lg">
         <Link
           to={`/items/${item.id}`}
           className="text-red-300 underline hover:text-red-400"

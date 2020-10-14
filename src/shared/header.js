@@ -7,11 +7,25 @@ import {
   FcGoodDecision,
   FcInfo,
 } from "react-icons/fc";
+import { useAuth } from "../util/hooks/useAuth";
 
 const LINK_CLASSLIST = "mx-3 border-b border-red-400 flex items-center text-lg";
 
-export default function Header({ user, isOpen, closeModal, handleLogout }) {
+export default function Header() {
+  const auth = useAuth();
+  const { user } = auth.state;
+
   const [isBurger, toggleBurger] = useState(false);
+  const [isOpen, toggleIsOpen] = useState(false);
+
+  const closeModal = () => {
+    toggleIsOpen(!isOpen);
+  };
+
+  const handleLogout = () => {
+    toggleIsOpen(!isOpen);
+    auth.logout();
+  };
 
   return (
     <header className="fixed top-0 z-30 flex flex-wrap items-center justify-between w-full px-6 py-4 bg-red-200">

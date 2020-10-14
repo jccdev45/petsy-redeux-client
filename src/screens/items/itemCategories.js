@@ -28,10 +28,15 @@ export default function ItemCategories() {
   };
 
   return (
-    <View class="flex flex-wrap justify-center mx-auto md:w-2/3">
-      {isLoading && <Loader size="xl" />}
-      {itemsByCat && showData()}
-      {error && <h1>refresh</h1>}
+    <View class="flex flex-col items-center justify-start mx-auto h-full md:w-2/3">
+      <h1 className="text-xl">
+        Showing items for: <span className="font-bold text-red-300">{category}</span>
+      </h1>
+      <div className="flex flex-col items-center justify-center md:flex-row md:flex-wrap">
+        {isLoading && <Loader size="xl" />}
+        {itemsByCat && showData()}
+        {error && <h1>refresh</h1>}
+      </div>
     </View>
   );
 }

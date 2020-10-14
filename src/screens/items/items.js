@@ -19,10 +19,12 @@ export default function Items() {
   };
 
   return (
-    <View class="flex flex-wrap justify-center mx-auto">
-      {isLoading && <Loader size="xl" />}
-      {items && showData()}
-      {error && <h1>refresh</h1>}
+    <View class="flex flex-col items-center justify-start h-full mx-auto">
+      <div className="flex flex-col items-center justify-center md:flex-row md:flex-wrap">
+        {isLoading && <Loader size="xl" />}
+        {items && showData()}
+        {error && <h1>refresh</h1>}
+      </div>
     </View>
   );
 }
