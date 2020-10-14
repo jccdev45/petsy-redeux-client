@@ -3,6 +3,7 @@ import Header from "./header";
 import Footer from "./footer";
 import View from "../components/view/view";
 import { useAuth } from "../util/hooks/useAuth";
+import Sidebar from "../components/sidebar";
 
 export default function Layout({ children }) {
   const auth = useAuth()
@@ -28,7 +29,10 @@ export default function Layout({ children }) {
         closeModal={closeModal}
         handleLogout={handleLogout}
       />
-      <main className="flex flex-col flex-grow pt-24">{children}</main>
+      <main className="flex flex-grow">
+        <Sidebar />
+        <section className="flex flex-col justify-center w-5/6 pt-24 ml-auto">{children}</section>
+      </main>
       <Footer />
     </View>
   );

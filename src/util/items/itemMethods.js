@@ -10,6 +10,11 @@ export const getItemById = async (id) => {
   return res.data;
 };
 
+export const getItemByCategory = async (category) => {
+  const res = await api.get(`/items/for/${category}`);
+  return res.data;
+};
+
 export const editItem = async (id, data) => {
   const res = await api.put(`/items/${id}`, { item: data });
   return res.data;

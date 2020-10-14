@@ -35,19 +35,19 @@ export default function Item({ item, user, deletion }) {
 
   return (
     <article
-      className="flex flex-col w-2/3 p-4 rounded-lg shadow-lg md:w-1/3 lg:w-1/4 md:mx-4"
-      style={{ minWidth: `350px` }}
+      className="flex flex-col w-2/3 p-4 rounded-lg shadow-lg md:w-1/4 md:mx-4"
+      style={{ minWidth: `325px` }}
     >
       <Carousel item={item} size="318px" />
 
-      <div className="flex items-center justify-between text-lg">
+      <div className="flex items-center justify-between text-xl">
         <Link
           to={`/items/${item.id}`}
           className="text-red-300 underline hover:text-red-400"
         >
           {item.name}
         </Link>
-        {renderStars()}
+        {item.rating ? renderStars() : <div>No Ratings Yet</div>}
       </div>
 
       <div>

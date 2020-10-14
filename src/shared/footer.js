@@ -1,18 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="z-10 flex flex-col items-center justify-center p-2 mt-12">
+    <footer className="z-10 flex flex-col items-center justify-center p-2">
       <span className="my-2 text-center">
         Created & designed by:
-        <Link
-          to="http://www.jccdev.tech"
+        <a
+          href="http://www.jccdev.tech"
           target="_blank"
+          rel="noopener noreferrer"
           className="block text-red-300 underline uppercase"
         >
           Jordan Cruz-Correa
-        </Link>
+        </a>
       </span>
       <div className="italic">
         &copy; Copyright (jk) {new Date().getFullYear()}

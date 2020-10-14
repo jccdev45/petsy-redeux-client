@@ -1,16 +1,22 @@
-import React, { useReducer, useEffect, useContext, createContext } from "react";
+import React, { useReducer, useContext, createContext, useEffect } from "react";
 import { useHistory } from "react-router";
 import axios from "axios";
 import { DATA_ACTIONS } from "../constants/constants";
-import { addItem, deleteItem, editItem, getItems } from "../items/itemMethods";
+import {
+  addItem,
+  deleteItem,
+  editItem,
+  getItemByCategory,
+  getItems,
+} from "../items/itemMethods";
 import { getUserItems } from "../user/userMethods";
 
 function reducer(state, action) {
   switch (action.type) {
     case DATA_ACTIONS.INITIAL_REQUEST:
-      return { loading: true, items: [] };
+      return { ...state, isLoading: true, [action.name]: [] };
     case DATA_ACTIONS.REQUEST:
-      return { loading: true };
+      return { ...state, isLoading: true };
     case DATA_ACTIONS.INPUT: {
       return {
         ...state,
@@ -33,7 +39,7 @@ function reducer(state, action) {
     case DATA_ACTIONS.UPDATE_DATA:
       return {
         ...state,
-        loading: false,
+        isLoading: false,
         [action.name]: action.payload,
       };
     case DATA_ACTIONS.RESET: {
@@ -52,9 +58,9 @@ function reducer(state, action) {
     case DATA_ACTIONS.ERROR:
       return {
         ...state,
-        loading: false,
+        isLoading: false,
         error: action.payload.error,
-        items: [],
+        [action.name]: [],
       };
     default:
       return state;
@@ -66,6 +72,7 @@ const initialState = {
   isLoading: true,
   items: [],
   userItems: [],
+  itemsByCat: [],
   name: "",
   category: "",
   description: "",
@@ -93,7 +100,7 @@ export default function useProviderData() {
 
   useEffect(() => {
     const cancelToken = axios.CancelToken.source();
-    dispatch({ type: DATA_ACTIONS.INITIAL_REQUEST });
+    dispatch({ type: DATA_ACTIONS.INITIAL_REQUEST, name: "items" });
 
     const fetchData = async () => {
       try {
@@ -105,7 +112,11 @@ export default function useProviderData() {
         });
       } catch (error) {
         if (axios.isCancel(error)) return;
-        dispatch({ type: DATA_ACTIONS.ERROR, payload: { error: error } });
+        dispatch({
+          type: DATA_ACTIONS.ERROR,
+          name: "items",
+          payload: { error: error },
+        });
       }
     };
     fetchData();
@@ -115,9 +126,34 @@ export default function useProviderData() {
     };
   }, []);
 
+  const fetchItemsByCategory = async (category) => {
+    const cancelToken = axios.CancelToken.source();
+    dispatch({ type: DATA_ACTIONS.INITIAL_REQUEST, name: "itemsByCat" });
+
+    try {
+      const res = await getItemByCategory(category);
+      dispatch({
+        type: DATA_ACTIONS.UPDATE_DATA,
+        name: "itemsByCat",
+        payload: res,
+      });
+    } catch (error) {
+      if (axios.isCancel(error)) return;
+      dispatch({
+        type: DATA_ACTIONS.ERROR,
+        name: "itemsByCat",
+        payload: { error: error },
+      });
+    }
+
+    return () => {
+      cancelToken.cancel();
+    };
+  };
+
   const fetchUserItems = async (id) => {
     const cancelToken = axios.CancelToken.source();
-    dispatch({ type: DATA_ACTIONS.REQUEST });
+    dispatch({ type: DATA_ACTIONS.REQUEST, name: "userItems" });
 
     try {
       const data = await getUserItems(id);
@@ -128,7 +164,11 @@ export default function useProviderData() {
       });
     } catch (error) {
       if (axios.isCancel(error)) return;
-      dispatch({ type: DATA_ACTIONS.ERROR, payload: { error: error } });
+      dispatch({
+        type: DATA_ACTIONS.ERROR,
+        name: "userItems",
+        payload: { error: error },
+      });
     }
 
     return () => {
@@ -138,7 +178,7 @@ export default function useProviderData() {
 
   const addNewItem = async (data) => {
     const cancelToken = axios.CancelToken.source();
-    dispatch({ type: DATA_ACTIONS.REQUEST });
+    dispatch({ type: DATA_ACTIONS.REQUEST, name: "items" });
 
     try {
       const newItem = await addItem(data);
@@ -149,7 +189,11 @@ export default function useProviderData() {
       });
     } catch (error) {
       if (axios.isCancel(error)) return;
-      dispatch({ type: DATA_ACTIONS.ERROR, payload: { error: error } });
+      dispatch({
+        type: DATA_ACTIONS.ERROR,
+        name: "items",
+        payload: { error: error },
+      });
     }
     history.push("/");
 
@@ -160,7 +204,7 @@ export default function useProviderData() {
 
   const updateItem = async (id, data) => {
     const cancelToken = axios.CancelToken.source();
-    dispatch({ type: DATA_ACTIONS.REQUEST });
+    dispatch({ type: DATA_ACTIONS.REQUEST, name: "items" });
 
     try {
       const updated = await editItem(id, data);
@@ -173,7 +217,11 @@ export default function useProviderData() {
       });
     } catch (error) {
       if (axios.isCancel(error)) return;
-      dispatch({ type: DATA_ACTIONS.ERROR, payload: { error: error } });
+      dispatch({
+        type: DATA_ACTIONS.ERROR,
+        name: "items",
+        payload: { error: error },
+      });
     }
     history.push("/");
 
@@ -198,5 +246,13 @@ export default function useProviderData() {
     history.push("/");
   };
 
-  return { state, dispatch, updateItem, addNewItem, deletion, fetchUserItems };
+  return {
+    state,
+    dispatch,
+    fetchItemsByCategory,
+    updateItem,
+    addNewItem,
+    deletion,
+    fetchUserItems,
+  };
 }
