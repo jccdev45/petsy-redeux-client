@@ -14,7 +14,7 @@ export default function Header({ user, isOpen, closeModal, handleLogout }) {
   const [isBurger, toggleBurger] = useState(false);
 
   return (
-    <header className="fixed top-0 z-10 flex flex-wrap items-center justify-between w-full px-6 py-4 bg-red-200">
+    <header className="fixed top-0 z-30 flex flex-wrap items-center justify-between w-full px-6 py-4 bg-red-200">
       <Link to="/" className="text-2xl border-b border-red-300">
         <span className="font-bold text-red-300">P</span>etsy
       </Link>
@@ -56,12 +56,19 @@ export default function Header({ user, isOpen, closeModal, handleLogout }) {
               style={{ backgroundColor: `rgba(0, 0, 0, 0.5)` }}
               className={`${
                 isOpen ? `block` : `hidden`
-              } w-screen h-screen fixed top-0 left-0 z-20`}
+              } w-screen h-screen fixed top-0 left-0 z-40`}
             >
-              <div className="z-30 flex flex-col items-center justify-around w-3/4 h-64 mx-auto my-20 bg-white rounded md:w-1/3">
-                <span className="font-bold">Are you sure you want to logout?</span>
+              <div className="z-50 flex flex-col items-center justify-around w-3/4 h-64 mx-auto my-20 bg-white rounded md:w-1/3">
+                <span className="font-bold">
+                  Are you sure you want to logout?
+                </span>
                 <div className="flex items-center">
-                  <button className="focus:outline-none hover:border-b-2 hover:border-red-300" onClick={closeModal}>Cancel</button>
+                  <button
+                    className="focus:outline-none hover:border-b-2 hover:border-red-300"
+                    onClick={closeModal}
+                  >
+                    Cancel
+                  </button>
                   <Link
                     className="flex items-center px-2 py-3 mx-6 text-white bg-red-300 rounded hover:bg-red-400"
                     to="/"

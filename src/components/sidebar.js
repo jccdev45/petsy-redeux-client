@@ -1,22 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useFetchData } from "../util/hooks/useFetchData";
 
-export default function Sidebar({
-  cats,
-  selectCat,
-  selected,
-  expanded,
-  toggleExpanded,
-}) {
+export default function Sidebar() {
+  const [isExpanded, setExpanded] = useState(false);
+
+  const data = useFetchData();
+  const { items, itemsByCat } = data.state;
+  let selected = itemsByCat[0] || { category: "" };
+
+  const cats = items.map((item) => item.category);
+
+  const categories = [...cats, "All"].sort().filter((value, index, self) => {
+    return self.indexOf(value) === index;
+  });
+
+  const toggleExpanded = () => {
+    setExpanded(!isExpanded);
+  };
+
   const catMap = () => {
-    return cats.map((cat) => (
-      <li
-        className="p-1 shadow-sm cursor-pointer hover:bg-gray-200"
+    return categories.map((cat) => (
+      <Link
+        className="px-2 py-3 my-2 shadow-sm cursor-pointer hover:bg-gray-200"
         key={cat}
-        onClick={() => selectCat(cat)}
-        style={selected === cat ? { backgroundColor: `lightgray` } : null}
+        to={cat === "All" ? `/items` : `/items/for/${cat}`}
+        style={
+          cat === selected.category ? { backgroundColor: `lightgray` } : null
+        }
       >
         {cat}
-      </li>
+      </Link>
     ));
   };
 
@@ -24,14 +38,16 @@ export default function Sidebar({
     <>
       <aside
         className={`${
-          expanded ? `block` : `hidden`
-        } fixed md:block z-10 top-0 w-1/4 min-h-screen my-12 overflow-y-auto bg-white border-r-2 border-black md:w-1/6`}
+          isExpanded ? `block` : `hidden`
+        } fixed md:block z-20 top-0 w-1/6 mt-16 pt-2 overflow-y-auto bg-white border-r-2 border-red-200 md:h-screen`}
       >
-        <ul className="flex flex-col justify-between">{catMap()}</ul>
+        <ul className="flex flex-col justify-between">
+          {categories && catMap()}
+        </ul>
       </aside>
       <button
-        className={`fixed md:hidden border-r-2 -ml-3 rounded-full bg-gray-400 border-gray-500 w-6 h-6 left-0 focus:outline-none`}
-        style={expanded ? { top: `50%`, marginLeft: `5rem` } : { top: `50%` }}
+        className="fixed left-0 z-10 w-6 h-6 -ml-3 bg-red-300 border-r-2 border-red-500 rounded-full md:hidden focus:bg-red-300 focus:outline-none"
+        style={isExpanded ? { top: `33%`, marginLeft: `5rem` } : { top: `33%` }}
         onClick={() => toggleExpanded()}
       ></button>
     </>

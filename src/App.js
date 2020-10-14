@@ -3,13 +3,16 @@ import InitialRoutes from "./routes/initialRoutes";
 import Layout from "./shared/layout";
 
 import { ProviderAuth } from "./util/hooks/useAuth";
+import { ProviderData } from "./util/hooks/useFetchData";
 
 function App() {
   return (
     <ProviderAuth>
-      <Layout>
-        <InitialRoutes />
-      </Layout>
+      <ProviderData>
+        <Layout>
+          <InitialRoutes />
+        </Layout>
+      </ProviderData>
     </ProviderAuth>
   );
 }
