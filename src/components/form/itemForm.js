@@ -20,7 +20,7 @@ export default function ItemForm({
         <h1
           className={`${
             isProfane ? `bg-red-400` : `underline text-red-500`
-          } fixed z-50 px-16 py-2 text-xl text-white rounded uppercase`}
+          } px-16 py-2 text-xl text-white rounded uppercase`}
         >
           {isProfane ? "Watch your profamity" : type}
         </h1>

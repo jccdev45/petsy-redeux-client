@@ -45,7 +45,7 @@ export default function ItemDetails() {
   };
 
   const itemDetailRender = () => (
-    <div className="flex flex-col w-full p-4 rounded-lg md:flex-row">
+    <summary className="flex flex-col w-full p-4 rounded-lg md:flex-row">
       <div className="w-full mr-4">
         <Carousel item={item} size="600px" />
       </div>
@@ -64,7 +64,7 @@ export default function ItemDetails() {
         </div>
         {user && user.id === item.user_id ? renderEditDelete() : null}
       </div>
-    </div>
+    </summary>
   );
 
   const renderEditDelete = () => (

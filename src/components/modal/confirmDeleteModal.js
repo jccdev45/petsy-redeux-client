@@ -4,18 +4,18 @@ import View from "../view/view";
 export default function ConfirmDeleteModal({ item, openModal, deletion }) {
   return (
     <View
-      class="fixed top-0 left-0 w-screen h-screen z-40"
+      class="fixed top-0 left-0 w-screen h-screen z-40 overflow-hidden"
       viewStyle={{
         backgroundColor: `rgba(0, 0, 0, 0.5)`,
         display: `grid`,
         placeItems: `center`,
       }}
     >
-      <div className="z-50 w-1/3 p-12 bg-white rounded shadow">
+      <div className="z-50 w-2/3 px-4 py-8 bg-white rounded shadow md:p-12 md:w-1/3">
         <span className="flex flex-col justify-between">
           <h1 className="font-bold text-center text-red-500">
-            Are you sure you want to delete this item? This action cannot be
-            undone.
+            Are you sure you want to delete this item? <br /> This action cannot
+            be undone.
           </h1>
           <span className="flex items-center justify-center">
             <button

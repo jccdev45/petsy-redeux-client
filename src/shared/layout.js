@@ -5,25 +5,42 @@ import View from "../components/view/view";
 import Sidebar from "../components/sidebar";
 
 export default function Layout({ children }) {
-  const [isExpanded, toggleIsExpanded] = useState(false);
+	const [isSidebar, toggleIsSidebar] = useState(false);
+	const [isBurger, toggleIsBurger] = useState(false);
+	const [isModal, toggleIsModal] = useState(false);
 
-  const toggleExpanded = () => {
-    toggleIsExpanded(!isExpanded);
-  };
+	const closeTheThings = () => {
+		toggleIsSidebar(false);
+		toggleIsModal(false);
+		toggleIsBurger(false);
+	};
 
-  return (
-    <View class="flex flex-col w-screen min-h-screen">
-      <Header />
-      <main className="flex flex-grow">
-        <Sidebar isExpanded={isExpanded} toggleExpanded={toggleExpanded} />
-        <section
-          onClick={() => toggleIsExpanded(false)}
-          className="flex flex-col justify-center w-full pt-24 ml-auto md:w-5/6"
-        >
-          {children}
-        </section>
-      </main>
-      <Footer />
-    </View>
-  );
+	const toggleSidebar = () => {
+		toggleIsSidebar(!isSidebar);
+	};
+
+	return (
+		<View class="flex flex-col w-screen min-h-screen">
+			<Header
+				isModal={isModal}
+				toggleIsModal={toggleIsModal}
+				isBurger={isBurger}
+				toggleIsBurger={toggleIsBurger}
+			/>
+			<main className="flex flex-grow">
+				<Sidebar
+					isSidebar={isSidebar}
+					toggleSidebar={toggleSidebar}
+					closeTheThings={closeTheThings}
+				/>
+				<section
+					onClick={() => closeTheThings()}
+					className="flex flex-col justify-center w-full pt-24 ml-auto md:w-5/6"
+				>
+					{children}
+				</section>
+			</main>
+			<Footer />
+		</View>
+	);
 }
