@@ -15,7 +15,7 @@ export default function Items() {
 
   return (
     <View class="flex flex-col items-center justify-start h-full mx-auto">
-      <div className="flex flex-col items-center justify-center md:flex-row md:flex-wrap">
+      <div className="flex flex-col items-center justify-center items-wrapper md:flex-row md:flex-wrap">
         {items && showData()}
       </div>
     </View>

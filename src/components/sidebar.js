@@ -2,14 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useFetchData } from "../util/hooks/useFetchData";
 
-export default function Sidebar({
-	isSidebar,
-	closeTheThings,
-	toggleSidebar,
-}) {
+export default function Sidebar({ isSidebar, closeTheThings, toggleSidebar }) {
 	const data = useFetchData();
-	const { items, itemsByCat } = data.state;
-	let selected = itemsByCat[0] || { category: "All" };
+	const { items } = data.state;
 
 	const cats = items.map((item) => item.category);
 
@@ -23,11 +18,6 @@ export default function Sidebar({
 				className="px-2 py-3 my-2 shadow-sm cursor-pointer hover:bg-gray-200"
 				key={cat}
 				to={`/items/for/${cat}`}
-				style={
-					cat === selected.category
-						? { backgroundColor: `lightgray` }
-						: { backgroundColor: `transparent` }
-				}
 				onClick={closeTheThings}
 			>
 				{cat}
