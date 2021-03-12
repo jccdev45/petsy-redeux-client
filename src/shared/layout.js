@@ -21,7 +21,7 @@ export default function Layout({ children }) {
 				toggleIsBurger={toggleIsBurger}
 			/>
 			<main
-				className="flex flex-col justify-center flex-grow"
+				className="flex flex-col justify-center flex-grow pt-24 mx-auto md:w-5/6"
 				onClick={() => closeTheThings()}
 			>
 				{children}

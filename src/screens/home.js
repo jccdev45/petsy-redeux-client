@@ -63,7 +63,7 @@ export default function Home() {
 	};
 
 	return (
-		<View class="flex flex-col items-center justify-center pt-24 md:w-5/6 mx-auto">
+		<View class="flex flex-col items-center justify-center mx-auto">
 			<Hero />
 			{isLoading && <Loader />}
 
