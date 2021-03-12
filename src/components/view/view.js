@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 function View(props) {
   return (
     <div className={props.class} style={props.viewStyle}>
-      {props.title && <h1>{props.title}</h1>}
+      {props.title && <h1 className="my-4 text-2xl">{props.title}</h1>}
       {props.children}
     </div>
   );

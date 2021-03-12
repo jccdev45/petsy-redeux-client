@@ -48,10 +48,11 @@ export default function Item({ item, user, deletion }) {
     </div>
   );
 
+  if (!item) return null;
   return (
     <article
-      className="flex flex-col w-2/3 p-4 rounded-lg shadow-lg md:w-1/4 md:mx-4"
-      style={{ minWidth: `325px` }}
+      className="flex flex-col w-1/4 p-6 mx-3 bg-red-100 rounded-lg shadow-lg first:ml-0 last:mr-0"
+      style={{ minWidth: `250px` }}
     >
       <Carousel item={item} size="318px" />
 
