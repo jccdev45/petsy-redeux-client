@@ -67,45 +67,58 @@ export default function Home() {
 			<Hero />
 			{isLoading && <Loader />}
 
-      {/* New Items */}
-			<View title="New Items" class="flex flex-col w-full">
-				<div className="flex w-full">{newItems()}</div>
-			</View>
-
-      {/* Featured Item */}
+			{/* Featured Item */}
 			<View title="Featured Item" class="w-full flex flex-col my-8">
 				<div className="flex items-center justify-end w-full p-8 bg-red-100 rounded-lg">
 					{renderFeaturedItem()}
 				</div>
 			</View>
 
-      {/* Site Info */}
+			{/* Site Info */}
 			<View class="bg-red-200 rounded-lg p-8 flex justify-evenly my-8 w-full">
-				<div className="flex flex-col items-center">
-					<div className="flex flex-col items-center justify-center w-24 h-24 bg-red-100 rounded-full">
-						<FcShipped className="text-5xl" />
-					</div>
-					<h2 className="my-4 text-2xl text-white">Free Returns</h2>
-				</div>
-				<div className="flex flex-col items-center">
+				<div className="flex flex-col items-center py-8 border-r border-red-400">
 					<div className="flex flex-col items-center justify-center w-24 h-24 bg-red-100 rounded-full">
 						<FcMoneyTransfer className="text-5xl" />
 					</div>
-					<h2 className="my-4 text-2xl text-white">Payment Plans</h2>
+					<h2 className="my-4 text-2xl">Payment Plans</h2>
+					<p className="px-8 text-justify">
+						Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae,
+						inventore cupiditate magni ipsum ex blanditiis ea eveniet minus
+						mollitia, esse rem unde sed. Cum, laboriosam. Veniam, repudiandae.
+						Reprehenderit, reiciendis enim.
+					</p>
 				</div>
-				<div className="flex flex-col items-center">
+				<div className="flex flex-col items-center py-8">
 					<div className="flex flex-col items-center justify-center w-24 h-24 bg-red-100 rounded-full">
 						<FcOnlineSupport className="text-5xl" />
 					</div>
-					<h2 className="my-4 text-2xl text-white">24/7 Support</h2>
+					<h2 className="my-4 text-2xl">24/7 Support</h2>
+					<p className="px-8 text-justify">
+						Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae,
+						inventore cupiditate magni ipsum ex blanditiis ea eveniet minus
+						mollitia, esse rem unde sed. Cum, laboriosam. Veniam, repudiandae.
+						Reprehenderit, reiciendis enim.
+					</p>
 				</div>
-				<div className="flex flex-col items-center">
+				<div className="flex flex-col items-center py-8 border-l border-red-400">
 					<div className="flex flex-col items-center justify-center w-24 h-24 bg-red-100 rounded-full">
 						<FcGlobe className="text-5xl" />
 					</div>
-					<h2 className="my-4 text-2xl text-white">Worldwide Shipping</h2>
+					<h2 className="my-4 text-2xl">Worldwide Shipping</h2>
+					<p className="px-8 text-justify">
+						Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae,
+						inventore cupiditate magni ipsum ex blanditiis ea eveniet minus
+						mollitia, esse rem unde sed. Cum, laboriosam. Veniam, repudiandae.
+						Reprehenderit, reiciendis enim.
+					</p>
 				</div>
 			</View>
+
+			{/* New Items */}
+			<View title="New Items" class="flex flex-col w-full my-8">
+				<div className="flex w-full">{newItems()}</div>
+			</View>
+
 			{error && <h1>do a refresh</h1>}
 		</View>
 	);
