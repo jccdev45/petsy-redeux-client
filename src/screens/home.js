@@ -1,4 +1,5 @@
 import React from "react";
+import Hero from "../components/hero/hero";
 import Loader from "../components/loader/loader";
 import View from "../components/view/view";
 import { useFetchData } from "../util/hooks/useFetchData";
@@ -10,8 +11,9 @@ export default function Home() {
 
   // TODO: refactor into landing page, currently duplicate item-related code in items.js
   return (
-    <View class="flex">
+    <View class="flex flex-col items-center justify-center pt-24 md:w-5/6 mx-auto">
       {isLoading && <Loader />}
+      <Hero />
       {items && (
         <Items />
       )}
