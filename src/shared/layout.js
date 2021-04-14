@@ -12,16 +12,20 @@ export default function Layout({ children }) {
 		toggleIsBurger(false);
 	};
 
+	const closeModal = () => {
+		toggleIsModal(!isModal)
+	}
+
 	return (
 		<View class="flex flex-col w-screen min-h-screen">
 			<Header
 				isModal={isModal}
-				toggleIsModal={toggleIsModal}
+				toggleIsModal={closeModal}
 				isBurger={isBurger}
 				toggleIsBurger={toggleIsBurger}
 			/>
 			<main
-				className="flex flex-col justify-center flex-grow pt-24 mx-auto md:w-5/6"
+				className="flex flex-col justify-center flex-grow w-11/12 pt-24 mx-auto md:pt-32 md:w-5/6"
 				onClick={() => closeTheThings()}
 			>
 				{children}

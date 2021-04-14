@@ -19,8 +19,8 @@ export default function Profile() {
 	}, []);
 
 	const renderUserItems = () => (
-		<div className="flex flex-col w-full md:flex-row">
-			<div className="flex flex-row items-center w-full m-4 md:w-1/3 md:flex-col md:mr-4">
+		<>
+			<div className="flex flex-row items-center w-full m-4 md:w-1/3 lg:flex-col md:mr-4">
 				<img
 					src={user.picture ? user.picture : "https://placehold.it/300"}
 					alt="User"
@@ -46,7 +46,7 @@ export default function Profile() {
 					{isLoading ? <Loader /> : renderData()}
 				</div>
 			</div>
-		</div>
+		</>
 	);
 
 	const renderData = () => {
@@ -68,7 +68,7 @@ export default function Profile() {
 	};
 
 	return (
-		<View class="flex sm:flex-col w-full mx-auto h-full md:p-4 rounded">
+		<View class="flex flex-col w-full lg:flex-row">
 			{error && <h1>There was an error, please refresh</h1>}
 			{user && renderUserItems()}
 		</View>

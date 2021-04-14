@@ -14,7 +14,7 @@ export default function ItemForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col items-center w-5/6 p-4 mx-auto my-2 shadow-inner md:w-2/3"
+      className="flex flex-col items-center w-5/6 p-4 mx-auto my-2 shadow-inner md:w-11/12"
     >
       <div className="flex justify-center w-12 h-12">
         <h1
