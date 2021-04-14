@@ -11,6 +11,7 @@ import ItemCategories from "../screens/items/itemCategories";
 import Items from "../screens/items/items";
 import TermsConditions from "../screens/legal/termsConditions";
 import PrivacyPolicy from "../screens/legal/privacyPolicy";
+import Cart from "../screens/items/cart";
 
 function InitialRoutes() {
 	return (
@@ -41,6 +42,9 @@ function InitialRoutes() {
 			</Route>
 			<Route path="/users/:id">
 				<Profile />
+			</Route>
+			<Route path="/cart">
+				<Cart />
 			</Route>
 			<Route path="/terms">
 				<TermsConditions />

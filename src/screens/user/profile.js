@@ -22,7 +22,7 @@ export default function Profile() {
 		<>
 			<div className="flex flex-row items-center w-full m-4 md:w-1/3 lg:flex-col md:mr-4">
 				<img
-					src={user.picture ? user.picture : "https://placehold.it/300"}
+					src={user.picture ? user.picture : "https://via.placeholder.com/150"}
 					alt="User"
 					className="w-24 h-auto rounded-full md:w-64"
 				/>

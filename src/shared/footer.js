@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
 	return (
-		<footer className="z-10 flex flex-col items-center justify-between py-4 bg-red-200 md:px-24 md:py-8 md:flex-row">
+		<footer className="flex flex-col items-center justify-between py-4 bg-red-200 md:px-24 md:py-8 md:flex-row">
 			<div className="flex flex-col">
 				<h2 className="text-2xl">Legal</h2>
 				<Link className="text-red-400 underline hover:text-red-500" to="/terms">
