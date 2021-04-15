@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { FcRating } from "react-icons/fc";
 import { Link } from "react-router-dom";
-// import Carousel from "../carousel/carousel";
-import ConfirmDeleteModal from "../modal/confirmDeleteModal";
+import ConfirmationModal from "../modal/confirmationModal";
 
 export default function Item({ item, user, deletion }) {
 	const [isOpen, toggleIsOpen] = useState(false);
@@ -14,10 +13,11 @@ export default function Item({ item, user, deletion }) {
 	const renderModal = () => {
 		if (isOpen) {
 			return (
-				<ConfirmDeleteModal
+				<ConfirmationModal
 					item={item}
+					message="Are you sure you want to delete this item? <br /> This action cannot be undone."
 					openModal={openModal}
-					deletion={deletion}
+					action={deletion}
 				/>
 			);
 		}
@@ -52,7 +52,11 @@ export default function Item({ item, user, deletion }) {
 	return (
 		<article className="flex flex-col w-11/12 p-2 my-4 bg-red-100 rounded-lg shadow-lg md:my-4 md:mx-3 md:w-1/3 lg:w-1/4 lg:first:ml-0 lg:last:mr-0">
 			{/* <Carousel item={item} size="318px" /> */}
-			<img src={item.image1} alt={item.name} className="object-cover min-w-full min-h-full" />
+			<img
+				src={item.image1}
+				alt={item.name}
+				className="object-cover min-w-full min-h-full"
+			/>
 
 			<div className="flex flex-col items-center justify-between py-6">
 				<Link

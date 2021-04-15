@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
+import { MdAddShoppingCart } from "react-icons/md";
 import Loader from "../../components/loader/loader";
-// import Carousel from "../../components/carousel/carousel";
 import View from "../../components/view/view";
 import { getItemById } from "../../util/items/itemMethods";
 import { useAuth } from "../../util/hooks/useAuth";
 import { useFetchData } from "../../util/hooks/useFetchData";
-import ConfirmDeleteModal from "../../components/modal/confirmDeleteModal";
+import { useCart } from "../../util/hooks/useCart";
+import ConfirmationModal from "../../components/modal/confirmationModal";
 import { Link } from "react-router-dom";
 
 export default function ItemDetails() {
@@ -22,6 +23,13 @@ export default function ItemDetails() {
 	const [isOpen, toggleIsOpen] = useState(false);
 
 	const { id } = useParams();
+
+	const cart = useCart();
+	const { addToCart } = cart;
+
+	const helpingAddToCart = () => {
+		addToCart(item)
+	}
 
 	useEffect(() => {
 		const cancelToken = axios.CancelToken.source();
@@ -67,6 +75,13 @@ export default function ItemDetails() {
 					</h2>
 					<p>{item.description}</p>
 				</div>
+				<button
+					className="px-3 py-2 rounded shadow"
+					onClick={() => helpingAddToCart()}
+				>
+					<MdAddShoppingCart className="text-xl" />
+					Add to Cart
+				</button>
 				{user && user.id === item.user_id ? renderEditDelete() : null}
 			</div>
 		</summary>
@@ -90,10 +105,11 @@ export default function ItemDetails() {
 	const renderModal = () => {
 		if (isOpen) {
 			return (
-				<ConfirmDeleteModal
+				<ConfirmationModal
 					item={item}
-					openModal={openModal}
-					deletion={data.deletion}
+					message="Are you sure you want to delete this item? This action cannot be undone."
+					whatAreThis={openModal}
+					action={data.deletion}
 				/>
 			);
 		}
