@@ -10,6 +10,7 @@ import { useFetchData } from "../../util/hooks/useFetchData";
 import { useCart } from "../../util/hooks/useCart";
 import ConfirmationModal from "../../components/modal/confirmationModal";
 import { Link } from "react-router-dom";
+import { useToggle } from "../../util/hooks/useToggle";
 
 export default function ItemDetails() {
 	const auth = useAuth().state;
@@ -20,7 +21,8 @@ export default function ItemDetails() {
 	const [item, setItem] = useState();
 	const [error, setError] = useState("");
 	const [isLoading, toggleIsLoading] = useState(true);
-	const [isOpen, toggleIsOpen] = useState(false);
+
+	const [isOpen, setIsOpen] = useToggle();
 
 	const { id } = useParams();
 
@@ -28,8 +30,8 @@ export default function ItemDetails() {
 	const { addToCart } = cart;
 
 	const helpingAddToCart = () => {
-		addToCart(item)
-	}
+		addToCart(item);
+	};
 
 	useEffect(() => {
 		const cancelToken = axios.CancelToken.source();
@@ -108,7 +110,6 @@ export default function ItemDetails() {
 				<ConfirmationModal
 					item={item}
 					message="Are you sure you want to delete this item? This action cannot be undone."
-					whatAreThis={openModal}
 					action={data.deletion}
 				/>
 			);
