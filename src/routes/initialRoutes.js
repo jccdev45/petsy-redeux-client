@@ -12,6 +12,7 @@ import Items from "../screens/items/items";
 import TermsConditions from "../screens/legal/termsConditions";
 import PrivacyPolicy from "../screens/legal/privacyPolicy";
 import Cart from "../screens/checkout/cart";
+import Checkout from "../screens/checkout/checkout";
 
 function InitialRoutes() {
 	return (
@@ -45,6 +46,9 @@ function InitialRoutes() {
 			</Route>
 			<Route path="/cart">
 				<Cart />
+			</Route>
+			<Route path="/checkout">
+				<Checkout />
 			</Route>
 			<Route path="/terms">
 				<TermsConditions />
