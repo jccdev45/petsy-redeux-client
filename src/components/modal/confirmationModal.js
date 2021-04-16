@@ -4,6 +4,11 @@ import View from "../view/view";
 export default function ConfirmationModal(props) {
 	const { item } = props;
 
+	function confirmAndCloseModal() {
+		props.action(item.id, -1);
+		props.closeModal();
+	}
+
 	return (
 		<View
 			class="fixed top-0 left-0 w-screen h-screen z-40 overflow-hidden"
@@ -27,7 +32,7 @@ export default function ConfirmationModal(props) {
 						</button>
 						<button
 							className="px-3 py-1 mx-2 bg-red-500 rounded"
-							onClick={() => props.action(item.id, -1)}
+							onClick={() => confirmAndCloseModal()}
 						>
 							Delete
 						</button>
