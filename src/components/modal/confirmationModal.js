@@ -1,10 +1,8 @@
 import React from "react";
-import { useToggle } from "../../util/hooks/useToggle";
 import View from "../view/view";
 
 export default function ConfirmationModal(props) {
 	const { item } = props;
-	const { setIsOpen } = useToggle();
 
 	return (
 		<View
@@ -23,7 +21,7 @@ export default function ConfirmationModal(props) {
 					<span className="flex items-center justify-center">
 						<button
 							className="px-3 py-1 mx-2 bg-red-300 rounded"
-							onClick={setIsOpen}
+							onClick={props.closeModal}
 						>
 							Cancel
 						</button>

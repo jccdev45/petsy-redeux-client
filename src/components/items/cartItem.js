@@ -11,9 +11,9 @@ export default function CartItem(props) {
 
 	const [isOpen, setIsOpen] = useToggle();
 
-	const verifyLastItem = (item) => {
+	const verifyLastItem = (item, name) => {
 		if (item.quantity > 1) {
-			updateCart(item.id, -1);
+			name(item.id, -1);
 			return;
 		} else {
 			setIsOpen();
@@ -25,6 +25,7 @@ export default function CartItem(props) {
 			return (
 				<ConfirmationModal
 					item={item}
+          closeModal={setIsOpen}
 					message="Are you sure you want to remove this item from your cart?"
 					action={updateCart}
 				/>
@@ -46,7 +47,7 @@ export default function CartItem(props) {
 					<h3 className="text-xl font-bold">{item.name}</h3>
 					<div className="flex items-center text-2xl">
 						<button
-							onClick={() => verifyLastItem(item)}
+							onClick={() => verifyLastItem(item, updateCart)}
 							className="p-1 border border-black rounded-full"
 						>
 							<MdRemove />
@@ -63,7 +64,7 @@ export default function CartItem(props) {
 				<div className="flex justify-between w-full mt-8 lg:m-0">
 					<button
 						className="flex items-center"
-						onClick={() => removeFromCart(item.id)}
+						onClick={() => verifyLastItem(item, removeFromCart)}
 					>
 						<MdRemoveShoppingCart className="text-3xl" />
 						Remove
