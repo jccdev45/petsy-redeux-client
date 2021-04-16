@@ -2,38 +2,35 @@ import React, { useState } from "react";
 import Header from "./header";
 import Footer from "./footer";
 import View from "../components/view/view";
-import { useAuth } from "../util/hooks/useAuth";
-import Sidebar from "../components/sidebar";
 
 export default function Layout({ children }) {
-  const auth = useAuth()
-  const { user } = auth.state
+	const [isBurger, toggleIsBurger] = useState(false);
+	const [isModal, toggleIsModal] = useState(false);
 
-  const [isOpen, toggleIsOpen] = useState(false);
+	const closeTheThings = () => {
+		toggleIsModal(false);
+		toggleIsBurger(false);
+	};
 
-  const closeModal = () => {
-    toggleIsOpen(!isOpen);
-  };
+	const closeModal = () => {
+		toggleIsModal(!isModal)
+	}
 
-  const handleLogout = () => {
-    toggleIsOpen(!isOpen);
-    auth.logout();
-  };
-
-  return (
-    <View class="flex flex-col w-screen min-h-screen">
-      <Header
-        user={user}
-        logout={auth.logout}
-        isOpen={isOpen}
-        closeModal={closeModal}
-        handleLogout={handleLogout}
-      />
-      <main className="flex flex-grow">
-        <Sidebar />
-        <section className="flex flex-col justify-center w-5/6 pt-24 ml-auto">{children}</section>
-      </main>
-      <Footer />
-    </View>
-  );
+	return (
+		<View class="flex flex-col w-screen min-h-screen">
+			<Header
+				isModal={isModal}
+				toggleIsModal={closeModal}
+				isBurger={isBurger}
+				toggleIsBurger={toggleIsBurger}
+			/>
+			<main
+				className="flex flex-col justify-center flex-grow w-11/12 pt-24 mx-auto md:pt-32 md:w-5/6"
+				onClick={() => closeTheThings()}
+			>
+				{children}
+			</main>
+			<Footer />
+		</View>
+	);
 }

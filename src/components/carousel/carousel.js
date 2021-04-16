@@ -77,29 +77,29 @@ export default function Carousel({ item, size }) {
       >
         <FcPrevious className="text-xl" />
       </button>
-      <div
-        className="mx-auto bg-gray-500"
-        style={{ height: size, width: size }}
-      >
+      <div className="mx-auto bg-gray-500">
         <img
           src={state.currentImage}
           alt=""
-          className="object-contain w-full h-auto"
+          className="object-cover object-center max-w-full"
+          style={{ height: size }}
         />
       </div>
       <div className="absolute bottom-0 flex items-center justify-center w-full mx-auto mb-1">
-        {state.images.map((img, index) => (
-          <button
-            key={index}
-            about={img}
-            onClick={() =>
-              dispatch({ type: CAROUSEL_ACTIONS.SET, payload: { index } })
-            }
-            className={`w-3 mx-1 h-3 bg-gray-400 rounded-full focus:outline-none ${
-              index === state.currentIndex ? `bg-gray-600` : ``
-            }`}
-          />
-        ))}
+        {state.images.map((img, index) => {
+          return img.length ? (
+            <button
+              key={index}
+              about={img}
+              onClick={() =>
+                dispatch({ type: CAROUSEL_ACTIONS.SET, payload: { index } })
+              }
+              className={`w-3 mx-1 h-3 bg-gray-400 rounded-full focus:outline-none ${
+                index === state.currentIndex ? `bg-gray-600` : ``
+              }`}
+            />
+          ) : null;
+        })}
       </div>
 
       <button

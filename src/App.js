@@ -4,14 +4,17 @@ import Layout from "./shared/layout";
 
 import { ProviderAuth } from "./util/hooks/useAuth";
 import { ProviderData } from "./util/hooks/useFetchData";
+import { ProviderCart } from "./util/hooks/useCart";
 
 function App() {
   return (
     <ProviderAuth>
       <ProviderData>
-        <Layout>
-          <InitialRoutes />
-        </Layout>
+        <ProviderCart>
+          <Layout>
+            <InitialRoutes />
+          </Layout>
+        </ProviderCart>
       </ProviderData>
     </ProviderAuth>
   );

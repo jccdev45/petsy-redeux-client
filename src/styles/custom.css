@@ -1,3 +1,8 @@
+body {
+  box-sizing: border-box;
+  font-family: "Playfair Display", sans-serif;
+}
+
 .loader {
   border-top-color: #3498db;
   -webkit-animation: spinner 1.5s linear infinite;
@@ -49,7 +54,7 @@
 }
 
 .item-img {
-  transition: ease-in-out .5s;
+  transition: ease-in-out 0.5s;
 }
 
 .item-img:hover {
