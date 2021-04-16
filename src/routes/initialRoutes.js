@@ -11,7 +11,7 @@ import ItemCategories from "../screens/items/itemCategories";
 import Items from "../screens/items/items";
 import TermsConditions from "../screens/legal/termsConditions";
 import PrivacyPolicy from "../screens/legal/privacyPolicy";
-import Cart from "../screens/items/cart";
+import Cart from "../screens/checkout/cart";
 
 function InitialRoutes() {
 	return (

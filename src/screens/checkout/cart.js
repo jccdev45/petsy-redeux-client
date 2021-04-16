@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import CartItem from "../../components/items/cartItem";
+import CartItem from "../../components/cart/cartItem";
 import View from "../../components/view/view";
 import { useCart } from "../../util/hooks/useCart";
 
