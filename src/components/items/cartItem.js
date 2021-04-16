@@ -3,6 +3,7 @@ import { MdRemove, MdAdd, MdRemoveShoppingCart } from "react-icons/md";
 import ConfirmationModal from "../modal/confirmationModal";
 import { useToggle } from "../../util/hooks/useToggle";
 import { useCart } from "../../util/hooks/useCart";
+import { Link } from "react-router-dom";
 
 export default function CartItem(props) {
 	const { item } = props;
@@ -25,7 +26,7 @@ export default function CartItem(props) {
 			return (
 				<ConfirmationModal
 					item={item}
-          closeModal={setIsOpen}
+					closeModal={setIsOpen}
 					message="Are you sure you want to remove this item from your cart?"
 					action={updateCart}
 				/>
@@ -44,7 +45,9 @@ export default function CartItem(props) {
 			{isOpen ? renderModal() : null}
 			<div className="flex flex-col justify-between px-4 lg:w-2/3">
 				<div className="flex items-center justify-between">
-					<h3 className="text-xl font-bold">{item.name}</h3>
+					<Link className="text-xl font-bold text-red-400 underline hover:text-red-500" to={`/items/${item.id}`}>
+						{item.name}
+					</Link>
 					<div className="flex items-center text-2xl">
 						<button
 							onClick={() => verifyLastItem(item, updateCart)}
