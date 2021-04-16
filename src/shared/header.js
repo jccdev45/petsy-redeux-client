@@ -27,20 +27,11 @@ export default function Header({
 	const { user } = auth.state;
 
 	const cartContext = useCart();
-	const { state } = cartContext;
+	const { state, calculateNumItemsInCart } = cartContext;
 
 	const handleLogout = () => {
 		toggleIsModal(!isModal);
 		auth.logout();
-	};
-
-	// TODO: extract to cartContext to share between
-	// header & cart, remove duplicate code
-	const calculateCartTotal = () => {
-		const quantity = state.cart.map((item) => {
-			return item.quantity;
-		});
-		return quantity.reduce((a, b) => a + b);
 	};
 
 	return (
@@ -108,7 +99,7 @@ export default function Header({
 										style={{ color: `rgb(0, 109, 255)` }}
 									/>
 									<span className="absolute top-0 right-0 z-10 px-1 -mt-2 text-xl font-black text-red-500 bg-gray-200 rounded-full">
-										{state.cart.length ? calculateCartTotal() : null}
+										{state.cart.length ? calculateNumItemsInCart() : null}
 									</span>
 								</Link>
 							</div>

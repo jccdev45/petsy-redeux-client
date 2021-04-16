@@ -20,6 +20,8 @@ function reducer(state, action) {
 
 const initialState = {
 	cart: [],
+	numberOfItemsInCart: 0,
+	subtotal: 0,
 };
 
 const dataContext = createContext();
@@ -36,6 +38,18 @@ export const useCart = () => {
 export default function useProviderCart() {
 	const [state, dispatch] = useReducer(reducer, initialState);
 
+	const calculateNumItemsInCart = () => {
+		const quantity = state.cart.map((item) => {
+			return item.quantity;
+		});
+		return quantity.reduce((a, b) => a + b);
+	};
+
+	const calculateCartTotal = () => {
+		let itemTotal = state.cart.map((item) => item.price * item.quantity);
+		return itemTotal.reduce((a, b) => a + b);
+	};
+
 	const addToCart = (item) => {
 		let cartCopy = [...state.cart];
 		let { id } = item;
@@ -43,9 +57,9 @@ export default function useProviderCart() {
 		let existingItem = cartCopy.find((cartItem) => cartItem.id === id);
 
 		if (existingItem) {
-			existingItem.quantity += 1
+			existingItem.quantity += 1;
 		} else {
-      item.quantity = 1
+			item.quantity = 1;
 			cartCopy.push(item);
 		}
 
@@ -100,5 +114,13 @@ export default function useProviderCart() {
 		}
 	}, []);
 
-	return { state, addToCart, updateCart, removeFromCart, clearCart };
+	return {
+		state,
+		addToCart,
+		updateCart,
+		removeFromCart,
+		clearCart,
+		calculateCartTotal,
+		calculateNumItemsInCart
+	};
 }
