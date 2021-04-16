@@ -12,12 +12,16 @@ export default function CartItem(props) {
 
 	const [isOpen, setIsOpen] = useToggle();
 
+	// const verifyDelete = () => {
+
+	// }
+
 	const verifyLastItem = (item, name) => {
-		if (item.quantity > 1) {
+		if (item.quantity === 1) {
+			setIsOpen();
+		} else {
 			name(item.id, -1);
 			return;
-		} else {
-			setIsOpen();
 		}
 	};
 
@@ -28,7 +32,7 @@ export default function CartItem(props) {
 					item={item}
 					closeModal={setIsOpen}
 					message="Are you sure you want to remove this item from your cart?"
-					action={updateCart}
+					action={removeFromCart}
 				/>
 			);
 		}
@@ -45,30 +49,30 @@ export default function CartItem(props) {
 			{isOpen ? renderModal() : null}
 			<div className="flex flex-col justify-between px-4 lg:w-2/3">
 				<div className="flex items-center justify-between">
-					<Link className="text-xl font-bold text-red-400 underline hover:text-red-500" to={`/items/${item.id}`}>
+					<Link
+						className="text-xl font-bold text-red-400 underline hover:text-red-500"
+						to={`/items/${item.id}`}
+					>
 						{item.name}
 					</Link>
 					<div className="flex items-center text-2xl">
 						<button
 							onClick={() => verifyLastItem(item, updateCart)}
-							className="p-1 border border-black rounded-full"
+							className="p-1 transition-colors duration-200 ease-in-out border border-black rounded-full hover:bg-gray-200"
 						>
 							<MdRemove />
 						</button>
 						<span className="mx-2 text-3xl">{item.quantity}</span>
 						<button
 							onClick={() => updateCart(item.id, 1)}
-							className="p-1 border border-black rounded-full"
+							className="p-1 transition-colors duration-200 ease-in-out border border-black rounded-full hover:bg-gray-200"
 						>
 							<MdAdd />
 						</button>
 					</div>
 				</div>
 				<div className="flex justify-between w-full mt-8 lg:m-0">
-					<button
-						className="flex items-center"
-						onClick={() => verifyLastItem(item, removeFromCart)}
-					>
+					<button className="flex items-center" onClick={() => setIsOpen()}>
 						<MdRemoveShoppingCart className="text-3xl" />
 						Remove
 					</button>
