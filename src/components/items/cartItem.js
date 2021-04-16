@@ -26,6 +26,7 @@ export default function CartItem(props) {
 				<ConfirmationModal
 					item={item}
 					message="Are you sure you want to remove this item from your cart?"
+					action={updateCart}
 				/>
 			);
 		}

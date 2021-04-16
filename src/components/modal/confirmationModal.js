@@ -1,12 +1,9 @@
 import React from "react";
-import { useCart } from "../../util/hooks/useCart";
 import { useToggle } from "../../util/hooks/useToggle";
 import View from "../view/view";
 
 export default function ConfirmationModal(props) {
 	const { item } = props;
-	const cartContext = useCart();
-	const { updateCart } = cartContext;
 	const { setIsOpen } = useToggle();
 
 	return (
@@ -32,7 +29,7 @@ export default function ConfirmationModal(props) {
 						</button>
 						<button
 							className="px-3 py-1 mx-2 bg-red-500 rounded"
-							onClick={() => updateCart(item.id, -1)}
+							onClick={() => props.action(item.id, -1)}
 						>
 							Delete
 						</button>

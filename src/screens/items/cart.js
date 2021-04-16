@@ -19,15 +19,19 @@ export default function Cart() {
 	};
 
 	const calculateCartTotal = () => {
-		let itemTotal = state.cart.map((item) => item.price * item.quantity);
-		return itemTotal.reduce((a, b) => a + b);
+		const quantity = state.cart.map((item) => {
+			return item.quantity;
+		});
+		return quantity.reduce((a, b) => a + b);
 	};
 
 	return (
 		<View title="Shopping Cart" class="container">
 			<div className="flex flex-col my-24 lg:justify-between lg:flex-row">
 				<div className="flex flex-col w-full p-4 rounded shadow-lg lg:w-7/12">
-					<h2 className="my-4 text-xl font-bold">{state.cart.length} Items</h2>
+					<h2 className="my-4 text-xl font-bold">
+						{state.cart.length && calculateCartTotal()} Items
+					</h2>
 					{state.cart && renderCart()}
 				</div>
 

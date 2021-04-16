@@ -9,12 +9,13 @@ import {
 } from "react-icons/fc";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useAuth } from "../util/hooks/useAuth";
+import { useCart } from "../util/hooks/useCart";
 
 const LINK_CONTAINER_CLASSLIST =
 	"flex items-center justify-end mx-4 text-lg border-b border-red-400 w-1/3 md:w-full md:first:ml-0 md:last:mr-0";
 const LINK_CLASSLIST =
 	"w-full p-2 mx-auto flex items-center justify-end md:justify-between text-lg";
-const ICON_CLASSLIST = "text-xl md:text-2xl";
+const ICON_CLASSLIST = "text-xl md:text-2xl lg:text-3xl";
 
 export default function Header({
 	isModal,
@@ -25,9 +26,21 @@ export default function Header({
 	const auth = useAuth();
 	const { user } = auth.state;
 
+	const cartContext = useCart();
+	const { state } = cartContext;
+
 	const handleLogout = () => {
 		toggleIsModal(!isModal);
 		auth.logout();
+	};
+
+	// TODO: extract to cartContext to share between
+	// header & cart, remove duplicate code
+	const calculateCartTotal = () => {
+		const quantity = state.cart.map((item) => {
+			return item.quantity;
+		});
+		return quantity.reduce((a, b) => a + b);
 	};
 
 	return (
@@ -56,8 +69,10 @@ export default function Header({
 				} md:flex md:items-center md:justify-between justify-end w-full md:w-auto`}
 			>
 				{user ? (
+					// AUTH'D
 					<>
 						<div className="flex flex-col items-end w-full md:items-center md:flex-row">
+							{/* ITEMS */}
 							<div className={LINK_CONTAINER_CLASSLIST}>
 								<Link
 									className={LINK_CLASSLIST}
@@ -69,6 +84,7 @@ export default function Header({
 								</Link>
 							</div>
 
+							{/* PROFILE */}
 							<div className={LINK_CONTAINER_CLASSLIST}>
 								<Link
 									className={LINK_CLASSLIST}
@@ -80,9 +96,10 @@ export default function Header({
 								</Link>
 							</div>
 
+							{/* CART */}
 							<div className={LINK_CONTAINER_CLASSLIST}>
 								<Link
-									className={LINK_CLASSLIST}
+									className={`${LINK_CLASSLIST} relative`}
 									to="/cart"
 									onClick={() => toggleIsBurger(!isBurger)}
 								>
@@ -90,10 +107,14 @@ export default function Header({
 										className={ICON_CLASSLIST}
 										style={{ color: `rgb(0, 109, 255)` }}
 									/>
+									<span className="absolute top-0 right-0 z-10 px-1 -mt-2 text-xl font-black text-red-500 bg-gray-200 rounded-full">
+										{state.cart.length ? calculateCartTotal() : null}
+									</span>
 								</Link>
 							</div>
 						</div>
 
+						{/* LOGOUT */}
 						<div className="flex flex-col items-end w-full ml-8 md:items-center md:flex-row">
 							<div className="flex items-center justify-end w-1/3 border-b border-red-400 md:w-full">
 								<button className={LINK_CLASSLIST} onClick={toggleIsModal}>
@@ -103,6 +124,7 @@ export default function Header({
 							</div>
 						</div>
 
+						{/* MODAL */}
 						<div
 							style={{ backgroundColor: `rgba(0, 0, 0, 0.5)` }}
 							className={`${
@@ -133,6 +155,7 @@ export default function Header({
 						</div>
 					</>
 				) : (
+					// NON-AUTH'D
 					<>
 						<Link
 							className={LINK_CLASSLIST}

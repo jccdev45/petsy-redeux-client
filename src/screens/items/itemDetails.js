@@ -20,25 +20,22 @@ export default function ItemDetails() {
 
 	const [item, setItem] = useState();
 	const [error, setError] = useState("");
-	const [isLoading, toggleIsLoading] = useState(true);
 
+	const [isLoading, setIsLoading] = useToggle(true);
 	const [isOpen, setIsOpen] = useToggle();
+	const [isCart, setIsCart] = useToggle();
 
 	const { id } = useParams();
 
 	const cart = useCart();
 	const { addToCart } = cart;
 
-	const helpingAddToCart = () => {
-		addToCart(item);
-	};
-
 	useEffect(() => {
 		const cancelToken = axios.CancelToken.source();
 
 		const getDetails = async () => {
 			await getItemById(id)
-				.then((res) => setItem(res), toggleIsLoading(false))
+				.then((res) => setItem(res), setIsLoading(false))
 				.catch((e) => {
 					if (axios.isCancel(e)) return;
 					setError(e);
@@ -49,10 +46,6 @@ export default function ItemDetails() {
 			cancelToken.cancel();
 		};
 	}, [id]);
-
-	const openModal = () => {
-		toggleIsOpen(!isOpen);
-	};
 
 	const itemDetailRender = () => (
 		<summary className="flex flex-col w-full p-4 rounded-lg md:flex-row">
@@ -79,10 +72,10 @@ export default function ItemDetails() {
 				</div>
 				<button
 					className="px-3 py-2 rounded shadow"
-					onClick={() => helpingAddToCart()}
+					onClick={() => addToCart(item)}
 				>
 					<MdAddShoppingCart className="text-xl" />
-					Add to Cart
+					{isCart ? "Item Added!" : "Add to Cart"}
 				</button>
 				{user && user.id === item.user_id ? renderEditDelete() : null}
 			</div>
@@ -97,7 +90,10 @@ export default function ItemDetails() {
 			>
 				Edit
 			</Link>
-			<button className="px-2 py-1 mx-2 bg-red-300 rounded" onClick={openModal}>
+			<button
+				className="px-2 py-1 mx-2 bg-red-300 rounded"
+				onClick={() => setIsOpen()}
+			>
 				Delete
 			</button>
 			{isOpen ? renderModal() : null}
