@@ -8,35 +8,35 @@ import { useAuth } from "../../util/hooks/useAuth";
 import { useFetchData } from "../../util/hooks/useFetchData";
 
 export default function ItemCategories() {
-  const { category } = useParams();
+	const { category } = useParams();
 
-  const data = useFetchData();
+	const data = useFetchData();
 
-  useEffect(() => {
-    data.fetchItemsByCategory(category);
-  }, [category]);
+	useEffect(() => {
+		data.fetchItemsByCategory(category);
+	}, [category]);
 
-  const { itemsByCat, isLoading, error } = data.state;
+	const { itemsByCat, isLoading, error } = data.state;
 
-  const auth = useAuth().state;
-  const { user } = auth;
+	const auth = useAuth().state;
+	const { user } = auth;
 
-  const showData = () => {
-    return itemsByCat.map((item) => (
-      <Item key={item.id} user={user} item={item} deletion={data.deletion} />
-    ));
-  };
+	const showData = () => {
+		return itemsByCat.map((item) => (
+			<Item key={item.id} user={user} item={item} deletion={data.deletion} />
+		));
+	};
 
-  return (
-    <View class="flex flex-col items-center justify-start mx-auto h-full md:w-2/3">
-      <h1 className="text-xl">
-        Showing items for: <span className="font-bold text-red-300">{category}</span>
-      </h1>
-      <div className="flex flex-col items-center justify-center md:flex-row md:flex-wrap">
-        {isLoading && <Loader size="xl" />}
-        {itemsByCat && showData()}
-        {error && <h1>refresh</h1>}
-      </div>
-    </View>
-  );
+	return (
+		<View
+			title={category}
+			class="flex flex-col items-center justify-start mx-auto h-full md:w-2/3"
+		>
+			<div className="flex flex-col items-center justify-center md:flex-row md:flex-wrap">
+				{isLoading && <Loader size="xl" />}
+				{itemsByCat && showData()}
+				{error && <h1>refresh</h1>}
+			</div>
+		</View>
+	);
 }

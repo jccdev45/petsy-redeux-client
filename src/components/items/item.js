@@ -6,6 +6,9 @@ import ConfirmationModal from "../modal/confirmationModal";
 import { useToggle } from "../../util/hooks/useToggle";
 import { useCart } from "../../util/hooks/useCart";
 
+const BUTTON_BASE_CLASSLIST =
+	"text-white bg-red-400 rounded-lg shadow hover:bg-red-500 text-white bg-red-400 border border-white rounded-lg shadow hover:bg-red-500";
+
 export default function Item({ item, user, deletion }) {
 	const cartContext = useCart();
 	const { addToCart } = cartContext;
@@ -42,12 +45,15 @@ export default function Item({ item, user, deletion }) {
 	const renderEditDelete = () => (
 		<div className="flex items-center justify-evenly">
 			<Link
-				className="px-4 py-1 bg-red-300 rounded"
+				className={`${BUTTON_BASE_CLASSLIST} my-4 px-4 py-1`}
 				to={`/items/${item.id}/edit`}
 			>
 				Edit
 			</Link>
-			<button className="px-3 py-1 bg-red-300 rounded" onClick={openModal}>
+			<button
+				className={`${BUTTON_BASE_CLASSLIST} my-4 px-3 py-1`}
+				onClick={openModal}
+			>
 				Delete
 			</button>
 			{isOpen ? renderModal() : null}
@@ -89,9 +95,8 @@ export default function Item({ item, user, deletion }) {
 						<MdAddShoppingCart className="mx-auto md:text-xl" />
 					</button>
 				</div>
+				{user && user.id === item.user_id ? renderEditDelete() : null}
 			</div>
-
-			{user && user.id === item.user_id ? renderEditDelete() : null}
 		</article>
 	);
 }

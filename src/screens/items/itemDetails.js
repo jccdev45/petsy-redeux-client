@@ -58,14 +58,13 @@ export default function ItemDetails() {
 			/>
 			<div className="flex flex-col items-center justify-around w-full p-6 shadow lg:w-2/3">
 				<div className="flex flex-col items-center">
-					<h1 className="my-2 text-2xl">{item.name}</h1>
 					<h2 className="my-2">
 						<span className="text-green-400">$</span>
 						{item.price}.00
 					</h2>
 					<h2 className="my-1 text-xl">
 						<span className="text-red-400">Category: </span>
-						{item.category}
+						<Link to={`for/${item.category}`}>{item.category}</Link>
 					</h2>
 					<p>{item.description}</p>
 				</div>
@@ -112,7 +111,10 @@ export default function ItemDetails() {
 	};
 
 	return (
-		<View class="flex flex-col items-center justify-center w-full mx-auto md:w-5/6">
+		<View
+			title={item && item.name}
+			class="flex flex-col items-center justify-center w-full mx-auto md:w-5/6"
+		>
 			{isLoading && <Loader />}
 			{item && itemDetailRender()}
 			{error && <h1>refresh</h1>}
