@@ -39,22 +39,28 @@ export default function CartItem(props) {
 	};
 
 	return (
-		<article key={item.id} className="flex flex-col my-4 lg:flex-row">
+		<article
+			key={item.id}
+			className="flex flex-col my-4 md:justify-between md:flex-row"
+		>
 			<img
 				src={item.image1}
 				alt={item.name}
-				className="w-full rounded shadow lg:w-1/3"
+				className="w-full rounded shadow md:w-1/3"
 			/>
 
 			{isOpen ? renderModal() : null}
-			<div className="flex flex-col justify-between px-4 lg:w-2/3">
+			<div className="flex flex-col justify-between px-4 md:w-2/3">
 				<div className="flex items-center justify-between">
-					<Link
-						className="text-xl font-bold text-red-400 underline hover:text-red-500"
-						to={`/items/${item.id}`}
-					>
-						{item.name}
-					</Link>
+					<div className="flex flex-col items-center">
+						<Link
+							className="text-xl font-bold text-red-400 underline hover:text-red-500"
+							to={`/items/${item.id}`}
+						>
+							{item.name}
+						</Link>
+						<span>(${item.price}.00)</span>
+					</div>
 					<div className="flex items-center text-2xl">
 						<button
 							onClick={() => verifyLastItem(item, updateCart)}
