@@ -1,5 +1,11 @@
 @tailwind base;
 @tailwind components;
+
+@font-face {
+	font-family: "Playfair Display";
+	src: url("https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap");
+}
+
 @tailwind utilities;
 
-@import './custom.css'
+@import "./custom.css";

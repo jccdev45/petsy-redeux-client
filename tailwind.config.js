@@ -1,10 +1,20 @@
 module.exports = {
-	purge: [],
+	purge: ["./src/**/*.js"],
 	theme: {
-		extend: {},
+		extend: {
+			fontFamily: {
+				serif: ["Playfair Display", "serif"],
+				sans: ["sans-serif"],
+			},
+		},
 	},
 	variants: {
 		margin: ["first", "last", "responsive"],
 	},
-	plugins: [],
+	plugins: [
+		require("@tailwindcss/forms")({
+			strategy: "class",
+		}),
+		require("@tailwindcss/typography"),
+	],
 };
