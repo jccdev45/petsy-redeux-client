@@ -12,6 +12,9 @@ import ConfirmationModal from "../../components/modal/confirmationModal";
 import { Link } from "react-router-dom";
 import { useToggle } from "../../util/hooks/useToggle";
 
+const BUTTON_BASE_CLASSLIST =
+	"text-white bg-red-400 rounded-lg shadow hover:bg-red-500 text-white bg-red-400 border border-white rounded-lg shadow hover:bg-red-500";
+
 export default function ItemDetails() {
 	const auth = useAuth().state;
 	const { user } = auth;
@@ -23,7 +26,6 @@ export default function ItemDetails() {
 
 	const [isLoading, setIsLoading] = useToggle(true);
 	const [isOpen, setIsOpen] = useToggle();
-	const [isCart, setIsCart] = useToggle();
 
 	const { id } = useParams();
 
@@ -48,15 +50,13 @@ export default function ItemDetails() {
 	}, [id]);
 
 	const itemDetailRender = () => (
-		<summary className="flex flex-col w-full p-4 rounded-lg md:flex-row">
-			<div className="w-full mr-4">
-				<img
-					src={item.image1}
-					alt={item.name}
-					className="min-w-full min-h-full"
-				/>
-			</div>
-			<div className="flex flex-col items-center justify-around w-full px-2 shadow-inner md:w-2/3">
+		<summary className="flex flex-col w-full p-4 rounded-lg lg:flex-row">
+			<img
+				src={item.image1}
+				alt={item.name}
+				className="w-full h-full lg:w-1/2"
+			/>
+			<div className="flex flex-col items-center justify-around w-full p-6 shadow lg:w-2/3">
 				<div className="flex flex-col items-center">
 					<h1 className="my-2 text-2xl">{item.name}</h1>
 					<h2 className="my-2">
@@ -70,11 +70,11 @@ export default function ItemDetails() {
 					<p>{item.description}</p>
 				</div>
 				<button
-					className="px-3 py-2 rounded shadow"
+					className={`${BUTTON_BASE_CLASSLIST} px-3 py-2 m-4`}
 					onClick={() => addToCart(item)}
 				>
-					<MdAddShoppingCart className="text-xl" />
-					{isCart ? "Item Added!" : "Add to Cart"}
+					Add to Cart
+					<MdAddShoppingCart className="mx-auto text-xl" />
 				</button>
 				{user && user.id === item.user_id ? renderEditDelete() : null}
 			</div>
@@ -84,13 +84,13 @@ export default function ItemDetails() {
 	const renderEditDelete = () => (
 		<div className="flex">
 			<Link
-				className="px-2 py-1 mx-2 bg-red-300 rounded"
+				className={`${BUTTON_BASE_CLASSLIST} px-2 py-1 mx-2`}
 				to={`/items/${item.id}/edit`}
 			>
 				Edit
 			</Link>
 			<button
-				className="px-2 py-1 mx-2 bg-red-300 rounded"
+				className={`${BUTTON_BASE_CLASSLIST} px-2 py-1 mx-2`}
 				onClick={() => setIsOpen()}
 			>
 				Delete

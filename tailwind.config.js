@@ -10,6 +10,7 @@ module.exports = {
 	},
 	variants: {
 		margin: ["first", "last", "responsive"],
+		border: ["first", "last"],
 	},
 	plugins: [
 		require("@tailwindcss/forms")({

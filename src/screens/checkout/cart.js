@@ -13,7 +13,7 @@ export default function Cart() {
 			return <h1>Your cart is empty.</h1>;
 		} else {
 			return state.cart.map((item, index) => (
-				<CartItem key={index} item={item} />
+				<CartItem key={index} item={item} index={index} />
 			));
 		}
 	};

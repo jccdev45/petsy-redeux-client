@@ -41,7 +41,7 @@ export default function CartItem(props) {
 	return (
 		<article
 			key={item.id}
-			className="flex flex-col my-4 md:justify-between md:flex-row"
+			className="flex flex-col py-4 border-b border-gray-300 md:justify-between md:flex-row last:border-none"
 		>
 			<img
 				src={item.image1}
@@ -59,7 +59,7 @@ export default function CartItem(props) {
 						>
 							{item.name}
 						</Link>
-						<span>(${item.price}.00)</span>
+						<span>(Price per: ${item.price}.00)</span>
 					</div>
 					<div className="flex items-center text-2xl">
 						<button

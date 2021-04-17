@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Hero({ img, title, subtitle, home }) {
 	return (
-		<div className="flex flex-col items-center justify-between w-full p-8 bg-red-100 rounded-lg md:flex-row">
+		<div className="flex flex-col items-center justify-between w-full p-8 bg-red-100 border-2 border-red-200 rounded-lg shadow md:flex-row">
 			<div className="flex flex-col justify-between w-full min-h-full md:w-1/2">
 				<h3 className="w-full text-4xl md:text-6xl">{title}</h3>
 				{subtitle && <h4 className="w-full text-2xl">{subtitle}</h4>}

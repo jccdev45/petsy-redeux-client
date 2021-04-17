@@ -34,17 +34,17 @@ export default function Home() {
 				i++;
 				ratings.push(<FcRating key={i} />);
 			}
-			return <div className="flex items-center text-3xl">{ratings}</div>;
+			return <div className="flex items-center lg:text-3xl">{ratings}</div>;
 		};
 
 		return (
 			randomItem && (
-				<div className="flex flex-col md:flex-row justify-evenly">
-					<div className="flex flex-col justify-around min-h-full md:w-1/2">
+				<>
+					<div className="flex flex-col justify-around h-full p-6 md:py-2 md:w-1/2 lg:w-7/12">
 						<span className="flex flex-col items-start justify-between lg:flex-row">
 							<Link
 								to={`/items/${randomItem.id}`}
-								className="text-lg text-red-300 underline md:text-2xl bold hover:text-red-400"
+								className="text-lg text-red-300 underline lg:text-2xl bold hover:text-red-400"
 							>
 								{randomItem.name}
 							</Link>
@@ -55,9 +55,9 @@ export default function Home() {
 					<img
 						src={randomItem.image1}
 						alt={randomItem.description}
-						className="w-full h-64 mt-6 md:w-64"
+						className="w-full rounded-lg rounded-tl-none rounded-tr-none md:w-1/2 lg:w-5/12 md:rounded-bl-none"
 					/>
-				</div>
+				</>
 			)
 		);
 	};
@@ -74,7 +74,7 @@ export default function Home() {
 
 			{/* Featured Item */}
 			<View title="Featured Item" class="w-full flex flex-col my-8">
-				<div className="flex flex-col items-center w-full p-8 bg-red-100 rounded-lg md:flex-row">
+				<div className="flex flex-col items-center w-full bg-red-100 rounded-lg justify-evenly md:justify-between md:flex-row">
 					{renderFeaturedItem()}
 				</div>
 			</View>
@@ -121,7 +121,7 @@ export default function Home() {
 
 			{/* New Items */}
 			<View title="New Items" class="flex flex-col w-full my-8">
-				<div className="flex flex-col items-center justify-center w-full lg:flex-no-wrap md:flex-wrap md:flex-row">
+				<div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
 					{newItems()}
 				</div>
 			</View>
