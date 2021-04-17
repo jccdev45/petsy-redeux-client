@@ -51,7 +51,6 @@ export default function Item({ item, user, deletion }) {
 	if (!item) return null;
 	return (
 		<article className="flex flex-col w-11/12 p-2 my-4 bg-red-100 rounded-lg shadow-lg md:my-4 md:mx-3 md:w-1/3 lg:w-1/4 lg:first:ml-0 lg:last:mr-0">
-			{/* <Carousel item={item} size="318px" /> */}
 			<img
 				src={item.image1}
 				alt={item.name}

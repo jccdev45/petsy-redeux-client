@@ -50,7 +50,6 @@ export default function ItemDetails() {
 	const itemDetailRender = () => (
 		<summary className="flex flex-col w-full p-4 rounded-lg md:flex-row">
 			<div className="w-full mr-4">
-				{/* <Carousel item={item} size="600px" /> */}
 				<img
 					src={item.image1}
 					alt={item.name}

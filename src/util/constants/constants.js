@@ -3,14 +3,6 @@ export const CART_ACTIONS = {
 	REQUEST: "request",
 };
 
-export const CAROUSEL_ACTIONS = {
-	SET: "set",
-	NEXT: "next",
-	PREVIOUS: "previous",
-	RESETN: "resetn",
-	RESETP: "resetp",
-};
-
 export const DATA_ACTIONS = {
 	INITIAL_REQUEST: "make_initial_request",
 	REQUEST: "make_request",
