@@ -28,7 +28,9 @@ export default function Cart() {
 					{state.cart && renderCart()}
 				</section>
 
-				<CartTotal />
+				<section className="flex-col w-full px-4 py-6 my-6 rounded shadow-lg lg:my-0 lg:w-1/3">
+					<CartTotal />
+				</section>
 			</div>
 		</View>
 	);

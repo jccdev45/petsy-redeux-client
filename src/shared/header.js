@@ -12,7 +12,7 @@ import { useAuth } from "../util/hooks/useAuth";
 import { useCart } from "../util/hooks/useCart";
 
 const LINK_CONTAINER_CLASSLIST =
-	"flex items-center justify-end mx-4 text-lg border-b border-red-400 w-1/3 md:w-full md:first:ml-0 md:last:mr-0";
+	"flex items-center justify-end text-lg border-b border-red-400 w-1/3 md:mx-4 md:w-full md:first:ml-0 md:last:mr-0";
 const LINK_CLASSLIST =
 	"w-full p-2 mx-auto flex items-center justify-end md:justify-between text-lg";
 const ICON_CLASSLIST = "text-xl md:text-2xl lg:text-3xl";
@@ -98,7 +98,7 @@ export default function Header({
 										className={ICON_CLASSLIST}
 										style={{ color: `rgb(0, 109, 255)` }}
 									/>
-									<span className="absolute top-0 right-0 z-10 px-1 -mt-2 text-xl font-black text-red-500 bg-gray-200 rounded-full">
+									<span className="absolute top-0 right-0 z-10 px-2 py-0 -mt-2 text-sm font-bold text-red-500 bg-gray-200 bg-opacity-75 rounded-full lg:text-xl">
 										{state.cart.length ? calculateNumItemsInCart() : null}
 									</span>
 								</Link>
@@ -106,7 +106,7 @@ export default function Header({
 						</div>
 
 						{/* LOGOUT */}
-						<div className="flex flex-col items-end w-full ml-8 md:items-center md:flex-row">
+						<div className="flex items-end justify-end w-full md:ml-8 md:items-center md:flex-row">
 							<div className="flex items-center justify-end w-1/3 border-b border-red-400 md:w-full">
 								<button className={LINK_CLASSLIST} onClick={toggleIsModal}>
 									Logout
