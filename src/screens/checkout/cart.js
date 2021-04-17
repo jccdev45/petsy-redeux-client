@@ -20,7 +20,7 @@ export default function Cart() {
 
 	return (
 		<View title="Shopping Cart" class="container">
-			<div className="flex flex-col md:my-24 lg:justify-between lg:flex-row">
+			<div className="flex flex-col md:my-16 lg:justify-between lg:flex-row">
 				<section className="flex flex-col w-full p-4 rounded shadow-lg lg:w-7/12">
 					<h2 className="my-4 text-xl font-bold">
 						{state.cart.length && calculateNumItemsInCart()} Item(s)
