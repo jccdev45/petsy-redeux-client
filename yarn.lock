@@ -1502,16 +1502,6 @@
   dependencies:
     "mini-svg-data-uri" "^1.2.3"
 
-"@tailwindcss/typography@^0.4.0":
-  "integrity" "sha512-3BfOYT5MYNEq81Ism3L2qu/HRP2Q5vWqZtZRQqQrthHuaTK9qpuPfbMT5WATjAM5J1OePKBaI5pLoX4S1JGNMQ=="
-  "resolved" "https://registry.npmjs.org/@tailwindcss/typography/-/typography-0.4.0.tgz"
-  "version" "0.4.0"
-  dependencies:
-    "lodash.castarray" "^4.4.0"
-    "lodash.isplainobject" "^4.0.6"
-    "lodash.merge" "^4.6.2"
-    "lodash.uniq" "^4.5.0"
-
 "@testing-library/dom@^6.15.0":
   "integrity" "sha512-lBD88ssxqEfz0wFL6MeUyyWZfV/2cjEZZV3YRpb2IoJRej/4f1jB0TzqIOznTpfR1r34CNesrubxwIlAQ8zgPA=="
   "resolved" "https://registry.npmjs.org/@testing-library/dom/-/dom-6.16.0.tgz"
@@ -6977,25 +6967,10 @@
   "resolved" "https://registry.npmjs.org/lodash._reinterpolate/-/lodash._reinterpolate-3.0.0.tgz"
   "version" "3.0.0"
 
-"lodash.castarray@^4.4.0":
-  "integrity" "sha1-wCUTUV4wna3dTCTGDP3c9ZdtkRU="
-  "resolved" "https://registry.npmjs.org/lodash.castarray/-/lodash.castarray-4.4.0.tgz"
-  "version" "4.4.0"
-
-"lodash.isplainobject@^4.0.6":
-  "integrity" "sha1-fFJqUtibRcRcxpC4gWO+BJf1UMs="
-  "resolved" "https://registry.npmjs.org/lodash.isplainobject/-/lodash.isplainobject-4.0.6.tgz"
-  "version" "4.0.6"
-
 "lodash.memoize@^4.1.2":
   "integrity" "sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4="
   "resolved" "https://registry.npmjs.org/lodash.memoize/-/lodash.memoize-4.1.2.tgz"
   "version" "4.1.2"
-
-"lodash.merge@^4.6.2":
-  "integrity" "sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ=="
-  "resolved" "https://registry.npmjs.org/lodash.merge/-/lodash.merge-4.6.2.tgz"
-  "version" "4.6.2"
 
 "lodash.sortby@^4.7.0":
   "integrity" "sha1-7dFMgk4sycHgsKG0K7UhBRakJDg="
@@ -10802,7 +10777,7 @@
     "slice-ansi" "^2.1.0"
     "string-width" "^3.0.0"
 
-"tailwindcss@^2.1.1", "tailwindcss@>=2.0.0", "tailwindcss@2.0.0-alpha.24 || ^2.0.0":
+"tailwindcss@^2.1.1", "tailwindcss@>=2.0.0":
   "integrity" "sha512-zZ6axGqpSZOCBS7wITm/WNHkBzDt5CIZlDlx0eCVldwTxFPELCVGbgh7Xpb3/kZp3cUxOmK7bZUjqhuMrbN6xQ=="
   "resolved" "https://registry.npmjs.org/tailwindcss/-/tailwindcss-2.1.1.tgz"
   "version" "2.1.1"
