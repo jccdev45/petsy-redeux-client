@@ -6,6 +6,7 @@ import {
 	FcGlobe,
 } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import Doggy from "../assets/img/undraw_good_doggy_4wfq.svg";
 import Hero from "../components/hero/hero";
 import Item from "../components/items/item";
 import Loader from "../components/loader/loader";
@@ -63,7 +64,12 @@ export default function Home() {
 
 	return (
 		<View class="flex flex-col items-center justify-center w-full mx-auto">
-			<Hero />
+			<Hero
+				img={Doggy}
+				title="Petsy"
+				subtitle="One stop for all your pet needs."
+				home
+			/>
 			{isLoading && <Loader />}
 
 			{/* Featured Item */}
@@ -107,7 +113,8 @@ export default function Home() {
 						Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae,
 						inventore cupiditate magni ipsum ex blanditiis ea eveniet minus
 						mollitia, esse rem unde sed. Cum, laboriosam. Veniam, repudiandae.
-						Reprehenderit, reiciendis enim. Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+						Reprehenderit, reiciendis enim. Lorem ipsum dolor sit, amet
+						consectetur adipisicing elit.
 					</p>
 				</div>
 			</View>
