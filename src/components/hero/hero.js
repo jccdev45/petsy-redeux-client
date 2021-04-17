@@ -5,7 +5,7 @@ export default function Hero({ img, title, subtitle, home }) {
 		<div className="flex flex-col items-center justify-between w-full p-8 bg-red-100 rounded-lg md:flex-row">
 			<div className="flex flex-col justify-between w-full min-h-full md:w-1/2">
 				<h3 className="w-full text-4xl md:text-6xl">{title}</h3>
-				<h4 className="w-full text-2xl">{subtitle}</h4>
+				{subtitle && <h4 className="w-full text-2xl">{subtitle}</h4>}
 				{home && (
 					<form className="flex flex-col items-end w-full my-8 md:items-center md:flex-row">
 						<input
