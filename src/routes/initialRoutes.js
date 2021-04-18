@@ -13,6 +13,7 @@ import TermsConditions from "../screens/legal/termsConditions";
 import PrivacyPolicy from "../screens/legal/privacyPolicy";
 import Cart from "../screens/checkout/cart";
 import Checkout from "../screens/checkout/checkout";
+import Search from "../screens/items/search";
 
 function InitialRoutes() {
 	return (
@@ -43,6 +44,9 @@ function InitialRoutes() {
 			</Route>
 			<Route path="/users/:id">
 				<Profile />
+			</Route>
+			<Route path="/search">
+				<Search />
 			</Route>
 			<Route path="/cart">
 				<Cart />
