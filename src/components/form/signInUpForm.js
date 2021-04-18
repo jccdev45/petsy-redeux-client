@@ -9,7 +9,7 @@ import {
 } from "react-icons/fc";
 
 export default function SignInUpForm(props) {
-  const LABEL_CLASSLIST = `w-full md:w-1/4 px-4 py-2 mx-auto border rounded my-3 flex items-center ${
+  const LABEL_CLASSLIST = `w-full md:w-2/3 lg:w-1/3 px-4 py-2 mx-auto border rounded my-3 flex items-center ${
     props.isVerified ? "bg-red-500" : ''
   }`;
   const INPUT_CLASSLIST = "focus:outline-none w-full";
@@ -18,7 +18,7 @@ export default function SignInUpForm(props) {
   return (
     <form
       onSubmit={props.handleSubmit}
-      className="flex flex-col items-center justify-center w-3/4 p-4 mx-auto my-10 rounded shadow-inner md:p-10 md:w-2/3"
+      className="flex flex-col items-center justify-center w-3/4 p-4 mx-auto my-10 rounded shadow-inner md:p-10 md:w-full"
     >
       <label htmlFor="username" className={LABEL_CLASSLIST}>
         <FcSignature className={EMOJI_CLASSLIST} />
