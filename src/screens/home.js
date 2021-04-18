@@ -40,7 +40,7 @@ export default function Home() {
 		return (
 			randomItem && (
 				<>
-					<div className="flex flex-col justify-around h-full p-6 md:py-2 md:w-1/2 lg:w-7/12">
+					<div className="flex flex-col justify-around h-full px-6 py-8 md:py-2 md:w-1/2 lg:w-7/12">
 						<span className="flex flex-col items-start justify-between lg:flex-row">
 							<Link
 								to={`/items/${randomItem.id}`}
@@ -55,7 +55,7 @@ export default function Home() {
 					<img
 						src={randomItem.image1}
 						alt={randomItem.description}
-						className="w-full rounded-lg rounded-tl-none rounded-tr-none md:w-1/2 lg:w-5/12 md:rounded-bl-none"
+						className="w-full rounded-lg rounded-tl-none rounded-tr-none md:w-1/2 lg:w-5/12 md:rounded-tr-lg md:rounded-bl-none"
 					/>
 				</>
 			)

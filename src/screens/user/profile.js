@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import Hero from "../../components/hero/hero";
 import Loader from "../../components/loader/loader";
 import View from "../../components/view/view";
 import { LS_STRINGS } from "../../util/constants/constants";
@@ -19,34 +20,12 @@ export default function Profile() {
 	}, []);
 
 	const renderUserItems = () => (
-		<>
-			<div className="flex flex-row items-center w-full m-4 md:w-1/3 lg:flex-col md:mr-4">
-				<img
-					src={user.picture ? user.picture : "https://via.placeholder.com/150"}
-					alt="User"
-					className="w-24 h-auto rounded-full md:w-64"
-				/>
-				<div className="flex flex-col mx-4">
-					<h1 className="text-2xl">{user.username}</h1>
-					<h2>
-						Email:{" "}
-						<a
-							href={`mailto:${user.email}`}
-							className="text-blue-400 underline"
-						>
-							{user.email}
-						</a>
-					</h2>
-				</div>
+		<div className="flex flex-col justify-start w-full px-3 py-2 shadow-inner">
+			<h1 className="text-2xl">Your items:</h1>
+			<div className="grid w-full grid-cols-1 py-2 md:grid-cols-2 md:gap-4">
+				{isLoading ? <Loader /> : renderData()}
 			</div>
-
-			<div className="flex flex-col justify-start w-full px-3 py-2 shadow-inner">
-				<h1 className="text-2xl">Your items:</h1>
-				<div className="grid w-full grid-cols-1 py-2 md:grid-cols-2 md:gap-4">
-					{isLoading ? <Loader /> : renderData()}
-				</div>
-			</div>
-		</>
+		</div>
 	);
 
 	const renderData = () => {
@@ -68,8 +47,9 @@ export default function Profile() {
 	};
 
 	return (
-		<View class="flex flex-col w-full lg:flex-row">
+		<View class="flex flex-col w-full">
 			{error && <h1>There was an error, please refresh</h1>}
+			{user && <Hero user={user} profile />}
 			{user && renderUserItems()}
 		</View>
 	);

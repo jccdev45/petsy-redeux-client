@@ -1,12 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-	FcImport,
-	FcExport,
-	FcGoodDecision,
-	FcInfo,
-	FcList,
-} from "react-icons/fc";
+import { FcImport, FcExport, FcInfo, FcList } from "react-icons/fc";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useAuth } from "../util/hooks/useAuth";
 import { useCart } from "../util/hooks/useCart";
@@ -14,7 +8,7 @@ import { useCart } from "../util/hooks/useCart";
 const LINK_CONTAINER_CLASSLIST =
 	"flex items-center justify-end text-lg border-b border-red-400 w-1/3 md:mx-4 md:w-full md:first:ml-0 md:last:mr-0";
 const LINK_CLASSLIST =
-	"w-full p-2 mx-auto flex items-center justify-end md:justify-between text-lg";
+	"p-2 flex items-center justify-end md:justify-between text-lg";
 const ICON_CLASSLIST = "text-xl md:text-2xl lg:text-3xl";
 
 export default function Header({
@@ -35,7 +29,7 @@ export default function Header({
 	};
 
 	return (
-		<header className="fixed top-0 z-30 flex flex-wrap items-center justify-between w-full px-6 py-4 bg-red-200">
+		<header className="fixed top-0 z-30 flex flex-wrap items-center justify-between w-full px-6 py-4 bg-red-200 md:px-20">
 			<Link to="/" className="text-2xl border-b border-red-300">
 				<span className="font-bold text-red-300">P</span>etsy
 			</Link>
@@ -57,7 +51,7 @@ export default function Header({
 			<nav
 				className={`${
 					isBurger ? `block` : `hidden`
-				} md:flex md:items-center md:justify-between justify-end w-full md:w-auto`}
+				} md:flex md:items-center justify-end md:justify-between w-full md:w-1/3 lg:w-1/6`}
 			>
 				{user ? (
 					// AUTH'D
@@ -86,23 +80,6 @@ export default function Header({
 									<FcInfo className={ICON_CLASSLIST} />
 								</Link>
 							</div>
-
-							{/* CART */}
-							<div className={LINK_CONTAINER_CLASSLIST}>
-								<Link
-									className={`${LINK_CLASSLIST} relative`}
-									to="/cart"
-									onClick={() => toggleIsBurger(!isBurger)}
-								>
-									<AiOutlineShoppingCart
-										className={ICON_CLASSLIST}
-										style={{ color: `rgb(0, 109, 255)` }}
-									/>
-									<span className="absolute top-0 right-0 z-10 px-2 py-0 -mt-2 text-sm font-bold text-red-500 bg-gray-200 bg-opacity-75 rounded-full lg:text-xl">
-										{state.cart.length ? calculateNumItemsInCart() : null}
-									</span>
-								</Link>
-							</div>
 						</div>
 
 						{/* LOGOUT */}
@@ -122,7 +99,7 @@ export default function Header({
 								isModal ? `block` : `hidden`
 							} w-screen h-screen fixed top-0 left-0 z-40`}
 						>
-							<div className="z-50 flex flex-col items-center justify-around w-3/4 h-64 mx-auto my-20 bg-white rounded md:w-1/3">
+							<div className="z-50 flex flex-col items-center justify-around w-3/4 h-64 mx-auto my-20 bg-white rounded md:w-2/3">
 								<span className="font-bold">
 									Are you sure you want to logout?
 								</span>
@@ -148,21 +125,28 @@ export default function Header({
 				) : (
 					// NON-AUTH'D
 					<>
+						{/* CART */}
+						<Link
+							className={`${LINK_CLASSLIST} relative`}
+							to="/cart"
+							onClick={() => toggleIsBurger(!isBurger)}
+						>
+							<AiOutlineShoppingCart
+								className={ICON_CLASSLIST}
+								style={{ color: `rgb(0, 109, 255)` }}
+							/>
+							<span className="absolute top-0 right-0 z-10 px-2 py-0 -mt-2 text-sm font-bold text-red-500 bg-gray-200 bg-opacity-75 rounded-full lg:text-xl">
+								{state.cart.length ? calculateNumItemsInCart() : null}
+							</span>
+						</Link>
+
 						<Link
 							className={LINK_CLASSLIST}
 							to="/login"
 							onClick={() => toggleIsBurger(!isBurger)}
 						>
 							<FcExport className={ICON_CLASSLIST} />
-							Login
-						</Link>
-						<Link
-							className={LINK_CLASSLIST}
-							to="/register"
-							onClick={() => toggleIsBurger(!isBurger)}
-						>
-							<FcGoodDecision className={ICON_CLASSLIST} />
-							Register
+							Sign In/Up
 						</Link>
 					</>
 				)}

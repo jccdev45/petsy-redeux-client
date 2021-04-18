@@ -15,7 +15,7 @@ export default function Items() {
 
 	return (
 		<View title="Items" class="flex flex-col items-center">
-			<div className="grid grid-cols-2">{items && showData()}</div>
+			<div className="grid grid-cols-1 lg:grid-cols-2">{items && showData()}</div>
 		</View>
 	);
 }
