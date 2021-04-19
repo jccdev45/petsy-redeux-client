@@ -8,16 +8,15 @@ import {
 	FcList,
 	FcPrevious,
 } from "react-icons/fc";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import { FaRegUserCircle } from "react-icons/fa";
+import { AiOutlineShoppingCart, AiOutlineClose } from "react-icons/ai";
 import { useAuth } from "../util/hooks/useAuth";
 import { useCart } from "../util/hooks/useCart";
 import { useFetchData } from "../util/hooks/useFetchData";
 import { DATA_ACTIONS } from "../util/constants/constants";
 
-const LINK_CONTAINER_CLASSLIST =
-	"flex items-center justify-end text-lg border-b border-red-400 w-1/3";
-const LINK_CLASSLIST =
-	"p-2 flex items-center justify-end md:justify-between text-lg";
+const LINK_CONTAINER_CLASSLIST = "flex items-center justify-start text-lg";
+const LINK_CLASSLIST = "p-2 flex items-center text-lg";
 const ICON_CLASSLIST = "text-xl md:text-2xl lg:text-3xl";
 
 export default function Header({
@@ -64,27 +63,26 @@ export default function Header({
 
 	return (
 		<header className="fixed top-0 z-30 flex flex-wrap items-center justify-between w-full px-6 py-4 bg-red-200 md:px-20">
-			<Link to="/" className="text-2xl border-b border-red-300">
+			<Link to="/" className="w-1/12 text-2xl border-b border-red-300">
 				<span className="font-bold text-red-300">P</span>etsy
 			</Link>
 
-			<div className="flex items-center">
-				<button onClick={() => toggleIsSearch(!isSearch)} className="mx-4">
-					<FcSearch />
-				</button>
+			<div className="flex items-center w-5/6">
+				<div className="flex justify-end w-full mx-4">
+					<button onClick={() => toggleIsSearch(!isSearch)}>
+						<FcSearch className={ICON_CLASSLIST} />
+					</button>
+				</div>
 
 				<button
-					className="flex items-center px-3 py-2 border border-red-300 rounded active:bg-transparent focus:outline-none lg:hidden"
 					onClick={() => toggleIsMenu(!isMenu)}
+					className="w-10 h-10 rounded-full"
 				>
-					<svg
-						className="w-3 h-3 fill-current"
-						viewBox="0 0 20 20"
-						xmlns="http://www.w3.org/2000/svg"
-					>
-						<title>Menu</title>
-						<path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-					</svg>
+					{user ? (
+						<img src={user.picture} alt="" className="w-full rounded-full" />
+					) : (
+						<FaRegUserCircle className="w-10 h-10 text-red-300" />
+					)}
 				</button>
 			</div>
 
@@ -96,15 +94,15 @@ export default function Header({
 			>
 				<div className="flex items-center justify-between w-full h-16 px-2 py-4 bg-gray-200">
 					<button onClick={() => toggleIsSearch(false)} className="w-1/12">
-						<FcPrevious className="text-lg" />
+						<FcPrevious className={`${ICON_CLASSLIST} mx-auto`} />
 					</button>
 					<form
 						action=""
 						onSubmit={handleSubmit}
-						className="flex items-center w-11/12 h-full"
+						className="flex items-center w-11/12 h-full mx-auto lg:w-7/12"
 					>
 						<input
-							type="text"
+							type="search"
 							className="w-11/12 p-2 rounded"
 							placeholder="Search Petsy..."
 							value={searchQuery}
@@ -112,7 +110,7 @@ export default function Header({
 							onChange={handleChange}
 						/>
 						<button className="w-1/12">
-							<FcSearch className="mx-auto text-lg" />
+							<FcSearch className={`${ICON_CLASSLIST} mx-auto`} />
 						</button>
 					</form>
 				</div>
@@ -120,13 +118,34 @@ export default function Header({
 
 			<nav
 				className={`${
-					isMenu ? `block` : `hidden`
-				} lg:flex lg:items-center justify-end lg:justify-between w-full lg:w-1/3`}
+					isMenu ? `flex` : `hidden`
+				} fixed w-screen min-h-screen p-4 top-0 right-0 bg-red-100 flex-col lg:items-end lg:w-1/4`}
 			>
+				<button
+					onClick={() => toggleIsMenu(!isMenu)}
+					className="w-1/12 ml-auto"
+				>
+					<AiOutlineClose className={`${ICON_CLASSLIST} mx-auto`} />
+				</button>
 				{user ? (
 					// AUTH'D
 					<>
-						<div className="flex flex-col items-end w-full lg:items-center lg:flex-row">
+						<div className="flex flex-col items-start w-full">
+							{/* PROFILE */}
+							<Link
+								className={`${LINK_CLASSLIST} border-b border-gray-400 w-full`}
+								to={`/users/${user.id}`}
+								onClick={() => toggleIsMenu(!isMenu)}
+							>
+								{/* <FcInfo className={ICON_CLASSLIST} /> */}
+								<img
+									src={user.picture}
+									alt=""
+									className="w-12 h-12 rounded-full"
+								/>
+								{isMenu ? <span className="mx-2">{user.username}</span> : null}
+							</Link>
+
 							{/* ITEMS */}
 							<div className={LINK_CONTAINER_CLASSLIST}>
 								<Link
@@ -135,17 +154,7 @@ export default function Header({
 									onClick={() => toggleIsMenu(!isMenu)}
 								>
 									<FcList className={ICON_CLASSLIST} />
-								</Link>
-							</div>
-
-							{/* PROFILE */}
-							<div className={LINK_CONTAINER_CLASSLIST}>
-								<Link
-									className={LINK_CLASSLIST}
-									to={`/users/${user.id}`}
-									onClick={() => toggleIsMenu(!isMenu)}
-								>
-									<FcInfo className={ICON_CLASSLIST} />
+									{isMenu ? <span className="mx-2">Items</span> : null}
 								</Link>
 							</div>
 
@@ -153,6 +162,7 @@ export default function Header({
 							<div className={LINK_CONTAINER_CLASSLIST}>
 								<button className={LINK_CLASSLIST} onClick={toggleIsModal}>
 									<FcExport className={ICON_CLASSLIST} />
+									{isMenu ? <span className="mx-2">Logout</span> : null}
 								</button>
 							</div>
 						</div>

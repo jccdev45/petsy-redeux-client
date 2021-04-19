@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const DEFAULT_TITLE_STYLE =
-	"w-7/12 my-4 text-2xl border-b border-red-300 md:w-3/12";
+	"w-7/12 my-4 text-2xl border-b border-red-300 md:w-5/12";
 function View(props) {
 	return (
 		<div className={props.class} style={props.viewStyle}>

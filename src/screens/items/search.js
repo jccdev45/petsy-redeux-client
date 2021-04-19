@@ -28,16 +28,20 @@ export default function Search() {
 	};
 
 	const renderItems = () => {
-		return filteredItems.map((item) => <Item key={item.id} item={item} />);
+		return filteredItems.length == 0 ? (
+			<h2 className="w-full mx-auto my-8 text-2xl bold">No results</h2>
+		) : (
+			filteredItems.map((item) => <Item key={item.id} item={item} />)
+		);
 	};
 
 	return (
-		<View title="Search Results" class="flex w-full flex-col h-full">
+		<View title="Search Results" class="flex w-full flex-col h-full justify-between">
 			<div className="flex flex-col justify-between h-full p-8 rounded shadow">
 				<form
 					action=""
 					onSubmit={handleSubmit}
-					className="flex items-center justify-between w-full"
+					className="flex items-center w-full mx-auto lg:w-5/6"
 				>
 					<input
 						type="search"
@@ -45,9 +49,9 @@ export default function Search() {
 						name="searchQuery"
 						placeholder={"Search" || searchQuery}
 						onChange={handleChange}
-						className="w-3/4 px-3 py-2 rounded rounded-tr-none rounded-br-none shadow"
+						className="w-3/4 px-3 py-2 rounded rounded-tr-none rounded-br-none shadow md:w-11/12"
 					/>
-					<button className="w-1/4 px-3 py-2 bg-red-400 rounded rounded-tl-none rounded-bl-none shadow">
+					<button className="w-1/4 px-3 py-2 bg-red-400 rounded rounded-tl-none rounded-bl-none shadow md:w-1/6 lg:w-1/12">
 						Search
 					</button>
 				</form>
