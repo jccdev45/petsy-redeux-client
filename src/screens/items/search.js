@@ -32,28 +32,27 @@ export default function Search() {
 	};
 
 	return (
-		<View
-			title={`Search Results for ${searchQuery}`}
-			class="flex w-full flex-col h-full p-8 rounded shadow"
-		>
-			<form
-				action=""
-				onSubmit={handleSubmit}
-				className="flex items-center justify-between w-full"
-			>
-				<input
-					type="search"
-					value={searchQuery}
-					name="searchQuery"
-					placeholder={"Search" || searchQuery}
-					onChange={handleChange}
-					className="w-3/4 px-4 py-3 rounded rounded-tr-none rounded-br-none shadow"
-				/>
-				<button className="w-1/4 px-4 py-3 bg-red-400 rounded rounded-tl-none rounded-bl-none shadow">
-					Search
-				</button>
-			</form>
-			<div>{filteredItems && renderItems()}</div>
+		<View title="Search Results" class="flex w-full flex-col h-full">
+			<div className="flex flex-col justify-between h-full p-8 rounded shadow">
+				<form
+					action=""
+					onSubmit={handleSubmit}
+					className="flex items-center justify-between w-full"
+				>
+					<input
+						type="search"
+						value={searchQuery}
+						name="searchQuery"
+						placeholder={"Search" || searchQuery}
+						onChange={handleChange}
+						className="w-3/4 px-3 py-2 rounded rounded-tr-none rounded-br-none shadow"
+					/>
+					<button className="w-1/4 px-3 py-2 bg-red-400 rounded rounded-tl-none rounded-bl-none shadow">
+						Search
+					</button>
+				</form>
+				<div className="h-full">{filteredItems && renderItems()}</div>
+			</div>
 		</View>
 	);
 }

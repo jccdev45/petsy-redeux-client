@@ -11,12 +11,11 @@ import Hero from "../components/hero/hero";
 import Item from "../components/items/item";
 import Loader from "../components/loader/loader";
 import View from "../components/view/view";
-import { DATA_ACTIONS } from "../util/constants/constants";
 import { useFetchData } from "../util/hooks/useFetchData";
 
 export default function Home() {
 	const data = useFetchData();
-	const { state, searchItems } = data;
+	const { state } = data;
 	const { items, searchQuery, isLoading, error } = state;
 
 	const newItems = () => {
@@ -65,30 +64,12 @@ export default function Home() {
 		);
 	};
 
-	const handleChange = (e) => {
-		const { name, value } = e.target;
-
-		data.dispatch({
-			type: DATA_ACTIONS.INPUT,
-			fieldName: name,
-			payload: { value },
-		});
-	};
-
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		await searchItems(searchQuery);
-	};
-
 	return (
 		<View class="flex flex-col items-center justify-center w-full mx-auto">
 			<Hero
 				img={Doggy}
 				title="Petsy"
 				subtitle="One stop for all your pet needs."
-				searchQuery={searchQuery}
-				handleChange={handleChange}
-				handleSubmit={handleSubmit}
 				home
 			/>
 			{isLoading && <Loader />}
