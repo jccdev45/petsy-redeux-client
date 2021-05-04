@@ -33,10 +33,10 @@ export default function Profile() {
 			userItems.length &&
 			userItems.map((item) => (
 				<article key={item.id} className="h-full my-1 focus:outline-none">
-					<h1 className="p-3 bg-red-200 rounded">
+					<h1 className="p-3 rounded bg-primary-light">
 						<Link
 							to={`/items/${item.id}`}
-							className="w-full px-2 py-1 mx-auto text-center text-red-400 underline hover:text-red-500 md:w-2/3"
+							className="w-full px-2 py-1 mx-auto text-center text-secondary-dark hover:underline md:w-2/3"
 						>
 							{item.name}
 						</Link>

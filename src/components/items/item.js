@@ -1,13 +1,14 @@
 import React from "react";
 import { FcRating } from "react-icons/fc";
-import { MdAddShoppingCart } from "react-icons/md";
 import { Link } from "react-router-dom";
 import ConfirmationModal from "../modal/confirmationModal";
 import { useToggle } from "../../util/hooks/useToggle";
 import { useCart } from "../../util/hooks/useCart";
+import Button from "../button/button";
+import { MdAddShoppingCart } from "react-icons/md";
 
 const BUTTON_BASE_CLASSLIST =
-	"text-white bg-red-400 rounded-lg shadow hover:bg-red-500 text-white bg-red-400 border border-white rounded-lg shadow hover:bg-red-500";
+	"text-secondary-dark rounded-lg hover:bg-secondary-light bg-primary border border-white shadow hover:bg-secondary";
 
 export default function Item({ item, user, deletion }) {
 	const cartContext = useCart();
@@ -42,6 +43,12 @@ export default function Item({ item, user, deletion }) {
 		return <div className="flex items-center">{ratings}</div>;
 	};
 
+	const verifyUserItem = () => {
+		if (!user) return renderAddToCart();
+
+		return user.id != item.user_id ? renderAddToCart() : renderEditDelete();
+	};
+
 	const renderEditDelete = () => (
 		<div className="flex items-center justify-evenly">
 			<Link
@@ -50,29 +57,38 @@ export default function Item({ item, user, deletion }) {
 			>
 				Edit
 			</Link>
-			<button
-				className={`${BUTTON_BASE_CLASSLIST} my-4 px-3 py-1`}
-				onClick={openModal}
-			>
-				Delete
-			</button>
+			<Button
+				extraClass="my-4 px-3 py-1"
+				handleClick={openModal}
+				text="Delete"
+			/>
 			{isOpen ? renderModal() : null}
 		</div>
 	);
 
+	const renderAddToCart = () => (
+		<Button
+			extraClass="flex items-center px-3 py-2 text-center"
+			handleClick={() => addToCart(item)}
+		>
+			Add to Cart
+			<MdAddShoppingCart />
+		</Button>
+	);
+
 	if (!item) return null;
 	return (
-		<article className="flex items-center w-11/12 mx-auto my-4 bg-red-100 rounded-lg shadow-lg">
+		<article className="flex items-center w-11/12 mx-auto my-4 rounded-lg shadow-lg bg-primary-light">
 			<img
 				src={item.image1}
 				alt={item.name}
 				className="object-cover w-5/12 rounded-lg rounded-tr-none rounded-br-none md:w-5/12"
 			/>
 
-			<div className="flex flex-col items-center w-7/12 px-3 text-center md:py-3 justify-evenly md:text-xl md:w-7/12">
+			<div className="flex flex-col items-center w-7/12 px-3 text-sm text-center md:py-3 justify-evenly md:text-xl md:w-7/12">
 				<Link
 					to={`/items/${item.id}`}
-					className="text-red-500 underline hover:text-red-700"
+					className="text-secondary hover:underline "
 				>
 					{item.name}
 				</Link>
@@ -84,18 +100,9 @@ export default function Item({ item, user, deletion }) {
 						<span className="text-green-500">$</span>
 						<span className="mx-1 bold">{item.price}.00</span>
 					</div>
-
-					{/* <p className="overflow-hidden break-normal">{item.description}</p> */}
-
-					<button
-						className="flex items-center px-3 py-2 text-base text-center text-white bg-red-400 border border-white rounded-lg shadow md:mt-4 md:flex-col hover:bg-red-500"
-						onClick={() => addToCart(item)}
-					>
-						Add to Cart
-						<MdAddShoppingCart className="mx-auto md:text-xl" />
-					</button>
 				</div>
-				{user && user.id === item.user_id ? renderEditDelete() : null}
+
+				{verifyUserItem()}
 			</div>
 		</article>
 	);

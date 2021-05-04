@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../../components/button/button";
 import Item from "../../components/items/item";
 import View from "../../components/view/view";
 import { DATA_ACTIONS } from "../../util/constants/constants";
@@ -36,7 +37,10 @@ export default function Search() {
 	};
 
 	return (
-		<View title="Search Results" class="flex w-full flex-col h-full justify-between">
+		<View
+			title="Search Results"
+			class="flex w-full flex-col h-full justify-between"
+		>
 			<div className="flex flex-col justify-between h-full p-8 rounded shadow">
 				<form
 					action=""
@@ -51,9 +55,9 @@ export default function Search() {
 						onChange={handleChange}
 						className="w-3/4 px-3 py-2 rounded rounded-tr-none rounded-br-none shadow md:w-11/12"
 					/>
-					<button className="w-1/4 px-3 py-2 bg-red-400 rounded rounded-tl-none rounded-bl-none shadow md:w-1/6 lg:w-1/12">
+					<Button extraClass="w-1/4 px-3 py-2 rounded-tl-none rounded-bl-none md:w-1/6 lg:w-1/12">
 						Search
-					</button>
+					</Button>
 				</form>
 				<div className="h-full">{filteredItems && renderItems()}</div>
 			</div>

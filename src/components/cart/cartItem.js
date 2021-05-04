@@ -4,6 +4,7 @@ import ConfirmationModal from "../modal/confirmationModal";
 import { useToggle } from "../../util/hooks/useToggle";
 import { useCart } from "../../util/hooks/useCart";
 import { Link } from "react-router-dom";
+import Button from "../button/button";
 
 export default function CartItem(props) {
 	const { item } = props;
@@ -54,34 +55,34 @@ export default function CartItem(props) {
 				<div className="flex items-center justify-between">
 					<div className="flex flex-col items-center">
 						<Link
-							className="text-xl font-bold text-red-400 underline hover:text-red-500"
+							className="text-lg font-bold text-secondary-dark md:text-xl hover:underline"
 							to={`/items/${item.id}`}
 						>
 							{item.name}
 						</Link>
 						<span>(Price per: ${item.price}.00)</span>
 					</div>
-					<div className="flex items-center text-2xl">
-						<button
-							onClick={() => verifyLastItem(item, updateCart)}
-							className="p-1 transition-colors duration-200 ease-in-out border border-black rounded-full hover:bg-gray-200"
+					<div className="flex items-center text-lg md:text-2xl">
+						<Button
+							handleClick={() => verifyLastItem(item, updateCart)}
+							extraClass="p-1"
 						>
 							<MdRemove />
-						</button>
-						<span className="mx-2 text-3xl">{item.quantity}</span>
-						<button
-							onClick={() => updateCart(item.id, 1)}
-							className="p-1 transition-colors duration-200 ease-in-out border border-black rounded-full hover:bg-gray-200"
-						>
+						</Button>
+						<span className="mx-2 text-xl md:text-3xl">{item.quantity}</span>
+						<Button handleClick={() => updateCart(item.id, 1)} extraClass="p-1">
 							<MdAdd />
-						</button>
+						</Button>
 					</div>
 				</div>
 				<div className="flex justify-between w-full mt-8 lg:m-0">
-					<button className="flex items-center" onClick={() => setIsOpen()}>
+					<Button
+						extraClass="flex items-center p-2"
+						handleClick={() => setIsOpen()}
+					>
 						<MdRemoveShoppingCart className="text-3xl" />
 						Remove
-					</button>
+					</Button>
 					<span className="text-xl font-bold">{`$ ${
 						item.price * item.quantity
 					}.00`}</span>

@@ -1,16 +1,20 @@
 import React from "react";
-import Reading from '../../assets/img/undraw_online_reading_np7n.svg'
+import Reading from "../../assets/img/undraw_online_reading_np7n.svg";
 import Hero from "../../components/hero/hero";
 import View from "../../components/view/view";
 
-const headingClassList = "text-xl text-center underline bold";
+const headingClassList = "text-xl text-center hover:underline bold";
 const pClassList = "text-left my-4";
 const ulClassList = "list-disc list-inside pl-4";
 
 export default function TermsConditions() {
 	return (
 		<View class="flex flex-col">
-			<Hero img={Reading} title="Terms & Conditions" subtitle="Welcome to Petsy!" />
+			<Hero
+				img={Reading}
+				title="Terms & Conditions"
+				subtitle="Welcome to Petsy!"
+			/>
 
 			<p className={pClassList}>
 				These terms and conditions outline the rules and regulations for the use
@@ -40,14 +44,14 @@ export default function TermsConditions() {
 				referring to same. Our Terms and Conditions were created with the help
 				of the{" "}
 				<a
-					className="text-red-300 underline hover:text-red-400"
+					className="text-secondary hover:underline"
 					href="https://www.privacypolicyonline.com/terms-conditions-generator/"
 				>
 					Terms & Conditions Generator
 				</a>{" "}
 				and the{" "}
 				<a
-					className="text-red-300 underline hover:text-red-400"
+					className="text-secondary hover:underline"
 					href="https://www.generateprivacypolicy.com"
 				>
 					Privacy Policy Generator

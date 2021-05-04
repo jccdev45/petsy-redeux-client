@@ -3,7 +3,7 @@ import { FcAddressBook } from "react-icons/fc";
 
 export default function Hero({ img, title, subtitle, user }) {
 	return (
-		<div className="flex flex-col items-center justify-between w-full p-8 bg-red-100 border-2 border-red-200 rounded-lg shadow md:flex-row">
+		<div className="flex flex-col items-center justify-between w-full p-8 border-2 border-primary-light rounded-lg shadow bg-primary md:flex-row">
 			<div className="flex flex-col justify-between w-full min-h-full md:w-1/2">
 				{user && (
 					<>

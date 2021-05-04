@@ -3,7 +3,7 @@ import Reading from "../../assets/img/undraw_Online_information_re_erks.svg";
 import Hero from "../../components/hero/hero";
 import View from "../../components/view/view";
 
-const headingClassList = "text-xl text-center underline bold";
+const headingClassList = "text-xl text-center hover:underline bold";
 const pClassList = "text-left my-4";
 
 export default function PrivacyPolicy() {

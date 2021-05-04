@@ -46,7 +46,7 @@ export default function Home() {
 						<span className="flex flex-col items-start justify-between lg:flex-row">
 							<Link
 								to={`/items/${randomItem.id}`}
-								className="text-lg text-red-300 underline lg:text-2xl bold hover:text-red-400"
+								className="text-lg text-secondary-dark hover:underline lg:text-2xl bold"
 							>
 								{randomItem.name}
 							</Link>
@@ -76,19 +76,19 @@ export default function Home() {
 
 			{/* Featured Item */}
 			<View title="Featured Item" class="w-full flex flex-col my-8">
-				<div className="flex flex-col items-center w-full bg-red-100 rounded-lg justify-evenly md:justify-between md:flex-row">
+				<div className="flex flex-col items-center w-full rounded-lg bg-primary-light justify-evenly md:justify-between md:flex-row">
 					{renderFeaturedItem()}
 				</div>
 			</View>
 
 			{/* Site Info */}
-			<View class="bg-red-200 rounded-lg p-8 flex flex-col lg:flex-row justify-evenly my-8 w-full">
-				<div className="flex flex-col items-center py-8 border-b border-red-400 lg:w-1/3 lg:border-r lg:border-b-0">
-					<div className="flex flex-col items-center justify-center w-24 h-24 bg-red-100 rounded-full">
+			<View class="bg-primary rounded-lg p-8 flex flex-col lg:flex-row justify-evenly my-8 w-full">
+				<div className="flex flex-col items-center py-8 border-b border-primary-light lg:w-1/3 lg:border-r lg:border-b-0">
+					<div className="flex flex-col items-center justify-center w-24 h-24 rounded-full bg-primary-light">
 						<FcMoneyTransfer className="text-5xl" />
 					</div>
 					<h2 className="my-4 text-2xl">Payment Plans</h2>
-					<p className="text-justify md:px-8">
+					<p className="text-lg text-justify md:px-8">
 						Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae,
 						inventore cupiditate magni ipsum ex blanditiis ea eveniet minus
 						mollitia, esse rem unde sed. Cum, laboriosam. Veniam, repudiandae.
@@ -96,22 +96,22 @@ export default function Home() {
 					</p>
 				</div>
 				<div className="flex flex-col items-center py-8 lg:w-1/3">
-					<div className="flex flex-col items-center justify-center w-24 h-24 bg-red-100 rounded-full">
+					<div className="flex flex-col items-center justify-center w-24 h-24 rounded-full bg-primary-light">
 						<FcOnlineSupport className="text-5xl" />
 					</div>
 					<h2 className="my-4 text-2xl">24/7 Support</h2>
-					<p className="text-justify md:px-8">
+					<p className="text-lg text-justify md:px-8">
 						Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae,
 						inventore cupiditate magni ipsum ex blanditiis ea eveniet minus
 						mollitia, esse rem unde sed.
 					</p>
 				</div>
-				<div className="flex flex-col items-center py-8 border-t border-red-400 lg:w-1/3 lg:border-t-0 lg:border-l">
-					<div className="flex flex-col items-center justify-center w-24 h-24 bg-red-100 rounded-full">
+				<div className="flex flex-col items-center py-8 border-t border-primary-light lg:w-1/3 lg:border-t-0 lg:border-l">
+					<div className="flex flex-col items-center justify-center w-24 h-24 rounded-full bg-primary-light">
 						<FcGlobe className="text-5xl" />
 					</div>
 					<h2 className="my-4 text-2xl">Worldwide Shipping</h2>
-					<p className="text-justify md:px-8">
+					<p className="text-lg text-justify md:px-8">
 						Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae,
 						inventore cupiditate magni ipsum ex blanditiis ea eveniet minus
 						mollitia, esse rem unde sed. Cum, laboriosam. Veniam, repudiandae.

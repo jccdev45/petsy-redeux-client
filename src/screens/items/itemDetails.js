@@ -11,9 +11,10 @@ import { useCart } from "../../util/hooks/useCart";
 import ConfirmationModal from "../../components/modal/confirmationModal";
 import { Link } from "react-router-dom";
 import { useToggle } from "../../util/hooks/useToggle";
+import Button from "../../components/button/button";
 
-const BUTTON_BASE_CLASSLIST =
-	"text-white bg-red-400 rounded-lg shadow hover:bg-red-500 text-white bg-red-400 border border-white rounded-lg shadow hover:bg-red-500";
+const LINK_BASE_CLASSLIST =
+	"rounded-lg bg-secondary border border-white shadow transition-colors duration-200 ease-in-out hover:bg-secondary-light";
 
 export default function ItemDetails() {
 	const auth = useAuth().state;
@@ -63,18 +64,15 @@ export default function ItemDetails() {
 						{item.price}.00
 					</h2>
 					<h2 className="my-1 text-xl">
-						<span className="text-red-400">Category: </span>
+						<span className="text-primary">Category: </span>
 						<Link to={`for/${item.category}`}>{item.category}</Link>
 					</h2>
 					<p>{item.description}</p>
 				</div>
-				<button
-					className={`${BUTTON_BASE_CLASSLIST} px-3 py-2 m-4`}
-					onClick={() => addToCart(item)}
-				>
+				<Button extraClass="px-3 py-2 m-4" handleClick={() => addToCart(item)}>
 					Add to Cart
 					<MdAddShoppingCart className="mx-auto text-xl" />
-				</button>
+				</Button>
 				{user && user.id === item.user_id ? renderEditDelete() : null}
 			</div>
 		</summary>
@@ -83,17 +81,15 @@ export default function ItemDetails() {
 	const renderEditDelete = () => (
 		<div className="flex">
 			<Link
-				className={`${BUTTON_BASE_CLASSLIST} px-2 py-1 mx-2`}
+				className={`${LINK_BASE_CLASSLIST} px-2 py-1 mx-2`}
 				to={`/items/${item.id}/edit`}
 			>
 				Edit
 			</Link>
-			<button
-				className={`${BUTTON_BASE_CLASSLIST} px-2 py-1 mx-2`}
-				onClick={() => setIsOpen()}
-			>
+
+			<Button extraClass="px-2 py-1 mx-2" handleClick={() => setIsOpen()}>
 				Delete
-			</button>
+			</Button>
 			{isOpen ? renderModal() : null}
 		</div>
 	);

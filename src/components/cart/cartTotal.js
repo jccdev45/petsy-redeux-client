@@ -21,7 +21,7 @@ export default function CartTotal() {
 			</div>
 			<Link
 				to="/checkout"
-				className="w-full px-3 py-2 mx-auto text-white bg-blue-500 border-2 border-blue-300 rounded hover:bg-blue-600 hover:border-white"
+				className="w-full px-3 py-2 mx-auto rounded bg-secondary hover:bg-secondary-light"
 			>
 				Checkout
 			</Link>
