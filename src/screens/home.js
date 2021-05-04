@@ -41,7 +41,7 @@ export default function Home() {
 
 		return (
 			randomItem && (
-				<>
+				<div className="flex flex-col items-center w-full rounded-lg bg-primary-light justify-evenly md:justify-between md:flex-row">
 					<div className="flex flex-col justify-around h-full px-6 py-8 md:py-2 md:w-1/2 lg:w-7/12">
 						<span className="flex flex-col items-start justify-between lg:flex-row">
 							<Link
@@ -52,14 +52,16 @@ export default function Home() {
 							</Link>
 							{randomItem.rating ? renderStars() : <span>No Ratings Yet</span>}
 						</span>
-						<p className="md:text-lg">{randomItem.description}</p>
+						<p className="lg:text-lg overflow-ellipsis">
+							{randomItem.description}
+						</p>
 					</div>
 					<img
 						src={randomItem.image1}
 						alt={randomItem.description}
 						className="w-full rounded-lg rounded-tl-none rounded-tr-none md:w-1/2 lg:w-5/12 md:rounded-tr-lg md:rounded-bl-none"
 					/>
-				</>
+				</div>
 			)
 		);
 	};
@@ -76,9 +78,7 @@ export default function Home() {
 
 			{/* Featured Item */}
 			<View title="Featured Item" class="w-full flex flex-col my-8">
-				<div className="flex flex-col items-center w-full rounded-lg bg-primary-light justify-evenly md:justify-between md:flex-row">
-					{renderFeaturedItem()}
-				</div>
+				{renderFeaturedItem()}
 			</View>
 
 			{/* Site Info */}
