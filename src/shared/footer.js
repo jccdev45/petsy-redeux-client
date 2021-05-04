@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
 	return (
-		<footer className="flex flex-col items-center justify-between py-4 bg-red-200 md:px-24 md:py-8 md:flex-row">
+		<footer className="flex flex-col items-center justify-between py-4 bg-primary-light md:px-24 md:py-8 md:flex-row">
 			<div className="flex flex-col">
 				<h2 className="text-2xl">Legal</h2>
-				<Link className="text-red-400 underline hover:text-red-500" to="/terms">
+				<Link className="text-secondary hover:underline " to="/terms">
 					Terms & Conditions
 				</Link>
 				<Link
-					className="text-red-400 underline hover:text-red-500"
+					className="text-secondary hover:underline "
 					to="/privacy"
 				>
 					Privacy Policy
@@ -25,7 +25,7 @@ export default function Footer() {
           href="http://www.jccdev.tech"
           target="_blank"
           rel="noopener noreferrer"
-          className="block text-red-300 underline uppercase"
+          className="block uppercase text-secondary hover:underline"
         >
           Jordan Cruz-Correa
         </a>

@@ -1,117 +1,215 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, useHistory } from "react-router-dom";
 import {
+	FcSearch,
 	FcImport,
 	FcExport,
-	FcGoodDecision,
-	FcInfo,
 	FcList,
+	FcPrevious,
 } from "react-icons/fc";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import { FaRegUserCircle } from "react-icons/fa";
+import { AiOutlineShoppingCart, AiOutlineClose } from "react-icons/ai";
 import { useAuth } from "../util/hooks/useAuth";
 import { useCart } from "../util/hooks/useCart";
+import { useFetchData } from "../util/hooks/useFetchData";
+import { DATA_ACTIONS } from "../util/constants/constants";
+import Button from "../components/button/button";
 
-const LINK_CONTAINER_CLASSLIST =
-	"flex items-center justify-end mx-4 text-lg border-b border-red-400 w-1/3 md:w-full md:first:ml-0 md:last:mr-0";
+const LINK_CONTAINER_CLASSLIST = "flex items-center justify-start text-lg";
 const LINK_CLASSLIST =
-	"w-full p-2 mx-auto flex items-center justify-end md:justify-between text-lg";
-const ICON_CLASSLIST = "text-xl md:text-2xl lg:text-3xl";
+	"flex items-center text-lg text-secondary-dark hover:underline";
+const ICON_CLASSLIST = "text-2xl md:text-3xl lg:text-4xl";
 
 export default function Header({
 	isModal,
 	toggleIsModal,
-	isBurger,
-	toggleIsBurger,
+	isMenu,
+	toggleIsMenu,
 }) {
 	const auth = useAuth();
 	const { user } = auth.state;
 
-	const cartContext = useCart();
-	const { state, calculateNumItemsInCart } = cartContext;
+	const cart = useCart();
+	const { state, calculateNumItemsInCart } = cart;
+
+	const data = useFetchData();
+	const { dispatch, searchItems } = data;
+	const { searchQuery } = data.state;
+
+	const [isSearch, toggleIsSearch] = useState(false);
+
+	const history = useHistory();
 
 	const handleLogout = () => {
 		toggleIsModal(!isModal);
 		auth.logout();
 	};
 
-	return (
-		<header className="fixed top-0 z-30 flex flex-wrap items-center justify-between w-full px-6 py-4 bg-red-200">
-			<Link to="/" className="text-2xl border-b border-red-300">
-				<span className="font-bold text-red-300">P</span>etsy
-			</Link>
+	const handleChange = (e) => {
+		const { name, value } = e.target;
 
-			<button
-				className="flex items-center px-3 py-2 border border-red-300 rounded active:bg-transparent focus:outline-none md:hidden"
-				onClick={() => toggleIsBurger(!isBurger)}
-			>
-				<svg
-					className="w-3 h-3 fill-current"
-					viewBox="0 0 20 20"
-					xmlns="http://www.w3.org/2000/svg"
+		dispatch({
+			type: DATA_ACTIONS.INPUT,
+			fieldName: name,
+			payload: { value },
+		});
+	};
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		toggleIsSearch(false);
+		await searchItems(searchQuery);
+		history.push("/search");
+	};
+
+	return (
+		<header
+			className="fixed top-0 z-30 flex flex-wrap items-center justify-between w-full px-6 py-4 bg-primary-light md:px-10 lg:px-20"
+			style={{ minHeight: `80px` }}
+		>
+			<NavLink to="/" className="w-1/12 text-2xl border-b border-primary">
+				<span className="font-bold text-primary">P</span>etsy
+			</NavLink>
+
+			<div className="flex items-center w-11/12">
+				<div className="flex justify-end w-3/4 md:w-5/6">
+					<Button handleClick={() => toggleIsSearch(!isSearch)}>
+						<FcSearch className={ICON_CLASSLIST} />
+					</Button>
+				</div>
+
+				{/* CART */}
+				<NavLink
+					className={`${LINK_CLASSLIST} w-1/6 md:w-1/12 justify-center`}
+					to="/cart"
+					onClick={() => toggleIsMenu(false)}
+					activeClassName=""
 				>
-					<title>Menu</title>
-					<path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-				</svg>
-			</button>
+					<span className="relative">
+						<AiOutlineShoppingCart
+							className={ICON_CLASSLIST}
+							style={{ color: `rgb(0, 109, 255)` }}
+						/>
+						<span className="absolute top-0 right-0 z-10 px-2 py-0 -mt-2 -mr-2 text-sm font-bold bg-gray-200 rounded-full bg-opacity-90 text-secondary-dark lg:text-xl">
+							{state.cart.length ? calculateNumItemsInCart() : null}
+						</span>
+					</span>
+				</NavLink>
+
+				<Button
+					handleClick={() => toggleIsMenu(!isMenu)}
+					extraClass="w-1/6 h-auto md:w-1/12"
+				>
+					{user ? (
+						<img
+							src={user.picture}
+							alt=""
+							className="rounded-full md:w-3/4 lg:w-1/2"
+						/>
+					) : (
+						<FaRegUserCircle className="w-10 h-10 text-secondary" />
+					)}
+				</Button>
+			</div>
+
+			<div
+				style={{ backgroundColor: `rgba(0, 0, 0, 0.5)` }}
+				className={`${
+					isSearch ? "flex" : "hidden"
+				} w-screen h-screen fixed top-0 left-0 z-40`}
+			>
+				<div className="flex items-center justify-between w-full h-16 px-2 py-4 bg-gray-200">
+					<Button handleClick={() => toggleIsSearch(false)} extraClass="w-1/12">
+						<FcPrevious className={`${ICON_CLASSLIST} mx-auto`} />
+					</Button>
+					<form
+						action=""
+						onSubmit={handleSubmit}
+						className="flex items-center w-11/12 h-full mx-auto lg:w-7/12"
+					>
+						<input
+							type="search"
+							className="w-11/12 p-2 rounded"
+							placeholder="Search Petsy..."
+							value={searchQuery}
+							name="searchQuery"
+							onChange={handleChange}
+						/>
+						<Button extraClass="w-1/12">
+							<FcSearch className={`${ICON_CLASSLIST} mx-auto`} />
+						</Button>
+					</form>
+				</div>
+			</div>
 
 			<nav
 				className={`${
-					isBurger ? `block` : `hidden`
-				} md:flex md:items-center md:justify-between justify-end w-full md:w-auto`}
+					isMenu ? `flex` : `hidden`
+				} fixed w-screen min-h-screen p-4 top-0 right-0 z-10 bg-primary flex-col lg:items-end lg:w-1/4`}
 			>
+				<Button
+					handleClick={() => toggleIsMenu(!isMenu)}
+					extraClass="w-1/6 ml-auto"
+				>
+					<AiOutlineClose
+						className={`${ICON_CLASSLIST} mx-auto text-secondary-dark hover:bg-secondary-light rounded-full`}
+					/>
+				</Button>
 				{user ? (
 					// AUTH'D
 					<>
-						<div className="flex flex-col items-end w-full md:items-center md:flex-row">
-							{/* ITEMS */}
-							<div className={LINK_CONTAINER_CLASSLIST}>
-								<Link
-									className={LINK_CLASSLIST}
-									to="/items"
-									onClick={() => toggleIsBurger(!isBurger)}
-								>
-									Items
-									<FcList className={ICON_CLASSLIST} />
-								</Link>
-							</div>
-
+						<div className="flex flex-col items-start w-full">
 							{/* PROFILE */}
-							<div className={LINK_CONTAINER_CLASSLIST}>
-								<Link
-									className={LINK_CLASSLIST}
-									to={`/users/${user.id}`}
-									onClick={() => toggleIsBurger(!isBurger)}
-								>
-									Profile
-									<FcInfo className={ICON_CLASSLIST} />
-								</Link>
-							</div>
+							<NavLink
+								className={`${LINK_CLASSLIST} border-b border-gray-400 w-full mb-4 pb-2`}
+								to={`/users/${user.id}`}
+								onClick={() => toggleIsMenu(!isMenu)}
+							>
+								{/* <FcInfo className={ICON_CLASSLIST} /> */}
+								<img
+									src={user.picture}
+									alt=""
+									className="w-12 h-12 rounded-full"
+								/>
+								{isMenu ? <span className="mx-2">{user.username}</span> : null}
+							</NavLink>
 
 							{/* CART */}
-							<div className={LINK_CONTAINER_CLASSLIST}>
-								<Link
-									className={`${LINK_CLASSLIST} relative`}
-									to="/cart"
-									onClick={() => toggleIsBurger(!isBurger)}
-								>
+							<NavLink
+								className={`${LINK_CLASSLIST}`}
+								to="/cart"
+								onClick={() => toggleIsMenu(!isMenu)}
+							>
+								<span className="relative">
 									<AiOutlineShoppingCart
 										className={ICON_CLASSLIST}
 										style={{ color: `rgb(0, 109, 255)` }}
 									/>
-									<span className="absolute top-0 right-0 z-10 px-1 -mt-2 text-xl font-black text-red-500 bg-gray-200 rounded-full">
+									<span className="absolute top-0 right-0 z-10 px-2 py-0 -mt-2 -mr-2 text-sm font-bold bg-gray-200 bg-opacity-75 rounded-full text-secondary-dark lg:text-xl">
 										{state.cart.length ? calculateNumItemsInCart() : null}
 									</span>
-								</Link>
-							</div>
-						</div>
+								</span>
+								<span className="mx-4">Your Cart</span>
+							</NavLink>
 
-						{/* LOGOUT */}
-						<div className="flex flex-col items-end w-full ml-8 md:items-center md:flex-row">
-							<div className="flex items-center justify-end w-1/3 border-b border-red-400 md:w-full">
-								<button className={LINK_CLASSLIST} onClick={toggleIsModal}>
-									Logout
-									<FcImport className={ICON_CLASSLIST} />
-								</button>
+							{/* ITEMS */}
+							<div className={LINK_CONTAINER_CLASSLIST}>
+								<NavLink
+									className={LINK_CLASSLIST}
+									to="/items"
+									onClick={() => toggleIsMenu(!isMenu)}
+								>
+									<FcList className={ICON_CLASSLIST} />
+									{isMenu ? <span className="mx-4">Items</span> : null}
+								</NavLink>
+							</div>
+
+							{/* LOGOUT */}
+							<div className={LINK_CONTAINER_CLASSLIST}>
+								<Button extraClass={LINK_CLASSLIST} handleClick={toggleIsModal}>
+									<FcExport className={ICON_CLASSLIST} />
+									{isMenu ? <span className="mx-4">Logout</span> : null}
+								</Button>
 							</div>
 						</div>
 
@@ -122,25 +220,22 @@ export default function Header({
 								isModal ? `block` : `hidden`
 							} w-screen h-screen fixed top-0 left-0 z-40`}
 						>
-							<div className="z-50 flex flex-col items-center justify-around w-3/4 h-64 mx-auto my-20 bg-white rounded md:w-1/3">
+							<div className="z-50 flex flex-col items-center justify-around w-3/4 h-64 mx-auto my-20 bg-white rounded md:w-2/3">
 								<span className="font-bold">
 									Are you sure you want to logout?
 								</span>
 								<div className="flex items-center">
-									<button
-										className="px-2 py-3 bg-red-200 rounded focus:outline-none hover:bg-red-300"
-										onClick={toggleIsModal}
-									>
+									<Button extraClass="px-2 py-3" handleClick={toggleIsModal}>
 										Cancel
-									</button>
-									<Link
-										className="flex items-center px-2 py-3 mx-6 text-white bg-red-400 rounded hover:bg-red-500"
+									</Button>
+									<NavLink
+										className="flex items-center px-2 py-3 mx-6 text-white rounded bg-primary hover:bg-red-500"
 										// className={LINK_CLASSLIST}
 										to="/"
 										onClick={handleLogout}
 									>
 										Logout
-									</Link>
+									</NavLink>
 								</div>
 							</div>
 						</div>
@@ -148,22 +243,32 @@ export default function Header({
 				) : (
 					// NON-AUTH'D
 					<>
-						<Link
+						{/* CART */}
+						<NavLink
+							className={`${LINK_CLASSLIST}`}
+							to="/cart"
+							onClick={() => toggleIsMenu(!isMenu)}
+						>
+							<span className="relative">
+								<AiOutlineShoppingCart
+									className={ICON_CLASSLIST}
+									style={{ color: `rgb(0, 109, 255)` }}
+								/>
+								<span className="absolute top-0 right-0 z-10 px-2 py-0 -mt-2 -mr-2 text-sm font-bold bg-gray-200 bg-opacity-75 rounded-full text-secondary-dark lg:text-xl">
+									{state.cart.length ? calculateNumItemsInCart() : null}
+								</span>
+							</span>
+							<span className="mx-4">Your Cart</span>
+						</NavLink>
+
+						<NavLink
 							className={LINK_CLASSLIST}
 							to="/login"
-							onClick={() => toggleIsBurger(!isBurger)}
+							onClick={() => toggleIsMenu(!isMenu)}
 						>
-							<FcExport className={ICON_CLASSLIST} />
-							Login
-						</Link>
-						<Link
-							className={LINK_CLASSLIST}
-							to="/register"
-							onClick={() => toggleIsBurger(!isBurger)}
-						>
-							<FcGoodDecision className={ICON_CLASSLIST} />
-							Register
-						</Link>
+							<FcImport className={ICON_CLASSLIST} />
+							<span className="mx-4">Sign In/Up</span>
+						</NavLink>
 					</>
 				)}
 			</nav>

@@ -11,6 +11,10 @@ import { useCart } from "../../util/hooks/useCart";
 import ConfirmationModal from "../../components/modal/confirmationModal";
 import { Link } from "react-router-dom";
 import { useToggle } from "../../util/hooks/useToggle";
+import Button from "../../components/button/button";
+
+const LINK_BASE_CLASSLIST =
+	"rounded-lg bg-secondary border border-white shadow transition-colors duration-200 ease-in-out hover:bg-secondary-light";
 
 export default function ItemDetails() {
 	const auth = useAuth().state;
@@ -23,7 +27,6 @@ export default function ItemDetails() {
 
 	const [isLoading, setIsLoading] = useToggle(true);
 	const [isOpen, setIsOpen] = useToggle();
-	const [isCart, setIsCart] = useToggle();
 
 	const { id } = useParams();
 
@@ -48,35 +51,28 @@ export default function ItemDetails() {
 	}, [id]);
 
 	const itemDetailRender = () => (
-		<summary className="flex flex-col w-full p-4 rounded-lg md:flex-row">
-			<div className="w-full mr-4">
-				{/* <Carousel item={item} size="600px" /> */}
-				<img
-					src={item.image1}
-					alt={item.name}
-					className="min-w-full min-h-full"
-				/>
-			</div>
-			<div className="flex flex-col items-center justify-around w-full px-2 shadow-inner md:w-2/3">
+		<summary className="flex flex-col w-full p-4 rounded-lg lg:flex-row">
+			<img
+				src={item.image1}
+				alt={item.name}
+				className="w-full h-full lg:w-1/2"
+			/>
+			<div className="flex flex-col items-center justify-around w-full p-6 shadow lg:w-2/3">
 				<div className="flex flex-col items-center">
-					<h1 className="my-2 text-2xl">{item.name}</h1>
 					<h2 className="my-2">
 						<span className="text-green-400">$</span>
 						{item.price}.00
 					</h2>
 					<h2 className="my-1 text-xl">
-						<span className="text-red-400">Category: </span>
-						{item.category}
+						<span className="text-primary">Category: </span>
+						<Link to={`for/${item.category}`}>{item.category}</Link>
 					</h2>
 					<p>{item.description}</p>
 				</div>
-				<button
-					className="px-3 py-2 rounded shadow"
-					onClick={() => addToCart(item)}
-				>
-					<MdAddShoppingCart className="text-xl" />
-					{isCart ? "Item Added!" : "Add to Cart"}
-				</button>
+				<Button extraClass="px-3 py-2 m-4" handleClick={() => addToCart(item)}>
+					Add to Cart
+					<MdAddShoppingCart className="mx-auto text-xl" />
+				</Button>
 				{user && user.id === item.user_id ? renderEditDelete() : null}
 			</div>
 		</summary>
@@ -85,17 +81,15 @@ export default function ItemDetails() {
 	const renderEditDelete = () => (
 		<div className="flex">
 			<Link
-				className="px-2 py-1 mx-2 bg-red-300 rounded"
+				className={`${LINK_BASE_CLASSLIST} px-2 py-1 mx-2`}
 				to={`/items/${item.id}/edit`}
 			>
 				Edit
 			</Link>
-			<button
-				className="px-2 py-1 mx-2 bg-red-300 rounded"
-				onClick={() => setIsOpen()}
-			>
+
+			<Button extraClass="px-2 py-1 mx-2" handleClick={() => setIsOpen()}>
 				Delete
-			</button>
+			</Button>
 			{isOpen ? renderModal() : null}
 		</div>
 	);
@@ -113,7 +107,10 @@ export default function ItemDetails() {
 	};
 
 	return (
-		<View class="flex flex-col items-center justify-center w-full mx-auto md:w-5/6">
+		<View
+			title={item && item.name}
+			class="flex flex-col items-center justify-center w-full mx-auto md:w-5/6"
+		>
 			{isLoading && <Loader />}
 			{item && itemDetailRender()}
 			{error && <h1>refresh</h1>}

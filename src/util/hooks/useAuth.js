@@ -57,7 +57,6 @@ function loginReducer(state, action) {
 			} else {
 				return {
 					...state,
-					isLoading: true,
 					isVerified: true,
 				};
 			}

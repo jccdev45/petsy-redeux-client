@@ -8,6 +8,7 @@ import {
 	editItem,
 	getItemByCategory,
 	getItems,
+	search
 } from "../items/itemMethods";
 import { getUserItems } from "../user/userMethods";
 
@@ -71,6 +72,7 @@ const initialState = {
 	items: [],
 	userItems: [],
 	itemsByCat: [],
+	filteredItems: [],
 	name: "",
 	category: "",
 	description: "",
@@ -79,6 +81,7 @@ const initialState = {
 	image2: "",
 	image3: "",
 	rating: 0,
+	searchQuery: "",
 };
 
 const dataContext = createContext();
@@ -244,6 +247,31 @@ export default function useProviderData() {
 		history.push("/");
 	};
 
+	const searchItems = async (query) => {
+		const cancelToken = axios.CancelToken.source();
+		dispatch({ type: DATA_ACTIONS.REQUEST, name: "filteredItems" });
+
+		try {
+			const res = await search(query);
+			dispatch({
+				type: DATA_ACTIONS.UPDATE_DATA,
+				name: "filteredItems",
+				payload: res,
+			});
+		} catch (error) {
+			if (axios.isCancel(error)) return;
+			dispatch({
+				type: DATA_ACTIONS.ERROR,
+				name: "filteredItems",
+				payload: { error: error },
+			});
+		}
+
+		return () => {
+			cancelToken.cancel();
+		};
+	};
+
 	return {
 		state,
 		dispatch,
@@ -252,5 +280,6 @@ export default function useProviderData() {
 		addNewItem,
 		deletion,
 		fetchUserItems,
+		searchItems,
 	};
 }

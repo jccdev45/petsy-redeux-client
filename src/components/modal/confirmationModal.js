@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../button/button";
 import View from "../view/view";
 
 export default function ConfirmationModal(props) {
@@ -20,22 +21,19 @@ export default function ConfirmationModal(props) {
 		>
 			<div className="z-50 w-2/3 px-4 py-8 bg-white rounded shadow md:p-12 md:w-1/3">
 				<span className="flex flex-col justify-between">
-					<h1 className="font-bold text-center text-red-500">
+					<h1 className="font-bold text-center text-secondary-dark">
 						{props.message}
 					</h1>
 					<span className="flex items-center justify-center">
-						<button
-							className="px-3 py-1 mx-2 bg-red-300 rounded"
-							onClick={props.closeModal}
-						>
+						<Button extraClass="px-3 py-1 mx-2" handleClick={props.closeModal}>
 							Cancel
-						</button>
-						<button
-							className="px-3 py-1 mx-2 bg-red-500 rounded"
-							onClick={() => confirmAndCloseModal()}
+						</Button>
+						<Button
+							extraClass="px-3 py-1 mx-2"
+							handleClick={() => confirmAndCloseModal()}
 						>
 							Delete
-						</button>
+						</Button>
 					</span>
 				</span>
 			</div>

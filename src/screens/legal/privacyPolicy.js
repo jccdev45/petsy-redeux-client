@@ -1,13 +1,19 @@
 import React from "react";
+import Reading from "../../assets/img/undraw_Online_information_re_erks.svg";
+import Hero from "../../components/hero/hero";
 import View from "../../components/view/view";
 
-const headingClassList = "text-xl text-center underline bold";
+const headingClassList = "text-xl text-center hover:underline bold";
 const pClassList = "text-left my-4";
 
 export default function PrivacyPolicy() {
 	return (
 		<View class="flex flex-col">
-			<h1 className="text-3xl text-center">Privacy Policy for Petsy</h1>
+			<Hero
+				img={Reading}
+				title="Privacy Policy"
+				subtitle="Welcome to Petsy!"
+			/>
 
 			<p className={pClassList}>
 				At Petsy, accessible from localhost:3001, one of our main priorities is

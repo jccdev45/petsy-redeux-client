@@ -13,22 +13,24 @@ export default function Cart() {
 			return <h1>Your cart is empty.</h1>;
 		} else {
 			return state.cart.map((item, index) => (
-				<CartItem key={index} item={item} />
+				<CartItem key={index} item={item} index={index} />
 			));
 		}
 	};
 
 	return (
 		<View title="Shopping Cart" class="container">
-			<div className="flex flex-col my-24 lg:justify-between lg:flex-row">
+			<div className="flex flex-col md:my-16 lg:justify-between lg:flex-row">
 				<section className="flex flex-col w-full p-4 rounded shadow-lg lg:w-7/12">
 					<h2 className="my-4 text-xl font-bold">
-						{state.cart.length && calculateNumItemsInCart()} Items
+						{state.cart.length && calculateNumItemsInCart()} Item(s)
 					</h2>
 					{state.cart && renderCart()}
 				</section>
 
-				<CartTotal />
+				<section className="flex-col w-full px-4 py-6 my-6 rounded shadow-lg lg:my-0 lg:w-1/3">
+					<CartTotal />
+				</section>
 			</div>
 		</View>
 	);
