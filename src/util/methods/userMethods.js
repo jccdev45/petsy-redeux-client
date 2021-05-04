@@ -1,5 +1,5 @@
-import { api } from "../api/apiConfig";
-import { LS_STRINGS } from "../constants/constants";
+import { api } from "../api";
+import { LS_STRINGS } from "../constants";
 
 export const loginUser = async (data) => {
   const res = await api.post("/auth/login", { authentication: data });
@@ -30,4 +30,14 @@ export const verifyUser = async () => {
 export const removeToken = () => {
   api.defaults.headers.common.authorization = null;
   localStorage.removeItem(LS_STRINGS.LS_USER);
+};
+
+export const getUserById = async (id) => {
+  const res = await api.get(`/users/${id}`);
+  return res.data;
+};
+
+export const getUserItems = async (id) => {
+  const res = await api.get(`/users/${id}/items`);
+  return res.data.items;
 };

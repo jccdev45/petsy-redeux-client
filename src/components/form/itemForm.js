@@ -1,11 +1,11 @@
 import React from "react";
-import Button from "../button/button";
+import { Button } from "../button";
 
 const LABEL_CLASSLIST =
 	"flex flex-col md:flex-row w-5/6 md:w-1/2 items-center justify-between my-2 border-b border-primary-light py-2 relative";
 const INPUT_CLASSLIST = "rounded p-2 shadow-inner w-full md:w-3/4";
 
-export default function ItemForm({
+export function ItemForm({
 	formData,
 	handleChange,
 	handleSubmit,

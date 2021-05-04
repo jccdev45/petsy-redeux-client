@@ -1,16 +1,16 @@
 import React, { useReducer, useContext, createContext, useEffect } from "react";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { DATA_ACTIONS } from "../constants/constants";
+import { DATA_ACTIONS } from "../constants";
 import {
 	addItem,
 	deleteItem,
 	editItem,
 	getItemByCategory,
 	getItems,
-	search
-} from "../items/itemMethods";
-import { getUserItems } from "../user/userMethods";
+	search,
+} from "../methods";
+import { getUserItems } from "../methods";
 
 function reducer(state, action) {
 	switch (action.type) {
@@ -95,7 +95,7 @@ export const useFetchData = () => {
 	return useContext(dataContext);
 };
 
-export default function useProviderData() {
+export function useProviderData() {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const history = useHistory();
 

@@ -1,7 +1,7 @@
 import React from "react";
-import View from "../view/view";
+import { View } from "../view";
 
-export default function Loader({ size }) {
+export function Loader({ size }) {
   const dimensionRender = () => {
     if (size === "xl") {
       return "w-32 h-32 md:w-64 md:h-64";

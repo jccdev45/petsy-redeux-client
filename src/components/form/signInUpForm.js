@@ -7,9 +7,9 @@ import {
 	FcPicture,
 	FcLock,
 } from "react-icons/fc";
-import Button from "../button/button";
+import { Button } from "../button";
 
-export default function SignInUpForm(props) {
+export function SignInUpForm(props) {
 	const LABEL_CLASSLIST = `w-full md:w-2/3 lg:w-1/3 px-4 py-2 mx-auto border rounded my-3 flex items-center ${
 		props.isVerified ? "bg-red-500" : ""
 	}`;

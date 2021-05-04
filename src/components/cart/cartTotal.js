@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useCart } from "../../util/hooks/useCart";
+import { useCart } from "../../util/hooks";
 
-export default function CartTotal() {
+export function CartTotal() {
 	const cartContext = useCart();
 	const { state, calculateCartTotal } = cartContext;
 

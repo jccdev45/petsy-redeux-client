@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { MdAddShoppingCart } from "react-icons/md";
-import Loader from "../../components/loader/loader";
-import View from "../../components/view/view";
-import { getItemById } from "../../util/items/itemMethods";
-import { useAuth } from "../../util/hooks/useAuth";
-import { useFetchData } from "../../util/hooks/useFetchData";
-import { useCart } from "../../util/hooks/useCart";
-import ConfirmationModal from "../../components/modal/confirmationModal";
-import { Link } from "react-router-dom";
-import { useToggle } from "../../util/hooks/useToggle";
-import Button from "../../components/button/button";
+
+import { Loader } from "../../components/loader";
+import { View } from "../../components/view";
+import { getItemById } from "../../util/methods";
+import { useAuth, useFetchData, useCart, useToggle } from "../../util/hooks";
+import { ConfirmationModal } from "../../components/modal";
+import { Button } from "../../components/button";
 
 const LINK_BASE_CLASSLIST =
 	"rounded-lg bg-secondary border border-white shadow transition-colors duration-200 ease-in-out hover:bg-secondary-light";
 
-export default function ItemDetails() {
+export function ItemDetails() {
 	const auth = useAuth().state;
 	const { user } = auth;
 

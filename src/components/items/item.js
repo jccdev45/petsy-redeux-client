@@ -1,16 +1,15 @@
 import React from "react";
 import { FcRating } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import ConfirmationModal from "../modal/confirmationModal";
-import { useToggle } from "../../util/hooks/useToggle";
-import { useCart } from "../../util/hooks/useCart";
-import Button from "../button/button";
+import { ConfirmationModal } from "../modal";
+import { useToggle, useCart } from "../../util/hooks";
+import { Button } from "../button";
 import { MdAddShoppingCart } from "react-icons/md";
 
 const BUTTON_BASE_CLASSLIST =
 	"text-secondary-dark rounded-lg hover:bg-secondary-light bg-primary border border-white shadow hover:bg-secondary";
 
-export default function Item({ item, user, deletion }) {
+export function Item({ item, user, deletion }) {
 	const cartContext = useCart();
 	const { addToCart } = cartContext;
 

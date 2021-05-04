@@ -6,17 +6,17 @@ import {
 	FcGlobe,
 } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import Doggy from "../assets/img/undraw_good_doggy_4wfq.svg";
-import Hero from "../components/hero/hero";
-import Item from "../components/items/item";
-import Loader from "../components/loader/loader";
-import View from "../components/view/view";
-import { useFetchData } from "../util/hooks/useFetchData";
+import Doggy from "../../assets/img/undraw_good_doggy_4wfq.svg";
+import { Hero } from "../../components/hero";
+import { Item } from "../../components/items";
+import { Loader } from "../../components/loader";
+import { View } from "../../components/view";
+import { useFetchData } from "../../util/hooks";
 
-export default function Home() {
+export function Home() {
 	const data = useFetchData();
 	const { state } = data;
-	const { items, searchQuery, isLoading, error } = state;
+	const { items, isLoading, error } = state;
 
 	const newItems = () => {
 		const slicedItems = items
@@ -52,7 +52,9 @@ export default function Home() {
 							</Link>
 							{randomItem.rating ? renderStars() : <span>No Ratings Yet</span>}
 						</span>
-						<p className="md:text-lg">{randomItem.description}</p>
+						<p className="lg:text-lg overflow-ellipsis">
+							{randomItem.description}
+						</p>
 					</div>
 					<img
 						src={randomItem.image1}

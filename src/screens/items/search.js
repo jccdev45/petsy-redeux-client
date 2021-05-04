@@ -1,11 +1,11 @@
 import React from "react";
-import Button from "../../components/button/button";
-import Item from "../../components/items/item";
-import View from "../../components/view/view";
-import { DATA_ACTIONS } from "../../util/constants/constants";
-import { useFetchData } from "../../util/hooks/useFetchData";
+import { Button } from "../../components/button";
+import { Item } from "../../components/items";
+import { View } from "../../components/view";
+import { DATA_ACTIONS } from "../../util/constants";
+import { useFetchData } from "../../util/hooks";
 
-export default function Search() {
+export function Search() {
 	const data = useFetchData();
 	const { state, dispatch, searchItems } = data;
 	const { filteredItems, searchQuery } = state;

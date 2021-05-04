@@ -1,9 +1,9 @@
 import React from "react";
 import { FcAddressBook } from "react-icons/fc";
 
-export default function Hero({ img, title, subtitle, user }) {
+export function Hero({ img, title, subtitle, user }) {
 	return (
-		<div className="flex flex-col items-center justify-between w-full p-8 border-2 border-primary-light rounded-lg shadow bg-primary md:flex-row">
+		<div className="flex flex-col items-center justify-between w-full p-8 border-2 rounded-lg shadow border-primary-light bg-primary md:flex-row">
 			<div className="flex flex-col justify-between w-full min-h-full md:w-1/2">
 				{user && (
 					<>
@@ -17,7 +17,7 @@ export default function Hero({ img, title, subtitle, user }) {
 					</>
 				)}
 
-				{title && <h3 className="w-full text-4xl md:text-6xl">{title}</h3>}
+				{title && <h3 className="w-full text-4xl lg:text-6xl">{title}</h3>}
 				{subtitle && <h4 className="w-full text-2xl">{subtitle}</h4>}
 			</div>
 			<img

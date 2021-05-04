@@ -1,10 +1,9 @@
 import React from "react";
-import CartItem from "../../components/cart/cartItem";
-import CartTotal from "../../components/cart/cartTotal";
-import View from "../../components/view/view";
-import { useCart } from "../../util/hooks/useCart";
+import { CartItem, CartTotal } from "../../components/cart";
+import { View } from "../../components/view";
+import { useCart } from "../../util/hooks";
 
-export default function Cart() {
+export function Cart() {
 	const cartContext = useCart();
 	const { state, calculateNumItemsInCart } = cartContext;
 

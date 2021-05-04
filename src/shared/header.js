@@ -9,18 +9,16 @@ import {
 } from "react-icons/fc";
 import { FaRegUserCircle } from "react-icons/fa";
 import { AiOutlineShoppingCart, AiOutlineClose } from "react-icons/ai";
-import { useAuth } from "../util/hooks/useAuth";
-import { useCart } from "../util/hooks/useCart";
-import { useFetchData } from "../util/hooks/useFetchData";
-import { DATA_ACTIONS } from "../util/constants/constants";
-import Button from "../components/button/button";
+import { useAuth, useFetchData, useCart } from "../util/hooks";
+import { DATA_ACTIONS } from "../util/constants";
+import { Button } from "../components/button";
 
 const LINK_CONTAINER_CLASSLIST = "flex items-center justify-start text-lg";
 const LINK_CLASSLIST =
 	"flex items-center text-lg text-secondary-dark hover:underline";
 const ICON_CLASSLIST = "text-2xl md:text-3xl lg:text-4xl";
 
-export default function Header({
+export function Header({
 	isModal,
 	toggleIsModal,
 	isMenu,
