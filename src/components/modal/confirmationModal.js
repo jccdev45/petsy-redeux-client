@@ -1,8 +1,8 @@
 import React from "react";
-import Button from "../button/button";
-import View from "../view/view";
+import { Button } from "../button";
+import { View } from "../view";
 
-export default function ConfirmationModal(props) {
+export function ConfirmationModal(props) {
 	const { item } = props;
 
 	function confirmAndCloseModal() {

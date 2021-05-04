@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useReducer, createContext } from "react";
-import { useHistory } from "react-router";
-import { loginUser, registerUser, removeToken, verifyUser } from "../auth/auth";
-import { AUTH_ACTIONS, LS_STRINGS } from "../constants/constants";
+import { useHistory } from "react-router-dom";
+import { loginUser, registerUser, removeToken, verifyUser } from "../methods";
+import { AUTH_ACTIONS, LS_STRINGS } from "../constants";
 
 function loginReducer(state, action) {
 	switch (action.type) {

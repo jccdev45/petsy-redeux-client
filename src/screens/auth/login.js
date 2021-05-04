@@ -1,12 +1,12 @@
 import React from "react";
-import SignInUpForm from "../../components/form/signInUpForm";
 
-import Loader from "../../components/loader/loader";
-import View from "../../components/view/view";
-import { AUTH_ACTIONS } from "../../util/constants/constants";
-import { useAuth } from "../../util/hooks/useAuth";
+import { SignInUpForm } from "../../components/form";
+import { Loader } from "../../components/loader";
+import { View } from "../../components/view";
+import { AUTH_ACTIONS } from "../../util/constants";
+import { useAuth } from "../../util/hooks";
 
-export default function Login() {
+export function Login() {
 	const auth = useAuth();
 	const { username, password, error, isLoading } = auth.state;
 

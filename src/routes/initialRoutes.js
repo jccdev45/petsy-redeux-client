@@ -1,19 +1,18 @@
 import React from "react";
-import { Route, Switch } from "react-router";
-import Login from "../screens/auth/login";
-import Register from "../screens/auth/register";
-import Home from "../screens/home";
-import ItemCreate from "../screens/items/itemCreate";
-import ItemDetails from "../screens/items/itemDetails";
-import Profile from "../screens/user/profile";
-import ItemEdit from "../screens/items/itemEdit";
-import ItemCategories from "../screens/items/itemCategories";
-import Items from "../screens/items/items";
-import TermsConditions from "../screens/legal/termsConditions";
-import PrivacyPolicy from "../screens/legal/privacyPolicy";
-import Cart from "../screens/checkout/cart";
-import Checkout from "../screens/checkout/checkout";
-import Search from "../screens/items/search";
+import { Route, Switch } from "react-router-dom";
+import { Login, Register } from "../screens/auth";
+import { Home } from "../screens/home";
+import { Profile } from "../screens/user";
+import {
+	ItemCreate,
+	ItemDetails,
+	ItemEdit,
+	ItemCategories,
+	Items,
+	Search,
+} from "../screens/items";
+import { TermsConditions, PrivacyPolicy } from "../screens/legal";
+import { Cart, Checkout } from "../screens/checkout";
 
 function InitialRoutes() {
 	return (

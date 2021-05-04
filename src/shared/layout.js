@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import Header from "./header";
-import Footer from "./footer";
-import View from "../components/view/view";
+import { Header, Footer } from "./";
+import { View } from "../components/view";
 
-export default function Layout({ children }) {
+export function Layout({ children }) {
 	const [isMenu, toggleIsMenu] = useState(false);
 	const [isModal, toggleIsModal] = useState(false);
 
@@ -13,8 +12,8 @@ export default function Layout({ children }) {
 	};
 
 	const closeModal = () => {
-		toggleIsModal(!isModal)
-	}
+		toggleIsModal(!isModal);
+	};
 
 	return (
 		<View class="flex flex-col justify-between w-screen min-h-screen">

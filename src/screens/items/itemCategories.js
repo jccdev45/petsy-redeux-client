@@ -1,13 +1,12 @@
 import React from "react";
 import { useEffect } from "react";
-import { useParams } from "react-router";
-import Item from "../../components/items/item";
-import Loader from "../../components/loader/loader";
-import View from "../../components/view/view";
-import { useAuth } from "../../util/hooks/useAuth";
-import { useFetchData } from "../../util/hooks/useFetchData";
+import { useParams } from "react-router-dom";
+import { Item } from "../../components/items";
+import { Loader } from "../../components/loader";
+import { View } from "../../components/view";
+import { useAuth, useFetchData } from "../../util/hooks";
 
-export default function ItemCategories() {
+export function ItemCategories() {
 	const { category } = useParams();
 
 	const data = useFetchData();

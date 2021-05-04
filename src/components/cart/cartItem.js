@@ -1,12 +1,11 @@
 import React from "react";
 import { MdRemove, MdAdd, MdRemoveShoppingCart } from "react-icons/md";
-import ConfirmationModal from "../modal/confirmationModal";
-import { useToggle } from "../../util/hooks/useToggle";
-import { useCart } from "../../util/hooks/useCart";
+import { ConfirmationModal } from "../modal";
+import { useToggle, useCart } from "../../util/hooks";
 import { Link } from "react-router-dom";
-import Button from "../button/button";
+import { Button } from "../button";
 
-export default function CartItem(props) {
+export function CartItem(props) {
 	const { item } = props;
 	const cartContext = useCart();
 	const { updateCart, removeFromCart } = cartContext;

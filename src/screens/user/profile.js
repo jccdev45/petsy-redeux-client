@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import Hero from "../../components/hero/hero";
-import Loader from "../../components/loader/loader";
-import View from "../../components/view/view";
-import { LS_STRINGS } from "../../util/constants/constants";
-import { useAuth } from "../../util/hooks/useAuth";
-import { useFetchData } from "../../util/hooks/useFetchData";
+import { Hero } from "../../components/hero";
+import { Loader } from "../../components/loader";
+import { View } from "../../components/view";
+import { LS_STRINGS } from "../../util/constants";
+import { useAuth, useFetchData } from "../../util/hooks";
 
-export default function Profile() {
+export function Profile() {
 	const auth = useAuth();
 	const user = auth.state.user;
 	const userLS = JSON.parse(localStorage.getItem(LS_STRINGS.LS_USER));

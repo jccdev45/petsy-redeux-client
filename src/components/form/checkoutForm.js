@@ -3,7 +3,7 @@ import React from "react";
 const CONTAINER_CLASSLIST = "flex flex-col items-center w-full md:flex-row";
 const INPUT_CLASSLIST = "px-3 py-2 m-1 rounded-md border-gray-300 shadow";
 
-export default function CheckoutForm() {
+export function CheckoutForm() {
 	return (
 		<form
 			className="flex flex-col w-full p-4 md:px-8 lg:px-24"

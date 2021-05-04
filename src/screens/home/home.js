@@ -6,17 +6,17 @@ import {
 	FcGlobe,
 } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import Doggy from "../assets/img/undraw_good_doggy_4wfq.svg";
-import Hero from "../components/hero/hero";
-import Item from "../components/items/item";
-import Loader from "../components/loader/loader";
-import View from "../components/view/view";
-import { useFetchData } from "../util/hooks/useFetchData";
+import Doggy from "../../assets/img/undraw_good_doggy_4wfq.svg";
+import { Hero } from "../../components/hero";
+import { Item } from "../../components/items";
+import { Loader } from "../../components/loader";
+import { View } from "../../components/view";
+import { useFetchData } from "../../util/hooks";
 
-export default function Home() {
+export function Home() {
 	const data = useFetchData();
 	const { state } = data;
-	const { items, searchQuery, isLoading, error } = state;
+	const { items, isLoading, error } = state;
 
 	const newItems = () => {
 		const slicedItems = items
@@ -41,7 +41,7 @@ export default function Home() {
 
 		return (
 			randomItem && (
-				<div className="flex flex-col items-center w-full rounded-lg bg-primary-light justify-evenly md:justify-between md:flex-row">
+				<>
 					<div className="flex flex-col justify-around h-full px-6 py-8 md:py-2 md:w-1/2 lg:w-7/12">
 						<span className="flex flex-col items-start justify-between lg:flex-row">
 							<Link
@@ -61,7 +61,7 @@ export default function Home() {
 						alt={randomItem.description}
 						className="w-full rounded-lg rounded-tl-none rounded-tr-none md:w-1/2 lg:w-5/12 md:rounded-tr-lg md:rounded-bl-none"
 					/>
-				</div>
+				</>
 			)
 		);
 	};
@@ -78,7 +78,9 @@ export default function Home() {
 
 			{/* Featured Item */}
 			<View title="Featured Item" class="w-full flex flex-col my-8">
-				{renderFeaturedItem()}
+				<div className="flex flex-col items-center w-full rounded-lg bg-primary-light justify-evenly md:justify-between md:flex-row">
+					{renderFeaturedItem()}
+				</div>
 			</View>
 
 			{/* Site Info */}

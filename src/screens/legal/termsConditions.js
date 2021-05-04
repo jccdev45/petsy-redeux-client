@@ -1,13 +1,13 @@
 import React from "react";
 import Reading from "../../assets/img/undraw_online_reading_np7n.svg";
-import Hero from "../../components/hero/hero";
-import View from "../../components/view/view";
+import { Hero } from "../../components/hero";
+import { View } from "../../components/view";
 
 const headingClassList = "text-xl text-center hover:underline bold";
 const pClassList = "text-left my-4";
 const ulClassList = "list-disc list-inside pl-4";
 
-export default function TermsConditions() {
+export function TermsConditions() {
 	return (
 		<View class="flex flex-col">
 			<Hero

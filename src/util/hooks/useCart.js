@@ -1,5 +1,5 @@
 import React, { useReducer, useContext, createContext, useEffect } from "react";
-import { CART_ACTIONS, LS_STRINGS } from "../constants/constants";
+import { CART_ACTIONS, LS_STRINGS } from "../constants";
 
 function reducer(state, action) {
 	switch (action.type) {
@@ -35,7 +35,7 @@ export const useCart = () => {
 	return useContext(dataContext);
 };
 
-export default function useProviderCart() {
+export function useProviderCart() {
 	const [state, dispatch] = useReducer(reducer, initialState);
 
 	const calculateNumItemsInCart = () => {
