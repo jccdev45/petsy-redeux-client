@@ -38,7 +38,7 @@ export default function Register() {
     <>
       {error && (
         <h1 className="w-1/3 p-3 mx-auto text-2xl text-center text-white bg-red-500 rounded">
-          {error}
+          {JSON.stringify(error)}
         </h1>
       )}
       {isLoading ? (
