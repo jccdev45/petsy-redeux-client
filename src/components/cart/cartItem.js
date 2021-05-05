@@ -64,19 +64,19 @@ export function CartItem(props) {
 					<div className="flex items-center text-lg md:text-2xl">
 						<Button
 							handleClick={() => verifyLastItem(item, updateCart)}
-							extraClass="p-1"
+							extraClass="bg-primary-light hover:bg-secondary-light p-1"
 						>
 							<MdRemove />
 						</Button>
 						<span className="mx-2 text-xl md:text-3xl">{item.quantity}</span>
-						<Button handleClick={() => updateCart(item.id, 1)} extraClass="p-1">
+						<Button handleClick={() => updateCart(item.id, 1)} extraClass="bg-primary-light hover:bg-secondary-light p-1">
 							<MdAdd />
 						</Button>
 					</div>
 				</div>
 				<div className="flex justify-between w-full mt-8 lg:m-0">
 					<Button
-						extraClass="flex items-center p-2"
+						extraClass="bg-primary-light hover:bg-secondary-light flex items-center p-2"
 						handleClick={() => setIsOpen()}
 					>
 						<MdRemoveShoppingCart className="text-3xl" />

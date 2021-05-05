@@ -6,8 +6,8 @@ import { useToggle, useCart } from "../../util/hooks";
 import { Button } from "../button";
 import { MdAddShoppingCart } from "react-icons/md";
 
-const BUTTON_BASE_CLASSLIST =
-	"text-secondary-dark rounded-lg hover:bg-secondary-light bg-primary border border-white shadow hover:bg-secondary";
+// const BUTTON_BASE_CLASSLIST =
+// 	"text-secondary-dark rounded-lg hover:bg-secondary-light bg-primary border border-white shadow hover:bg-secondary-light";
 
 export function Item({ item, user, deletion }) {
 	const cartContext = useCart();
@@ -45,13 +45,13 @@ export function Item({ item, user, deletion }) {
 	const verifyUserItem = () => {
 		if (!user) return renderAddToCart();
 
-		return user.id != item.user_id ? renderAddToCart() : renderEditDelete();
+		return user.id !== item.user_id ? renderAddToCart() : renderEditDelete();
 	};
 
 	const renderEditDelete = () => (
 		<div className="flex items-center justify-evenly">
 			<Link
-				className={`${BUTTON_BASE_CLASSLIST} my-4 px-4 py-1`}
+				className={`my-4 px-4 py-1`}
 				to={`/items/${item.id}/edit`}
 			>
 				Edit
@@ -67,7 +67,7 @@ export function Item({ item, user, deletion }) {
 
 	const renderAddToCart = () => (
 		<Button
-			extraClass="flex items-center px-3 py-2 text-center"
+			extraClass="flex items-center px-3 py-2 text-center bg-primary hover:bg-secondary-dark"
 			handleClick={() => addToCart(item)}
 		>
 			Add to Cart
@@ -77,7 +77,7 @@ export function Item({ item, user, deletion }) {
 
 	if (!item) return null;
 	return (
-		<article className="flex items-center w-11/12 mx-auto my-4 rounded-lg shadow-lg bg-primary-light">
+		<article className="flex items-center w-11/12 mx-auto my-4 rounded-lg shadow-lg bg-secondary-light">
 			<img
 				src={item.image1}
 				alt={item.name}
@@ -87,7 +87,7 @@ export function Item({ item, user, deletion }) {
 			<div className="flex flex-col items-center w-7/12 px-3 text-sm text-center md:py-3 justify-evenly md:text-xl md:w-7/12">
 				<Link
 					to={`/items/${item.id}`}
-					className="text-secondary hover:underline "
+					className="text-secondary-dark hover:underline "
 				>
 					{item.name}
 				</Link>

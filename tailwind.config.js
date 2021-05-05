@@ -3,16 +3,26 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				primary: {
-					DEFAULT: "#ef9a9a",
-					light: "#ffcccb",
-					dark: "#ba6b6c",
-				},
 				secondary: {
-					DEFAULT: "#9575cd",
-					light: "#c7a4ff",
-					dark: "#65499c",
+					DEFAULT: "#ed80ad",
+					light: "#ffb1df",
+					dark: "#b8507e",
 				},
+				primary: {
+					DEFAULT: "#d6a1ff",
+					light: "#ffd3ff",
+					dark: "#a372cb",
+				},
+				// primary: {
+				// 	DEFAULT: "#ef9a9a",
+				// 	light: "#ffcccb",
+				// 	dark: "#ba6b6c",
+				// },
+				// secondary: {
+				// 	DEFAULT: "#9575cd",
+				// 	light: "#c7a4ff",
+				// 	dark: "#65499c",
+				// },
 			},
 			fontFamily: {
 				serif: ["Playfair Display", "serif"],

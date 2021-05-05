@@ -1,7 +1,7 @@
 import React from "react";
 
 const BUTTON_BASE_CLASSLIST =
-	"rounded-lg bg-secondary border border-white shadow transition-colors duration-200 ease-in-out hover:bg-secondary-light";
+	"rounded-lg transition-colors duration-200 ease-in-out";
 
 export function Button({ handleClick, extraClass, children }) {
 	return (

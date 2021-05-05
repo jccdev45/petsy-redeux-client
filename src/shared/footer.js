@@ -6,11 +6,11 @@ export function Footer() {
 		<footer className="flex flex-col items-center justify-between py-4 bg-primary-light md:px-24 md:py-8 md:flex-row">
 			<div className="flex flex-col">
 				<h2 className="text-2xl">Legal</h2>
-				<Link className="text-secondary hover:underline " to="/terms">
+				<Link className="text-secondary-dark hover:underline " to="/terms">
 					Terms & Conditions
 				</Link>
 				<Link
-					className="text-secondary hover:underline "
+					className="text-secondary-dark hover:underline "
 					to="/privacy"
 				>
 					Privacy Policy
