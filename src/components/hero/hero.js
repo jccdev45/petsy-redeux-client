@@ -1,7 +1,7 @@
 import React from "react";
 import { FcAddressBook } from "react-icons/fc";
 
-export function Hero({ img, title, subtitle, user }) {
+export function Hero({ img, title, subtitle, user, isLoggedIn }) {
 	return (
 		<div className="flex flex-col items-center justify-between w-full p-8 border-2 rounded-lg shadow border-primary-light bg-secondary-light md:flex-row">
 			<div className="flex flex-col justify-between w-full min-h-full md:w-1/2">
@@ -23,7 +23,8 @@ export function Hero({ img, title, subtitle, user }) {
 			<img
 				src={img || user.picture}
 				alt={title || user.username}
-				className={user ? "md:1/3" : "w-full md:w-1/2"}
+				className="w-1/3"
+				// className={isLoggedIn ? "md:w-1/3" : "w-full md:w-1/2"}
 			/>
 		</div>
 	);

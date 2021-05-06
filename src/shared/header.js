@@ -14,13 +14,12 @@ import { DATA_ACTIONS } from "../util/constants";
 import { Button } from "../components/button";
 
 const LINK_CONTAINER_CLASSLIST = "flex items-center justify-start text-lg";
-const LINK_CLASSLIST =
-	"flex items-center text-lg  hover:underline";
+const LINK_CLASSLIST = "flex items-center text-lg  hover:underline";
 const ICON_CLASSLIST = "text-2xl md:text-3xl lg:text-4xl";
 
 export function Header({ isModal, toggleIsModal, isMenu, toggleIsMenu }) {
 	const auth = useAuth();
-	const { user } = auth.state;
+	const { user, isLoggedIn } = auth.state;
 
 	const cart = useCart();
 	const { state, calculateNumItemsInCart } = cart;
@@ -96,7 +95,7 @@ export function Header({ isModal, toggleIsModal, isMenu, toggleIsMenu }) {
 					handleClick={() => toggleIsMenu(!isMenu)}
 					extraClass="w-1/6 h-auto md:w-1/12"
 				>
-					{user ? (
+					{isLoggedIn ? (
 						<img
 							src={user.picture}
 							alt=""
@@ -151,7 +150,7 @@ export function Header({ isModal, toggleIsModal, isMenu, toggleIsMenu }) {
 						className={`${ICON_CLASSLIST} mx-auto text-primary-dark hover:bg-secondary-light rounded-full`}
 					/>
 				</Button>
-				{user ? (
+				{isLoggedIn ? (
 					// AUTH'D
 					<>
 						<div className="flex flex-col items-start w-full">

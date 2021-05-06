@@ -8,7 +8,7 @@ import { useAuth, useFetchData } from "../../util/hooks";
 
 export function Profile() {
 	const auth = useAuth();
-	const user = auth.state.user;
+	const { user, isLoggedIn } = auth.state;
 	const userLS = JSON.parse(localStorage.getItem(LS_STRINGS.LS_USER));
 
 	const data = useFetchData();
@@ -48,7 +48,7 @@ export function Profile() {
 	return (
 		<View class="flex flex-col w-full">
 			{error && <h1>There was an error, please refresh</h1>}
-			{user && <Hero user={user} profile />}
+			{user && <Hero user={user} isLoggedIn={isLoggedIn} profile />}
 			{user && renderUserItems()}
 		</View>
 	);
