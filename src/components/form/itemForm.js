@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../button";
+import { useFetchData } from "../../util/hooks";
 
 const LABEL_CLASSLIST =
-	"flex flex-col md:flex-row w-5/6 md:w-1/2 items-center justify-between my-2 border-b border-primary-light py-2 relative";
-const INPUT_CLASSLIST = "rounded p-2 shadow-inner w-full md:w-3/4";
+	"flex flex-col w-11/12 md:w-2/3 lg:w-1/2 mb-2 py-2 border-b border-primary-light relative";
+const INPUT_CLASSLIST = "rounded shadow-inner w-11/12 mx-auto";
 
 export function ItemForm({
 	formData,
@@ -12,10 +13,35 @@ export function ItemForm({
 	isProfane,
 	type,
 }) {
+	const data = useFetchData();
+	const { items } = data.state;
+	const [cats, setCats] = useState([]);
+
+	useEffect(() => {
+		if (!items) return;
+
+		const catSet = () => {
+			setCats(items.map((cat) => cat.category));
+		};
+
+		catSet();
+	}, [items]);
+
+	const renderCatOptions = () => {
+		const uniqueCats = [...new Set(cats)];
+		uniqueCats.unshift("Choose a category...");
+
+		return uniqueCats.map((cat) => (
+			<option key={cat} value={cat}>
+				{cat}
+			</option>
+		));
+	};
+
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className="flex flex-col items-center w-5/6 p-4 mx-auto my-2 shadow-inner md:w-11/12"
+			className="flex flex-col items-center w-full p-2 mx-auto my-2 shadow-lg lg:w-5/6"
 		>
 			<div className="flex justify-center w-12 h-12">
 				<h1
@@ -29,50 +55,66 @@ export function ItemForm({
 				</h1>
 			</div>
 			<label htmlFor="name" className={LABEL_CLASSLIST}>
-				Name
+				<small className="absolute top-0 px-1 text-sm bg-white left-6 lg:left-8">
+					Name
+				</small>
 				<input
-					className={INPUT_CLASSLIST}
+					className={`${INPUT_CLASSLIST} form-input`}
 					type="text"
 					name="name"
+					placeholder="Rubber Ball"
 					onChange={handleChange}
 					defaultValue={formData.name}
 				/>
 			</label>
 			<label htmlFor="description" className={LABEL_CLASSLIST}>
-				Description
-				<input
-					className={INPUT_CLASSLIST}
-					type="text"
+				<small className="absolute top-0 px-1 text-sm bg-white left-6 lg:left-8">
+					Description
+				</small>
+				<textarea
+					className={`${INPUT_CLASSLIST} form-textarea`}
+					rows="3"
 					name="description"
+					placeholder="A ball made of rubber. Bouncy!"
 					onChange={handleChange}
 					defaultValue={formData.description}
 				/>
 			</label>
 			<label htmlFor="category" className={LABEL_CLASSLIST}>
-				Category
-				<input
-					className={INPUT_CLASSLIST}
-					type="text"
+				<small className="absolute top-0 px-1 text-sm bg-white left-6 lg:left-8">
+					Category
+				</small>
+				<select
 					name="category"
+					className={`${INPUT_CLASSLIST} form-select`}
 					onChange={handleChange}
-					defaultValue={formData.category}
-				/>
+				>
+					{items && renderCatOptions()}
+				</select>
 			</label>
 			<label htmlFor="price" className={LABEL_CLASSLIST}>
-				Price
+				<small className="absolute top-0 px-1 text-sm bg-white left-6 lg:left-8">
+					Price
+				</small>
 				<input
-					className={INPUT_CLASSLIST}
+					className={`${INPUT_CLASSLIST} form-input`}
 					type="number"
 					name="price"
 					min={0}
 					onChange={handleChange}
-					defaultValue={formData.price}
+					defaultValue={"0" || formData.price}
+					step="1"
+					onKeyPress={(e) => {
+						return e.charCode >= 48 && e.charCode <= 57;
+					}}
 				/>
 			</label>
 			<label htmlFor="image1" className={LABEL_CLASSLIST}>
-				Image 1
+				<small className="absolute top-0 px-1 text-sm bg-white left-6 lg:left-8">
+					Image 1
+				</small>
 				<input
-					className={INPUT_CLASSLIST}
+					className={`${INPUT_CLASSLIST} form-input`}
 					type="text"
 					name="image1"
 					onChange={handleChange}
@@ -80,9 +122,11 @@ export function ItemForm({
 				/>
 			</label>
 			<label htmlFor="image2" className={LABEL_CLASSLIST}>
-				Image 2
+				<small className="absolute top-0 px-1 text-sm bg-white left-6 lg:left-8">
+					Image 2
+				</small>
 				<input
-					className={INPUT_CLASSLIST}
+					className={`${INPUT_CLASSLIST} form-input`}
 					type="text"
 					name="image2"
 					onChange={handleChange}
@@ -90,16 +134,20 @@ export function ItemForm({
 				/>
 			</label>
 			<label htmlFor="image3" className={LABEL_CLASSLIST}>
-				Image 3
+				<small className="absolute top-0 px-1 text-sm bg-white left-6 lg:left-8">
+					Image 3
+				</small>
 				<input
-					className={INPUT_CLASSLIST}
+					className={`${INPUT_CLASSLIST} form-input`}
 					type="text"
 					name="image3"
 					onChange={handleChange}
 					defaultValue={formData.image3}
 				/>
 			</label>
-			<Button extraClass="px-3 py-2">Submit</Button>
+			<Button extraClass="px-3 py-2 bg-primary-light hover:bg-secondary-light">
+				Submit
+			</Button>
 		</form>
 	);
 }

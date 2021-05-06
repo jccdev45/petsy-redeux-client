@@ -40,7 +40,20 @@ export function ItemCreate() {
 	}, []);
 
 	const handleChange = (e) => {
-		const { name, value, type } = e.target;
+		const { name, value } = e.target;
+
+		const valueParse = () => {
+			switch (name) {
+				case "price":
+					return Math.trunc(Math.floor(value));
+				case "category":
+					if (value === "Choose a category...") {
+						return "";
+					}
+				default:
+					return value;
+			}
+		};
 
 		if (filter.isProfane(value)) {
 			setIsProfane(true);
@@ -49,7 +62,7 @@ export function ItemCreate() {
 			data.dispatch({
 				type: DATA_ACTIONS.INPUT,
 				fieldName: name,
-				payload: { value: type === "number" ? parseInt(value, 10) : value },
+				payload: { value: valueParse() },
 			});
 		}
 	};
