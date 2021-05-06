@@ -1,6 +1,8 @@
 import React from "react";
 
+import RegisterImg from "../../assets/img/undraw_authentication_fsn5.svg";
 import { SignInUpForm } from "../../components/form";
+import { Hero } from "../../components/hero";
 import { Loader } from "../../components/loader";
 import { AUTH_ACTIONS } from "../../util/constants";
 import { useAuth } from "../../util/hooks";
@@ -36,6 +38,7 @@ export function Register() {
 
 	return (
 		<>
+			<Hero img={RegisterImg} title="Sign up" subtitle="..for a new account" />
 			{error && (
 				<h1 className="w-1/3 p-3 mx-auto text-2xl text-center text-white bg-red-500 rounded">
 					{JSON.stringify(error)}

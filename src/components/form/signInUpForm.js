@@ -19,7 +19,7 @@ export function SignInUpForm(props) {
 	return (
 		<form
 			onSubmit={props.handleSubmit}
-			className="flex flex-col items-center justify-center w-3/4 p-4 mx-auto my-10 rounded shadow-inner md:p-10 md:w-full"
+			className="flex flex-col items-center justify-center w-3/4 p-4 mx-auto my-10 rounded shadow-lg md:p-10 md:w-full"
 		>
 			<label htmlFor="username" className={LABEL_CLASSLIST}>
 				<FcSignature className={EMOJI_CLASSLIST} />
@@ -80,7 +80,9 @@ export function SignInUpForm(props) {
 					</label>
 				</>
 			) : null}
-			<Button extraClass="px-4 py-2">{props.type}</Button>
+			<Button extraClass="px-4 py-2 bg-primary-light hover:bg-secondary-light transition-colors duration-200 ease-in-out">
+				{props.type}
+			</Button>
 			{props.type === "Register" ? (
 				<span className="flex flex-col items-center my-4">
 					Already have an account? <br />

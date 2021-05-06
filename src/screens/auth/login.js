@@ -1,6 +1,8 @@
 import React from "react";
 
+import LoginImg from "../../assets/img/undraw_secure_login_pdn4.svg";
 import { SignInUpForm } from "../../components/form";
+import { Hero } from "../../components/hero";
 import { Loader } from "../../components/loader";
 import { View } from "../../components/view";
 import { AUTH_ACTIONS } from "../../util/constants";
@@ -26,7 +28,8 @@ export function Login() {
 	};
 
 	return (
-		<View title="Sign In" class="container">
+		<View class="container">
+			<Hero title="Welcome back!" subtitle="Happy to see you!" img={LoginImg} />
 			{error && (
 				<h1 className="w-1/3 p-3 mx-auto text-2xl text-center text-white bg-red-500 rounded">
 					There was an error, please try again.
