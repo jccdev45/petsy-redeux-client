@@ -87,7 +87,7 @@ export function SignInUpForm(props) {
 				<span className="flex flex-col items-center my-4">
 					Already have an account? <br />
 					<Link
-						className="border-b border-primary focus:outline-none"
+						className="text-primary-dark hover:underline"
 						to="/login"
 					>
 						Login
@@ -97,7 +97,7 @@ export function SignInUpForm(props) {
 				<span className="flex flex-col items-center my-4">
 					Need an account? <br />
 					<Link
-						className="border-b border-primary focus:outline-none"
+						className="text-primary-dark hover:underline"
 						to="/register"
 					>
 						Register
