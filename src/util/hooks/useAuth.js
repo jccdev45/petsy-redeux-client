@@ -113,7 +113,7 @@ const initialState = {
 	isVerified: false,
 	isLoading: false,
 	isLoggedIn: false,
-	user: null,
+	user: {},
 };
 
 const authContext = createContext();
