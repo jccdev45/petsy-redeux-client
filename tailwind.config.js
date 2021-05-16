@@ -25,8 +25,8 @@ module.exports = {
 				// },
 			},
 			fontFamily: {
-				serif: ["Playfair Display", "serif"],
-				sans: ["sans-serif"],
+				serif: ["serif"],
+				sans: ["Open Sans", "sans-serif"],
 			},
 		},
 	},
