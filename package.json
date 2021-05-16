@@ -2,6 +2,14 @@
   "name": "petsy-redeux-client",
   "version": "0.1.0",
   "private": true,
+  "author": "Jordan Cruz-Correa (JCCDev)",
+  "description": "React frontend for Petsy e-commerce website. Featuring full CRUD functionality and authentication through a Ruby on Rails backend. Styled with TailwindCSS.",
+  "homepage": "https://github.com/jccdev45/petsy-redeux-client",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jccdev45/petsy-redeux-client.git"
+  },
+  "bugs": "https://github.com/jccdev45/petsy-redeux-client/issues",
   "dependencies": {
     "@tailwindcss/forms": "^0.3.2",
     "@testing-library/jest-dom": "^4.2.4",
