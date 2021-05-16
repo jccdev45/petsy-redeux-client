@@ -78,7 +78,7 @@ export function Home() {
 
 			{/* Featured Item */}
 			<View title="Featured Item" class="w-full flex flex-col my-8">
-				<div className="flex flex-col items-center w-full rounded-lg bg-primary-light justify-evenly md:justify-between md:flex-row">
+				<div className="flex flex-col items-center w-full rounded-lg bg-secondary-light justify-evenly md:justify-between md:flex-row">
 					{renderFeaturedItem()}
 				</div>
 			</View>

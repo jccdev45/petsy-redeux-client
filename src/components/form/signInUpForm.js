@@ -1,5 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Form } from "formik";
+import { Button } from "../button";
+import { FormField } from "./FormField";
 import {
 	FcSignature,
 	FcAddressBook,
@@ -7,101 +10,139 @@ import {
 	FcPicture,
 	FcLock,
 } from "react-icons/fc";
-import { Button } from "../button";
+const LABEL_CLASSLIST = `relative w-full md:w-5/6 lg:w-2/3 px-4 py-2 mx-auto border rounded my-3 flex items-center`;
+const INPUT_CLASSLIST = "focus:outline-none w-full border-none";
+
+const fields = [
+	{
+		id: 1,
+		name: "username",
+		label: "Username",
+		placeholder: "coolguy69420",
+		type: "text",
+		component: FcSignature,
+	},
+	{
+		id: 2,
+		name: "password",
+		label: "Password",
+		placeholder: "passwordistaco",
+		type: "password",
+		component: FcKey,
+	},
+	// {
+	// 	id: 3,
+	// 	name: "confirmPassword",
+	// 	label: "Confirm Password",
+	// 	placeholder: "passwordistaco",
+	// 	type: "password",
+	// 	component: FcLock,
+	// },
+	// {
+	// 	id: 4,
+	// 	name: "email",
+	// 	label: "Email",
+	// 	placeholder: "coolguy@69420.com",
+	// 	type: "email",
+	// 	component: FcAddressBook,
+	// },
+	// {
+	// 	id: 5,
+	// 	name: "picture",
+	// 	label: "Picture",
+	// 	placeholder: "http://loremflickr.com/500/500/user",
+	// 	type: "text",
+	// 	component: FcPicture,
+	// },
+];
 
 export function SignInUpForm(props) {
-	const LABEL_CLASSLIST = `w-full md:w-2/3 lg:w-1/3 px-4 py-2 mx-auto border rounded my-3 flex items-center ${
-		props.isVerified ? "bg-red-500" : ""
-	}`;
-	const INPUT_CLASSLIST = "focus:outline-none w-full";
-	const EMOJI_CLASSLIST = "mr-2 -ml-2 bg-gray-200 rounded px-1 text-4xl";
+	function renderFields() {
+		return fields.map((field) => (
+			<FormField
+				key={field.id}
+				name={field.name}
+				label={field.label}
+				placeholder={field.placeholder}
+				type={field.type}
+				component={field.component}
+				inputClass={INPUT_CLASSLIST}
+				labelClass={`${
+					props.errors[field.name] && props.touched[field.name]
+						? `border border-red-500`
+						: ""
+				} ${LABEL_CLASSLIST}`}
+			/>
+		));
+	}
 
 	return (
-		<form
-			onSubmit={props.handleSubmit}
-			className="flex flex-col items-center justify-center w-3/4 p-4 mx-auto my-10 rounded shadow-inner md:p-10 md:w-full"
-		>
-			<label htmlFor="username" className={LABEL_CLASSLIST}>
-				<FcSignature className={EMOJI_CLASSLIST} />
-				<input
-					type="text"
-					name="username"
-					value={props.username}
-					placeholder="Username"
-					onChange={props.handleChange}
-					className={INPUT_CLASSLIST}
-				/>
-			</label>
-			<label htmlFor="password" className={LABEL_CLASSLIST}>
-				<FcKey className={EMOJI_CLASSLIST} />
-				<input
-					type="password"
-					name="password"
-					value={props.password}
-					placeholder="Password"
-					onChange={props.handleChange}
-					className={INPUT_CLASSLIST}
-				/>
-			</label>
+		<Form className="flex flex-col items-center justify-center w-11/12 p-4 mx-auto my-10 rounded shadow-lg md:p-10 md:w-3/4 lg:w-2/3">
+			{renderFields()}
 			{props.type === "Register" ? (
 				<>
-					<label htmlFor="confirmPassword" className={LABEL_CLASSLIST}>
-						<FcLock className={EMOJI_CLASSLIST} />
-						<input
-							type="password"
-							name="confirmPassword"
-							value={props.confirmPassword}
-							placeholder="Confirm Password"
-							onChange={props.handleChange}
-							className={INPUT_CLASSLIST}
-						/>
-					</label>
-					<label htmlFor="email" className={LABEL_CLASSLIST}>
-						<FcAddressBook className={EMOJI_CLASSLIST} />
-						<input
-							type="email"
-							name="email"
-							value={props.email}
-							placeholder="Email"
-							onChange={props.handleChange}
-							className={INPUT_CLASSLIST}
-						/>
-					</label>
-					<label htmlFor="picture" className={LABEL_CLASSLIST}>
-						<FcPicture className={EMOJI_CLASSLIST} />
-						<input
-							type="picture"
-							name="picture"
-							value={props.picture}
-							placeholder="Picture"
-							onChange={props.handleChange}
-							className={INPUT_CLASSLIST}
-						/>
-					</label>
+					<FormField
+						name="confirmPassword"
+						label="Confirm Password"
+						placeholder="passwordistaco"
+						type="password"
+						component={FcLock}
+						inputClass={INPUT_CLASSLIST}
+						labelClass={`${
+							props.errors.confirmPassword && props.touched.confirmPassword
+								? `border border-red-500`
+								: null
+						} ${LABEL_CLASSLIST}`}
+					/>
+					<FormField
+						name="email"
+						label="Email"
+						placeholder="coolguy@69420.com"
+						type="email"
+						component={FcAddressBook}
+						inputClass={INPUT_CLASSLIST}
+						labelClass={`${
+							props.errors.email && props.touched.email
+								? `border border-red-500`
+								: null
+						} ${LABEL_CLASSLIST}`}
+					/>
+					<FormField
+						name="picture"
+						label="Picture"
+						placeholder="http://loremflickr.com/500/500/user"
+						type="text"
+						component={FcPicture}
+						inputClass={INPUT_CLASSLIST}
+						labelClass={`${
+							props.errors.picture && props.touched.picture
+								? `border border-red-500`
+								: null
+						} ${LABEL_CLASSLIST}`}
+					/>
 				</>
 			) : null}
-			<Button extraClass="px-4 py-2">{props.type}</Button>
+			<Button
+				disabled={!(props.dirty && props.isValid)}
+				extraClass="px-4 py-2 bg-primary-light hover:bg-secondary-light transition-colors duration-200 ease-in-out"
+			>
+				{props.type}
+			</Button>
 			{props.type === "Register" ? (
 				<span className="flex flex-col items-center my-4">
 					Already have an account? <br />
-					<Link
-						className="border-b border-primary focus:outline-none"
-						to="/login"
-					>
+					<Link className="text-primary-dark hover:underline" to="/login">
 						Login
 					</Link>
 				</span>
 			) : (
 				<span className="flex flex-col items-center my-4">
 					Need an account? <br />
-					<Link
-						className="border-b border-primary focus:outline-none"
-						to="/register"
-					>
+					<Link className="text-primary-dark hover:underline" to="/register">
 						Register
 					</Link>
 				</span>
 			)}
-		</form>
+		</Form>
 	);
 }

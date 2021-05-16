@@ -29,7 +29,7 @@ export function Search() {
 	};
 
 	const renderItems = () => {
-		return filteredItems.length == 0 ? (
+		return filteredItems.length === 0 ? (
 			<h2 className="w-full mx-auto my-8 text-2xl bold">No results</h2>
 		) : (
 			filteredItems.map((item) => <Item key={item.id} item={item} />)

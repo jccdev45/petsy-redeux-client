@@ -1,65 +1,23 @@
 import React, { useContext, useEffect, useReducer, createContext } from "react";
 import { useHistory } from "react-router-dom";
-import { loginUser, registerUser, removeToken, verifyUser } from "../methods";
+import axios from "axios";
+import {
+	loginUser,
+	registerUser,
+	removeToken,
+	verifyUser,
+	searchUserFields,
+} from "../methods";
 import { AUTH_ACTIONS, LS_STRINGS } from "../constants";
 
 function loginReducer(state, action) {
 	switch (action.type) {
-		case AUTH_ACTIONS.INPUT: {
-			return {
-				...state,
-				[action.fieldName]: action.payload,
-			};
-		}
-		case AUTH_ACTIONS.VERIFY_USER: {
-			return {
-				...state,
-				user: action.payload.data,
-				isLoggedIn: true,
-				isVerified: true,
-			};
-		}
 		case AUTH_ACTIONS.REQUEST: {
 			return {
 				...state,
 				isLoading: true,
+				error: "",
 			};
-		}
-		case AUTH_ACTIONS.VERIFY_FIELD: {
-			if (
-				(state.username === "",
-				state.password === "",
-				state.confirmPassword === "",
-				state.email === "",
-				state.picture === "")
-			) {
-				return {
-					...state,
-					error: "Field(s) cannot be blank",
-					isLoading: false,
-				};
-			} else if (state.password !== state.confirmPassword) {
-				return {
-					...state,
-					error: "Passwords do not match",
-					password: "",
-					confirmPassword: "",
-					isLoading: false,
-				};
-			} else if (state.password.length < 6) {
-				return {
-					...state,
-					error: "Password must be longer than 6 characters",
-					password: "",
-					confirmPassword: "",
-					isLoading: false,
-				};
-			} else {
-				return {
-					...state,
-					isVerified: true,
-				};
-			}
 		}
 		case AUTH_ACTIONS.SUCCESS: {
 			return {
@@ -68,11 +26,6 @@ function loginReducer(state, action) {
 				isVerified: true,
 				isLoading: false,
 				error: "",
-				username: "",
-				email: "",
-				password: "",
-				confirmPassword: "",
-				picture: "",
 				user: action.payload.data,
 			};
 		}
@@ -82,11 +35,6 @@ function loginReducer(state, action) {
 				error: action.payload,
 				isLoggedIn: false,
 				isLoading: false,
-				username: "",
-				email: "",
-				picture: "",
-				password: "",
-				confirmPassword: "",
 			};
 		}
 		case AUTH_ACTIONS.LOGOUT: {
@@ -95,25 +43,21 @@ function loginReducer(state, action) {
 				isLoading: false,
 				isLoggedIn: false,
 				isVerified: false,
-				user: null,
+				user: {},
 			};
 		}
 		default:
-			return;
+			return state;
 	}
 }
 
 const initialState = {
-	username: "",
-	email: "",
-	password: "",
-	confirmPassword: "",
-	picture: "",
 	error: "",
 	isVerified: false,
 	isLoading: false,
 	isLoggedIn: false,
-	user: null,
+	user: {},
+	userFields: [],
 };
 
 const authContext = createContext();
@@ -139,7 +83,7 @@ function useProviderAuth() {
 				const user = await verifyUser();
 				if (user) {
 					dispatch({
-						type: AUTH_ACTIONS.VERIFY_USER,
+						type: AUTH_ACTIONS.SUCCESS,
 						payload: { data: user },
 					});
 				} else {
@@ -154,6 +98,7 @@ function useProviderAuth() {
 
 	const login = async (data) => {
 		dispatch({ type: AUTH_ACTIONS.REQUEST });
+
 		try {
 			const user = await loginUser(data);
 			dispatch({ type: AUTH_ACTIONS.SUCCESS, payload: { data: user } });
@@ -165,7 +110,6 @@ function useProviderAuth() {
 
 	const register = async (data) => {
 		dispatch({ type: AUTH_ACTIONS.REQUEST });
-		dispatch({ type: AUTH_ACTIONS.VERIFY_FIELD });
 
 		try {
 			if (state.isVerified) {
@@ -187,5 +131,29 @@ function useProviderAuth() {
 		history.push("/");
 	};
 
-	return { state, dispatch, login, register, logout };
+	const search = async (field) => {
+		const cancelToken = axios.CancelToken.source();
+		dispatch({ type: AUTH_ACTIONS.REQUEST, name: "userFields" });
+
+		try {
+			const res = await searchUserFields(field);
+			dispatch({
+				type: AUTH_ACTIONS.SETUSERFIELDS,
+				payload: { fields: res },
+			});
+		} catch (error) {
+			if (axios.isCancel(error)) return;
+			dispatch({
+				type: AUTH_ACTIONS.ERROR,
+				name: "userFields",
+				payload: { error: error },
+			});
+		}
+
+		return () => {
+			cancelToken.cancel();
+		};
+	};
+
+	return { state, dispatch, login, register, logout, search };
 }

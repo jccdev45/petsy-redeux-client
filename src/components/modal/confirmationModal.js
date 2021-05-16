@@ -25,11 +25,14 @@ export function ConfirmationModal(props) {
 						{props.message}
 					</h1>
 					<span className="flex items-center justify-center">
-						<Button extraClass="px-3 py-1 mx-2" handleClick={props.closeModal}>
+						<Button
+							extraClass="bg-secondary-light hover:bg-secondary px-3 py-1 mx-2"
+							handleClick={props.closeModal}
+						>
 							Cancel
 						</Button>
 						<Button
-							extraClass="px-3 py-1 mx-2"
+							extraClass="bg-secondary-light hover:bg-secondary px-3 py-1 mx-2"
 							handleClick={() => confirmAndCloseModal()}
 						>
 							Delete

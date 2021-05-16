@@ -47,7 +47,11 @@ export function useProviderCart() {
 
 	const calculateCartTotal = () => {
 		let itemTotal = state.cart.map((item) => item.price * item.quantity);
-		return itemTotal.reduce((a, b) => a + b);
+		let subtotal = itemTotal.reduce((a, b) => a + b);
+		let tax = 0.07;
+		let taxAmount = subtotal * tax;
+		let total = taxAmount + subtotal;
+		return { total, subtotal, taxAmount };
 	};
 
 	const addToCart = (item) => {
@@ -121,6 +125,6 @@ export function useProviderCart() {
 		removeFromCart,
 		clearCart,
 		calculateCartTotal,
-		calculateNumItemsInCart
+		calculateNumItemsInCart,
 	};
 }

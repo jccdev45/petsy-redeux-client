@@ -11,7 +11,7 @@ import { ConfirmationModal } from "../../components/modal";
 import { Button } from "../../components/button";
 
 const LINK_BASE_CLASSLIST =
-	"rounded-lg bg-secondary border border-white shadow transition-colors duration-200 ease-in-out hover:bg-secondary-light";
+	"rounded-lg bg-secondary-light border border-white shadow transition-colors duration-200 ease-in-out hover:bg-secondary-light";
 
 export function ItemDetails() {
 	const auth = useAuth().state;
