@@ -10,13 +10,15 @@
     "autoprefixer": "^10.2.5",
     "axios": "^0.21.1",
     "bad-words": "^3.0.3",
+    "formik": "^2.2.6",
     "postcss": "^8.2.10",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-icons": "^3.11.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.3",
-    "tailwindcss": "^2.1.1"
+    "tailwindcss": "^2.1.1",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "build:tailwind": "tailwindcss build src/styles/tailwind.css -o src/styles/tailwind.output.css",

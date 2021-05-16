@@ -1,65 +1,72 @@
 import React from "react";
+import { Formik } from "formik";
+import * as Yup from "yup";
 
 import RegisterImg from "../../assets/img/undraw_authentication_fsn5.svg";
 import { SignInUpForm } from "../../components/form";
 import { Hero } from "../../components/hero";
 import { Loader } from "../../components/loader";
-import { AUTH_ACTIONS } from "../../util/constants";
 import { useAuth } from "../../util/hooks";
+import { View } from "../../components/view";
+
+const signUpSchema = Yup.object().shape({
+	username: Yup.string()
+		.required("Username is required")
+		.min(3, "Username must be at least 3 characters"),
+	email: Yup.string().email().required("Email is required"),
+	password: Yup.string()
+		.required("Password is required")
+		.min(6, "Password should be at least 6 characters"),
+	confirmPassword: Yup.string()
+		.required("Please confirm your password")
+		.when("password", {
+			is: (password) => (password && password.length > 0 ? true : false),
+			then: Yup.string().oneOf([Yup.ref("password")], "Password doesn't match"),
+		}),
+	picture: Yup.string().url(),
+});
 
 export function Register() {
 	const auth = useAuth();
 
-	const {
-		username,
-		email,
-		password,
-		confirmPassword,
-		picture,
-		error,
-		isLoading,
-		isVerified,
-	} = auth.state;
+	const { isLoading, isVerified } = auth.state;
 
-	const handleChange = (e) => {
-		const { name, value } = e.target;
-		auth.dispatch({
-			type: AUTH_ACTIONS.INPUT,
-			fieldName: name,
-			payload: value,
-		});
+	const initialValues = {
+		username: "",
+		email: "",
+		password: "",
+		confirmPassword: "",
+		picture: "",
 	};
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-
-		auth.register({ username, email, password, picture });
+	const handleSubmit = async (values) => {
+		await auth.register(values);
 	};
 
 	return (
-		<>
+		<View class="container">
 			<Hero img={RegisterImg} title="Sign up" subtitle="..for a new account" />
-			{error && (
-				<h1 className="w-1/3 p-3 mx-auto text-2xl text-center text-white bg-red-500 rounded">
-					{JSON.stringify(error)}
-				</h1>
-			)}
-			{isLoading ? (
-				<Loader size="xl" />
-			) : (
-				<SignInUpForm
-					type="Register"
-					isLoading={isLoading}
-					username={username}
-					email={email}
-					password={password}
-					confirmPassword={confirmPassword}
-					isVerified={isVerified}
-					picture={picture}
-					handleChange={handleChange}
-					handleSubmit={handleSubmit}
-				/>
-			)}
-		</>
+			{isLoading && <Loader size="xl" />}
+			<Formik
+				initialValues={initialValues}
+				validationSchema={signUpSchema}
+				onSubmit={(values) => handleSubmit(values)}
+			>
+				{(formik) => {
+					const { errors, touched, isValid, dirty } = formik;
+					return (
+						<SignInUpForm
+							type="Register"
+							isLoading={isLoading}
+							errors={errors}
+							touched={touched}
+							isValid={isValid}
+							dirty={dirty}
+							isVerified={isVerified}
+						/>
+					);
+				}}
+			</Formik>
+		</View>
 	);
 }

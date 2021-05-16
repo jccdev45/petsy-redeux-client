@@ -1,5 +1,5 @@
 export const CART_ACTIONS = {
-  UPDATE: "update",
+	UPDATE: "update",
 	REQUEST: "request",
 };
 
@@ -17,13 +17,9 @@ export const DATA_ACTIONS = {
 
 export const AUTH_ACTIONS = {
 	REQUEST: "request",
-	VERIFY_USER: "verify_user",
-	VERIFY_FIELD: "verify_field",
 	SUCCESS: "success",
 	ERROR: "error",
 	LOGOUT: "logout",
-	INPUT: "input",
-	SETUSERFIELDS: "set_user_fields"
 };
 
 export const LS_STRINGS = {

@@ -12,20 +12,6 @@ import { AUTH_ACTIONS, LS_STRINGS } from "../constants";
 
 function loginReducer(state, action) {
 	switch (action.type) {
-		case AUTH_ACTIONS.INPUT: {
-			return {
-				...state,
-				[action.fieldName]: action.payload,
-			};
-		}
-		case AUTH_ACTIONS.VERIFY_USER: {
-			return {
-				...state,
-				user: action.payload.data,
-				isLoggedIn: true,
-				// isVerified: true,
-			};
-		}
 		case AUTH_ACTIONS.REQUEST: {
 			return {
 				...state,
@@ -33,90 +19,14 @@ function loginReducer(state, action) {
 				error: "",
 			};
 		}
-		// what the fuck is this
-		case AUTH_ACTIONS.VERIFY_FIELD: {
-			const { username, password, confirmPassword, email, userFields } = state;
-
-			if (userFields.length > 0) {
-				const found = userFields.find(
-					(item) => item.username === username || item.email === email
-				);
-
-				if (found) {
-					console.log(found);
-					return {
-						...state,
-						error: `${found.username || found.email} in use, choose another`,
-						[found.username || found.email]: "",
-						isVerified: false,
-						isLoading: false,
-					};
-				}
-			}
-
-			if (
-				username === "" ||
-				password === "" ||
-				confirmPassword === "" ||
-				email === ""
-			) {
-				return {
-					...state,
-					error: "Field(s) cannot be blank",
-					isVerified: false,
-					isLoading: false,
-				};
-			}
-
-			if (password !== confirmPassword) {
-				return {
-					...state,
-					error: "Passwords do not match",
-					password: "",
-					confirmPassword: "",
-					isVerified: false,
-					isLoading: false,
-				};
-			}
-
-			if (password.length < 6) {
-				return {
-					...state,
-					error: "Password must be longer than 6 characters",
-					password: "",
-					confirmPassword: "",
-					isVerified: false,
-					isLoading: false,
-				};
-			}
-
-			return {
-				...state,
-				// isVerified: true,
-				isLoading: false,
-			};
-		}
 		case AUTH_ACTIONS.SUCCESS: {
 			return {
 				...state,
 				isLoggedIn: true,
-				// isVerified: true,
+				isVerified: true,
 				isLoading: false,
 				error: "",
-				username: "",
-				email: "",
-				password: "",
-				confirmPassword: "",
-				picture: "",
 				user: action.payload.data,
-				userFields: [],
-			};
-		}
-		case AUTH_ACTIONS.SETUSERFIELDS: {
-			return {
-				...state,
-				userFields: action.payload.fields,
-				isLoading: false,
 			};
 		}
 		case AUTH_ACTIONS.ERROR: {
@@ -125,11 +35,6 @@ function loginReducer(state, action) {
 				error: action.payload,
 				isLoggedIn: false,
 				isLoading: false,
-				username: "",
-				email: "",
-				picture: "",
-				password: "",
-				confirmPassword: "",
 			};
 		}
 		case AUTH_ACTIONS.LOGOUT: {
@@ -147,11 +52,6 @@ function loginReducer(state, action) {
 }
 
 const initialState = {
-	username: "",
-	email: "",
-	password: "",
-	confirmPassword: "",
-	picture: "",
 	error: "",
 	isVerified: false,
 	isLoading: false,
@@ -183,7 +83,7 @@ function useProviderAuth() {
 				const user = await verifyUser();
 				if (user) {
 					dispatch({
-						type: AUTH_ACTIONS.VERIFY_USER,
+						type: AUTH_ACTIONS.SUCCESS,
 						payload: { data: user },
 					});
 				} else {
@@ -198,7 +98,6 @@ function useProviderAuth() {
 
 	const login = async (data) => {
 		dispatch({ type: AUTH_ACTIONS.REQUEST });
-		dispatch({ type: AUTH_ACTIONS.VERIFY_FIELD });
 
 		try {
 			const user = await loginUser(data);
@@ -211,8 +110,6 @@ function useProviderAuth() {
 
 	const register = async (data) => {
 		dispatch({ type: AUTH_ACTIONS.REQUEST });
-		dispatch({ type: AUTH_ACTIONS.VERIFY_FIELD });
-		search([state.username, state.email]);
 
 		try {
 			if (state.isVerified) {
@@ -258,5 +155,5 @@ function useProviderAuth() {
 		};
 	};
 
-	return { state, dispatch, login, register, logout };
+	return { state, dispatch, login, register, logout, search };
 }
