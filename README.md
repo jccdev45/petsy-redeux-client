@@ -32,14 +32,11 @@ npm run start
 
 👤 **Jordan Cruz-Correa (JCCDev)**
 
-* Website: [jccdev.tech](https://jccdev.tech)
-* Github: [@jccdev45](https://github.com/jccdev45)
-* Twitter: [@jccdev](https://twitter.com/jccdev)
-* LinkedIn: [@jordan-cruz-correa](https://linkedin.com/in/jordan-cruz-correa)
+* [Website](https://jccdev.tech)
+* [Github](https://github.com/jccdev45)
+* [Twitter](https://twitter.com/jccdev)
+* [LinkedIn](https://linkedin.com/in/jordan-cruz-correa)
 
 ## Show your support
 
-Give a ⭐️ if this project helped you!
-
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
+Give a ⭐️ if you like the project!
