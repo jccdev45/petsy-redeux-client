@@ -19,7 +19,7 @@
 ## Install
 
 ```sh
-(npm install)
+npm install
 ```
 
 ## Usage
@@ -32,9 +32,9 @@ npm run start
 
 👤 **Jordan Cruz-Correa (JCCDev)**
 
-* Website: jccdev.tech
-* Twitter: [@jccdev](https://twitter.com/jccdev)
+* Website: [jccdev.tech](https://jccdev.tech)
 * Github: [@jccdev45](https://github.com/jccdev45)
+* Twitter: [@jccdev](https://twitter.com/jccdev)
 * LinkedIn: [@jordan-cruz-correa](https://linkedin.com/in/jordan-cruz-correa)
 
 ## Show your support
