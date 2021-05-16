@@ -1,6 +1,13 @@
 import React, { useContext, useEffect, useReducer, createContext } from "react";
 import { useHistory } from "react-router-dom";
-import { loginUser, registerUser, removeToken, verifyUser } from "../methods";
+import axios from "axios";
+import {
+	loginUser,
+	registerUser,
+	removeToken,
+	verifyUser,
+	searchUserFields,
+} from "../methods";
 import { AUTH_ACTIONS, LS_STRINGS } from "../constants";
 
 function loginReducer(state, action) {
@@ -16,56 +23,84 @@ function loginReducer(state, action) {
 				...state,
 				user: action.payload.data,
 				isLoggedIn: true,
-				isVerified: true,
+				// isVerified: true,
 			};
 		}
 		case AUTH_ACTIONS.REQUEST: {
 			return {
 				...state,
 				isLoading: true,
+				error: "",
 			};
 		}
+		// what the fuck is this
 		case AUTH_ACTIONS.VERIFY_FIELD: {
+			const { username, password, confirmPassword, email, userFields } = state;
+
+			if (userFields.length > 0) {
+				const found = userFields.find(
+					(item) => item.username === username || item.email === email
+				);
+
+				if (found) {
+					console.log(found);
+					return {
+						...state,
+						error: `${found.username || found.email} in use, choose another`,
+						[found.username || found.email]: "",
+						isVerified: false,
+						isLoading: false,
+					};
+				}
+			}
+
 			if (
-				(state.username === "",
-				state.password === "",
-				state.confirmPassword === "",
-				state.email === "",
-				state.picture === "")
+				username === "" ||
+				password === "" ||
+				confirmPassword === "" ||
+				email === ""
 			) {
 				return {
 					...state,
 					error: "Field(s) cannot be blank",
+					isVerified: false,
 					isLoading: false,
 				};
-			} else if (state.password !== state.confirmPassword) {
+			}
+
+			if (password !== confirmPassword) {
 				return {
 					...state,
 					error: "Passwords do not match",
 					password: "",
 					confirmPassword: "",
+					isVerified: false,
 					isLoading: false,
 				};
-			} else if (state.password.length < 6) {
+			}
+
+			if (password.length < 6) {
 				return {
 					...state,
 					error: "Password must be longer than 6 characters",
 					password: "",
 					confirmPassword: "",
+					isVerified: false,
 					isLoading: false,
 				};
-			} else {
-				return {
-					...state,
-					isVerified: true,
-				};
 			}
+
+			return {
+				...state,
+				// isVerified: true,
+				isLoading: false,
+			};
 		}
 		case AUTH_ACTIONS.SUCCESS: {
 			return {
 				...state,
 				isLoggedIn: true,
-				isVerified: true,
+				// isVerified: true,
 				isLoading: false,
 				error: "",
 				username: "",
@@ -74,6 +109,14 @@ function loginReducer(state, action) {
 				confirmPassword: "",
 				picture: "",
 				user: action.payload.data,
+				userFields: [],
+			};
+		}
+		case AUTH_ACTIONS.SETUSERFIELDS: {
+			return {
+				...state,
+				userFields: action.payload.fields,
+				isLoading: false,
 			};
 		}
 		case AUTH_ACTIONS.ERROR: {
@@ -95,11 +138,11 @@ function loginReducer(state, action) {
 				isLoading: false,
 				isLoggedIn: false,
 				isVerified: false,
-				user: null,
+				user: {},
 			};
 		}
 		default:
-			return;
+			return state;
 	}
 }
 
@@ -114,6 +157,7 @@ const initialState = {
 	isLoading: false,
 	isLoggedIn: false,
 	user: {},
+	userFields: [],
 };
 
 const authContext = createContext();
@@ -154,6 +198,8 @@ function useProviderAuth() {
 
 	const login = async (data) => {
 		dispatch({ type: AUTH_ACTIONS.REQUEST });
+		dispatch({ type: AUTH_ACTIONS.VERIFY_FIELD });
+
 		try {
 			const user = await loginUser(data);
 			dispatch({ type: AUTH_ACTIONS.SUCCESS, payload: { data: user } });
@@ -166,6 +212,7 @@ function useProviderAuth() {
 	const register = async (data) => {
 		dispatch({ type: AUTH_ACTIONS.REQUEST });
 		dispatch({ type: AUTH_ACTIONS.VERIFY_FIELD });
+		search([state.username, state.email]);
 
 		try {
 			if (state.isVerified) {
@@ -185,6 +232,30 @@ function useProviderAuth() {
 		dispatch({ type: AUTH_ACTIONS.LOGOUT });
 
 		history.push("/");
+	};
+
+	const search = async (field) => {
+		const cancelToken = axios.CancelToken.source();
+		dispatch({ type: AUTH_ACTIONS.REQUEST, name: "userFields" });
+
+		try {
+			const res = await searchUserFields(field);
+			dispatch({
+				type: AUTH_ACTIONS.SETUSERFIELDS,
+				payload: { fields: res },
+			});
+		} catch (error) {
+			if (axios.isCancel(error)) return;
+			dispatch({
+				type: AUTH_ACTIONS.ERROR,
+				name: "userFields",
+				payload: { error: error },
+			});
+		}
+
+		return () => {
+			cancelToken.cancel();
+		};
 	};
 
 	return { state, dispatch, login, register, logout };

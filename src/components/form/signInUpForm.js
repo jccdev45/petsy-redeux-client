@@ -10,9 +10,7 @@ import {
 import { Button } from "../button";
 
 export function SignInUpForm(props) {
-	const LABEL_CLASSLIST = `w-full md:w-2/3 lg:w-1/3 px-4 py-2 mx-auto border rounded my-3 flex items-center ${
-		props.isVerified ? "bg-red-500" : ""
-	}`;
+	const LABEL_CLASSLIST = `w-full md:w-2/3 lg:w-1/3 px-4 py-2 mx-auto border rounded my-3 flex items-center`;
 	const INPUT_CLASSLIST = "focus:outline-none w-full";
 	const EMOJI_CLASSLIST = "mr-2 -ml-2 bg-gray-200 rounded px-1 text-4xl";
 
@@ -86,20 +84,14 @@ export function SignInUpForm(props) {
 			{props.type === "Register" ? (
 				<span className="flex flex-col items-center my-4">
 					Already have an account? <br />
-					<Link
-						className="text-primary-dark hover:underline"
-						to="/login"
-					>
+					<Link className="text-primary-dark hover:underline" to="/login">
 						Login
 					</Link>
 				</span>
 			) : (
 				<span className="flex flex-col items-center my-4">
 					Need an account? <br />
-					<Link
-						className="text-primary-dark hover:underline"
-						to="/register"
-					>
+					<Link className="text-primary-dark hover:underline" to="/register">
 						Register
 					</Link>
 				</span>

@@ -8,7 +8,7 @@ let Filter = require("bad-words");
 let filter = new Filter();
 
 export function ItemEdit() {
-	const data = useFetchData();
+	const { state, dispatch, updateItem } = useFetchData();
 	const {
 		items,
 		name,
@@ -18,7 +18,7 @@ export function ItemEdit() {
 		image1,
 		image2,
 		image3,
-	} = data.state;
+	} = state;
 
 	const formData = {
 		name,
@@ -35,7 +35,7 @@ export function ItemEdit() {
 	useEffect(() => {
 		const doTheThing = () => {
 			const anItem = items.find((item) => item.id === Number(id));
-			data.dispatch({
+			dispatch({
 				type: DATA_ACTIONS.SET_ITEM,
 				payload: {
 					name: anItem.name,
@@ -49,7 +49,7 @@ export function ItemEdit() {
 			});
 		};
 
-		if (items) {
+		if (items.length) {
 			doTheThing();
 		}
 	}, []);
@@ -61,7 +61,7 @@ export function ItemEdit() {
 			setIsProfane(true);
 		} else {
 			setIsProfane(false);
-			data.dispatch({
+			dispatch({
 				type: DATA_ACTIONS.INPUT,
 				fieldName: name,
 				payload: { value: type === "number" ? parseInt(value, 10) : value },
@@ -74,10 +74,8 @@ export function ItemEdit() {
 		if (isProfane) {
 			return alert("Watch your profamity!");
 		} else {
-			return (
-				data.updateItem(id, formData),
-				data.dispatch({ type: DATA_ACTIONS.RESET })
-			);
+			updateItem(id, formData);
+			dispatch({ type: DATA_ACTIONS.RESET });
 		}
 	};
 

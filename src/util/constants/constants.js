@@ -23,6 +23,7 @@ export const AUTH_ACTIONS = {
 	ERROR: "error",
 	LOGOUT: "logout",
 	INPUT: "input",
+	SETUSERFIELDS: "set_user_fields"
 };
 
 export const LS_STRINGS = {

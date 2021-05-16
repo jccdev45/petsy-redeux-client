@@ -14,4 +14,5 @@ export {
 	registerUser,
 	verifyUser,
 	removeToken,
+	searchUserFields
 } from "./userMethods";

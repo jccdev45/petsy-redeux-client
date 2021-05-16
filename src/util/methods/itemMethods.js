@@ -31,6 +31,6 @@ export const deleteItem = async (id) => {
 };
 
 export const search = async (value) => {
-	const res = await api.get(`/search/${value}`);
+	const res = await api.get(`/items/${value}`);
 	return res.data;
 };
