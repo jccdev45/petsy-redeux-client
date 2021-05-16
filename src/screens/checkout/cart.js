@@ -24,7 +24,7 @@ export function Cart() {
 					<h2 className="my-4 text-xl font-bold">
 						{state.cart.length && calculateNumItemsInCart()} Item(s)
 					</h2>
-					{state.cart && renderCart()}
+					<span className="divide-y-2">{state.cart && renderCart()}</span>
 				</section>
 
 				<section className="flex-col w-full px-4 py-6 my-6 rounded shadow-lg lg:my-0 lg:w-1/3">

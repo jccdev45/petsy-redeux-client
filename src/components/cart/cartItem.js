@@ -41,7 +41,7 @@ export function CartItem(props) {
 	return (
 		<article
 			key={item.id}
-			className="flex flex-col py-4 border-b border-gray-300 md:justify-between md:flex-row last:border-none"
+			className="flex flex-col py-4 md:justify-between md:flex-row"
 		>
 			<img
 				src={item.image1}
@@ -69,7 +69,10 @@ export function CartItem(props) {
 							<MdRemove />
 						</Button>
 						<span className="mx-2 text-xl md:text-3xl">{item.quantity}</span>
-						<Button handleClick={() => updateCart(item.id, 1)} extraClass="bg-primary-light hover:bg-secondary-light p-1">
+						<Button
+							handleClick={() => updateCart(item.id, 1)}
+							extraClass="bg-primary-light hover:bg-secondary-light p-1"
+						>
 							<MdAdd />
 						</Button>
 					</div>
